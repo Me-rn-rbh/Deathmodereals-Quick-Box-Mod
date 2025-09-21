@@ -544,9 +544,9 @@ var beepbox = (function (exports) {
             return null;
         }
     }
-    EditorConfig.version = "V48";
+    EditorConfig.version = "V50";
     EditorConfig.versionDisplayName = "D's Quick Box Mod";
-    EditorConfig.releaseNotesURL = "https://github.com/johnnesky/beepbox/releases/tag/v" + EditorConfig.version;
+    EditorConfig.releaseNotesURL = "https://github.com/Me-rn-rbh/Deathmodereals-Quick-Box-Mod";
     EditorConfig.isOnMac = /^Mac/i.test(navigator.platform) || /Mac OS X/i.test(navigator.userAgent) || /^(iPhone|iPad|iPod)/i.test(navigator.platform) || /(iPhone|iPad|iPod)/i.test(navigator.userAgent);
     EditorConfig.ctrlSymbol = EditorConfig.isOnMac ? "⌘" : "Ctrl+";
     EditorConfig.ctrlName = EditorConfig.isOnMac ? "command" : "control";
