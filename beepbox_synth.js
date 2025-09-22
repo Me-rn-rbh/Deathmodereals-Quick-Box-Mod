@@ -125,6 +125,9 @@ var beepbox = (function (exports) {
         { name: "fake sine", expression: 0.96, samples: centerWave([0.0, 0.2, 0.4, 0.8, 0.9, 1.0, 0.9, 0.5, -0.2, -0.7, -0.9, -1.0, -0.9, -0.5, 0.0]) },
         { name: "random", expression: 1.0, samples: centerWave([0.0, -0.5, 1.0, 0.2, -0.6, -1.0, 0.9]) },
         { name: "random(1)", expression: 0.87, samples: centerWave([0.0, 0.2, -0.4, 0.6, -0.8, 1.0]) },
+        { name: "1/7 pulse???", expression: 0.5, samples: centerWave([1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0]) },
+        { name: "3/4 :drool:", expression: 0.5, samples: centerWave([1.0, 1.0, 1.0, -1.0]) },
+        { name: "kirbv's idea", expression: 0.5, samples: centerWave([-1.0, 1.0, 1.0, 1.0, -1.0, 1.0]) },
     ]);
     Config.chipNoises = toNameMap([
         { name: "retro", expression: 0.25, basePitch: 69, pitchFilterMult: 1024.0, isSoft: false, samples: null },
