@@ -109,17 +109,22 @@ var beepbox = (function (exports) {
     Config.bitcrusherBaseVolume = 0.010;
     Config.chipWaves = toNameMap([
         { name: "rounded", expression: 0.94, samples: centerWave([0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 0.85, 0.9, 0.95, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.95, 0.9, 0.85, 0.8, 0.7, 0.6, 0.5, 0.4, 0.2, 0.0, -0.2, -0.4, -0.5, -0.6, -0.7, -0.8, -0.85, -0.9, -0.95, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -0.95, -0.9, -0.85, -0.8, -0.7, -0.6, -0.5, -0.4, -0.2]) },
+        { name: "invert rounded", expression: -0.94, samples: centerWave([0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 0.85, 0.9, 0.95, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.95, 0.9, 0.85, 0.8, 0.7, 0.6, 0.5, 0.4, 0.2, 0.0, -0.2, -0.4, -0.5, -0.6, -0.7, -0.8, -0.85, -0.9, -0.95, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -0.95, -0.9, -0.85, -0.8, -0.7, -0.6, -0.5, -0.4, -0.2]) },
         { name: "triangle", expression: 1.0, samples: centerWave([1.0 / 15.0, 3.0 / 15.0, 5.0 / 15.0, 7.0 / 15.0, 9.0 / 15.0, 11.0 / 15.0, 13.0 / 15.0, 15.0 / 15.0, 15.0 / 15.0, 13.0 / 15.0, 11.0 / 15.0, 9.0 / 15.0, 7.0 / 15.0, 5.0 / 15.0, 3.0 / 15.0, 1.0 / 15.0, -1.0 / 15.0, -3.0 / 15.0, -5.0 / 15.0, -7.0 / 15.0, -9.0 / 15.0, -11.0 / 15.0, -13.0 / 15.0, -15.0 / 15.0, -15.0 / 15.0, -13.0 / 15.0, -11.0 / 15.0, -9.0 / 15.0, -7.0 / 15.0, -5.0 / 15.0, -3.0 / 15.0, -1.0 / 15.0]) },
+        { name: "invert triangle", expression: -1.0, samples: centerWave([1.0 / 15.0, 3.0 / 15.0, 5.0 / 15.0, 7.0 / 15.0, 9.0 / 15.0, 11.0 / 15.0, 13.0 / 15.0, 15.0 / 15.0, 15.0 / 15.0, 13.0 / 15.0, 11.0 / 15.0, 9.0 / 15.0, 7.0 / 15.0, 5.0 / 15.0, 3.0 / 15.0, 1.0 / 15.0, -1.0 / 15.0, -3.0 / 15.0, -5.0 / 15.0, -7.0 / 15.0, -9.0 / 15.0, -11.0 / 15.0, -13.0 / 15.0, -15.0 / 15.0, -15.0 / 15.0, -13.0 / 15.0, -11.0 / 15.0, -9.0 / 15.0, -7.0 / 15.0, -5.0 / 15.0, -3.0 / 15.0, -1.0 / 15.0]) },
         { name: "square", expression: 0.5, samples: centerWave([1.0, -1.0]) },
+        { name: "invert square", expression: -0.5, samples: centerWave([1.0, -1.0]) },
         { name: "1/4 pulse", expression: 0.5, samples: centerWave([1.0, -1.0, -1.0, -1.0]) },
         { name: "invert 1/4 pulse", expression: -0.5, samples: centerWave([1.0, -1.0, -1.0, -1.0]) },
         { name: "1/8 pulse", expression: 0.5, samples: centerWave([1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0]) },
+        { name: "invert 1/8 pulse", expression: -0.5, samples: centerWave([1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0]) },
         { name: "sawtooth", expression: 0.65, samples: centerWave([1.0 / 31.0, 3.0 / 31.0, 5.0 / 31.0, 7.0 / 31.0, 9.0 / 31.0, 11.0 / 31.0, 13.0 / 31.0, 15.0 / 31.0, 17.0 / 31.0, 19.0 / 31.0, 21.0 / 31.0, 23.0 / 31.0, 25.0 / 31.0, 27.0 / 31.0, 29.0 / 31.0, 31.0 / 31.0, -31.0 / 31.0, -29.0 / 31.0, -27.0 / 31.0, -25.0 / 31.0, -23.0 / 31.0, -21.0 / 31.0, -19.0 / 31.0, -17.0 / 31.0, -15.0 / 31.0, -13.0 / 31.0, -11.0 / 31.0, -9.0 / 31.0, -7.0 / 31.0, -5.0 / 31.0, -3.0 / 31.0, -1.0 / 31.0]) },
         { name: "double saw", expression: 0.5, samples: centerWave([0.0, -0.2, -0.4, -0.6, -0.8, -1.0, 1.0, -0.8, -0.6, -0.4, -0.2, 1.0, 0.8, 0.6, 0.4, 0.2]) },
         { name: "double pulse", expression: 0.4, samples: centerWave([1.0, 1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0, -1.0]) },
         { name: "spiky", expression: 0.4, samples: centerWave([1.0, -1.0, 1.0, -1.0, 1.0, 0.0]) },
-        { name: "sine", expression: 0.96, samples: centerWave([0.0, 0.2, 0.4, 0.8, 0.9, 1.0, 0.9, 0.5, -0.2, -0.7, -0.9, -1.0, -0.9, -0.5, 0.0]) },
+        { name: "fake sine", expression: 0.96, samples: centerWave([0.0, 0.2, 0.4, 0.8, 0.9, 1.0, 0.9, 0.5, -0.2, -0.7, -0.9, -1.0, -0.9, -0.5, 0.0]) },
         { name: "random", expression: 1.0, samples: centerWave([0.0, -0.5, 1.0, 0.2, -0.6, -1.0, 0.9]) },
+        { name: "random(1)", expression: 0.87, samples: centerWave([0.0, 0.2, -0.4, 0.6, -0.8, 1.0]) },
     ]);
     Config.chipNoises = toNameMap([
         { name: "retro", expression: 0.25, basePitch: 69, pitchFilterMult: 1024.0, isSoft: false, samples: null },
@@ -128,6 +133,7 @@ var beepbox = (function (exports) {
         { name: "buzz", expression: 0.3, basePitch: 69, pitchFilterMult: 1024.0, isSoft: false, samples: null },
         { name: "hollow", expression: 1.5, basePitch: 96, pitchFilterMult: 1.0, isSoft: true, samples: null },
         { name: "static", expression: 1, basePitch: 96, pitchFilterMult: 512.0, isSoft: false, samples: null },
+        { name: "hit", expression: 3.5, basePitch: 56, pitchFilterMult: 128.0, isSoft: false, samples: null },
     ]);
     Config.filterFreqStep = 1.0 / 4.0;
     Config.filterFreqRange = 34;
@@ -228,6 +234,7 @@ var beepbox = (function (exports) {
         { name: "13×", mult: 13.0, hzOffset: 0.0, amplitudeSign: 1.0 },
         { name: "16×", mult: 16.0, hzOffset: 0.0, amplitudeSign: 1.0 },
         { name: "20×", mult: 20.0, hzOffset: 0.0, amplitudeSign: 1.0 },
+        { name: "30×", mult: 30.0, hzOffset: 0.0, amplitudeSign: 1.0 },
         { name: "50×", mult: 50.0, hzOffset: 0.0, amplitudeSign: 1.0 },
     ]);
     Config.envelopes = toNameMap([
@@ -237,9 +244,11 @@ var beepbox = (function (exports) {
         { name: "flare 1", type: 3, speed: 32.0 },
         { name: "flare 2", type: 3, speed: 8.0 },
         { name: "flare 3", type: 3, speed: 2.0 },
+        { name: "twang 0", type: 4, speed: 32.0 * 4 },
         { name: "twang 1", type: 4, speed: 32.0 },
         { name: "twang 2", type: 4, speed: 8.0 },
         { name: "twang 3", type: 4, speed: 2.0 },
+        { name: "swell 0.5", type: 5, speed: 64.0 },
         { name: "swell 1", type: 5, speed: 32.0 },
         { name: "swell 2", type: 5, speed: 8.0 },
         { name: "swell 3", type: 5, speed: 2.0 },
@@ -264,6 +273,8 @@ var beepbox = (function (exports) {
         { name: "3⟲ 4⟲", indices: [[], [], [3], [4]] },
         { name: "1⟲ 2⟲ 3⟲", indices: [[1], [2], [3], []] },
         { name: "2⟲ 3⟲ 4⟲", indices: [[], [2], [3], [4]] },
+        { name: "1⟲ 3⟲ 4⟲", indices: [[1], [], [3], [4]] },
+        { name: "1⟲ 2⟲ 4⟲", indices: [[1], [2], [], [4]] },
         { name: "1⟲ 2⟲ 3⟲ 4⟲", indices: [[1], [2], [3], [4]] },
         { name: "1→2", indices: [[], [1], [], []] },
         { name: "1→3", indices: [[], [], [1], []] },
@@ -273,6 +284,8 @@ var beepbox = (function (exports) {
         { name: "3→4", indices: [[], [], [], [3]] },
         { name: "1→3 2→4", indices: [[], [], [1], [2]] },
         { name: "1→4 2→3", indices: [[], [], [2], [1]] },
+        { name: "1→2  3←4", indices: [[], [1], [4], []] },
+        { name: "1←2  3→4", indices: [[2], [], [], [3]] },
         { name: "1→2→3→4", indices: [[], [1], [2], [3]] },
         { name: "1←2←3←4", indices: [[2], [3], [4], []] },
     ]);
@@ -424,6 +437,17 @@ var beepbox = (function (exports) {
                     let newBuffer = drumBuffer >> 1;
                     if (((drumBuffer + newBuffer) & 1) == 1) {
                         newBuffer += 100 << 20;
+                    }
+                    drumBuffer = newBuffer;
+                }
+            }
+            else if (index == 6) {
+                let drumBuffer = 1;
+                for (let i = 0; i < Config.chipNoiseLength; i++) {
+                    wave[i] = (drumBuffer & 1) * -1.0 + 1.0;
+                    let newBuffer = drumBuffer >> 1;
+                    if (((drumBuffer + newBuffer) & 1) == 1) {
+                        newBuffer += 70 << 20;
                     }
                     drumBuffer = newBuffer;
                 }
