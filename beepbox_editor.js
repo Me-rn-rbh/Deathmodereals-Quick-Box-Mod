@@ -571,7 +571,7 @@ var beepbox = (function (exports) {
             return null;
         }
     }
-    EditorConfig.version = "V66";
+    EditorConfig.version = "V66.25";
     EditorConfig.versionDisplayName = "D's Quick Box Mod";
     EditorConfig.releaseNotesURL = "https://github.com/Me-rn-rbh/deathmoderealsboxmod-source/releases";
     EditorConfig.isOnMac = /^Mac/i.test(navigator.platform) || /Mac OS X/i.test(navigator.userAgent) || /^(iPhone|iPad|iPod)/i.test(navigator.platform) || /(iPhone|iPad|iPod)/i.test(navigator.userAgent);
@@ -23514,7 +23514,8 @@ You should be redirected to the song at:<br /><br />
                         navigator.share({ url: new URL("#" + this.doc.song.toBase64String(), location.href).href });
                         break;
                     case "shortenUrl":
-                        window.open("https://tinyurl.com/api-create.php?url=" + encodeURIComponent(new URL("#" + this.doc.song.toBase64String(), location.href).href));
+                        this._copyTextToClipboard(new URL("#" + this.doc.song.toBase64String(), location.href).href);
+                        window.open("https://tinyurl.com");
                         break;
                     case "viewPlayer":
                         location.href = "player/#song=" + this.doc.song.toBase64String();
