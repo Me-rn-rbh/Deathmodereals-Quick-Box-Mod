@@ -973,7 +973,7 @@ var beepbox = (function (exports) {
     Config.pitchesPerOctave = 12;
     Config.drumCount = 12;
     Config.pitchOctaves = 10;
-    Config.modCount = 8;
+    Config.modCount = 6;
     Config.maxPitch = Config.pitchOctaves * Config.pitchesPerOctave;
     Config.maximumTonesPerChannel = Config.maxChordSize * 2;
     Config.justIntonationSemitones = [1.0 / 2.0, 8.0 / 15.0, 9.0 / 16.0, 3.0 / 5.0, 5.0 / 8.0, 2.0 / 3.0, 32.0 / 45.0, 3.0 / 4.0, 4.0 / 5.0, 5.0 / 6.0, 8.0 / 9.0, 15.0 / 16.0, 1.0, 16.0 / 15.0, 9.0 / 8.0, 6.0 / 5.0, 5.0 / 4.0, 4.0 / 3.0, 45.0 / 32.0, 3.0 / 2.0, 8.0 / 5.0, 5.0 / 3.0, 16.0 / 9.0, 15.0 / 8.0, 2.0].map(x => Math.log2(x) * Config.pitchesPerOctave);
@@ -1333,6 +1333,17 @@ var beepbox = (function (exports) {
                     wave[i] = (lastOut + (0.02 * white)) / 1.02;
                     lastOut = wave[i];
                     wave[i] *= 14;
+                }
+            }
+            else if (index == 15) {
+                var drumBuffer = 1;
+                for (var i = 0; i < Config.chipNoiseLength; i++) {
+                    wave[i] = Math.round((drumBuffer & 1));
+                    var newBuffer = drumBuffer >> 1;
+                    if (((drumBuffer + newBuffer) & 1) == 1) {
+                        newBuffer -= 100 << 200;
+                    }
+                    drumBuffer = newBuffer;
                 }
             }
             else {
@@ -8239,7 +8250,7 @@ var beepbox = (function (exports) {
             return (_a = EditorConfig.presetCategories[0].presets.dictionary) === null || _a === void 0 ? void 0 : _a[TypePresets === null || TypePresets === void 0 ? void 0 : TypePresets[instrument]];
         }
     }
-    EditorConfig.version = "V37";
+    EditorConfig.version = "V50";
     EditorConfig.revamp = "2";
     EditorConfig.versionDisplayName = "D's Quick Box Mod";
     EditorConfig.releaseNotesURL = "./patch_notes.html";
@@ -20823,7 +20834,7 @@ var beepbox = (function (exports) {
 		`).split("\n");
 
     class oscilloscopeCanvas {
-        constructor(canvas, scale = 1) {
+        constructor(canvas, scale = 0.5) {
             this.canvas = canvas;
             this.scale = scale;
             this._EventUpdateCanvas = function (directlinkL, directlinkR) {

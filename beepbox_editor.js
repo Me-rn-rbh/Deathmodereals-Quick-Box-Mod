@@ -987,7 +987,7 @@ var beepbox = (function (exports) {
     Config.pitchesPerOctave = 12;
     Config.drumCount = 12;
     Config.pitchOctaves = 10;
-    Config.modCount = 8;
+    Config.modCount = 6;
     Config.maxPitch = Config.pitchOctaves * Config.pitchesPerOctave;
     Config.maximumTonesPerChannel = Config.maxChordSize * 2;
     Config.justIntonationSemitones = [1.0 / 2.0, 8.0 / 15.0, 9.0 / 16.0, 3.0 / 5.0, 5.0 / 8.0, 2.0 / 3.0, 32.0 / 45.0, 3.0 / 4.0, 4.0 / 5.0, 5.0 / 6.0, 8.0 / 9.0, 15.0 / 16.0, 1.0, 16.0 / 15.0, 9.0 / 8.0, 6.0 / 5.0, 5.0 / 4.0, 4.0 / 3.0, 45.0 / 32.0, 3.0 / 2.0, 8.0 / 5.0, 5.0 / 3.0, 16.0 / 9.0, 15.0 / 8.0, 2.0].map(x => Math.log2(x) * Config.pitchesPerOctave);
@@ -1349,6 +1349,17 @@ var beepbox = (function (exports) {
                     wave[i] *= 14;
                 }
             }
+            else if (index == 15) {
+                var drumBuffer = 1;
+                for (var i = 0; i < Config.chipNoiseLength; i++) {
+                    wave[i] = Math.round((drumBuffer & 1));
+                    var newBuffer = drumBuffer >> 1;
+                    if (((drumBuffer + newBuffer) & 1) == 1) {
+                        newBuffer -= 100 << 200;
+                    }
+                    drumBuffer = newBuffer;
+                }
+            }
             else {
                 throw new Error("Unrecognized drum index: " + index);
             }
@@ -1534,7 +1545,7 @@ var beepbox = (function (exports) {
             return (_a = EditorConfig.presetCategories[0].presets.dictionary) === null || _a === void 0 ? void 0 : _a[TypePresets === null || TypePresets === void 0 ? void 0 : TypePresets[instrument]];
         }
     }
-    EditorConfig.version = "V37";
+    EditorConfig.version = "V50";
     EditorConfig.revamp = "2";
     EditorConfig.versionDisplayName = "D's Quick Box Mod";
     EditorConfig.releaseNotesURL = "./patch_notes.html";
@@ -39068,7 +39079,7 @@ You should be redirected to the song at:<br /><br />
     }
 
     class oscilloscopeCanvas {
-        constructor(canvas, scale = 1) {
+        constructor(canvas, scale = 0.5) {
             this.canvas = canvas;
             this.scale = scale;
             this._EventUpdateCanvas = function (directlinkL, directlinkR) {
@@ -41356,8 +41367,8 @@ You should be redirected to the song at:<br /><br />
                     SVG.path({ d: "M200-120v-40h560v40H200Zm185.384-150.769v-271.539H254.615L480-840l224.616 297.692h-130.77v271.539H385.384Zm40.001-40h108.461v-272.308h88.308L480-774.615 337.077-583.077h88.308v272.308ZM480-583.077Z", fill: "currentColor" }),
                 ]),
             ]);
-            this._globalOscscope = new oscilloscopeCanvas(canvas({ width: 144, height: 32, style: `border: 2px solid ${ColorConfig.uiWidgetBackground}; position: static;`, id: "oscilloscopeAll" }), 1);
-            this._globalOscscopeContainer = div({ style: "height: 38px; margin-left: auto; margin-right: auto;" }, this._globalOscscope.canvas);
+            this._globalOscscope = new oscilloscopeCanvas(canvas({ width: 144, height: 64, style: `border: 2px solid ${ColorConfig.uiWidgetBackground}; position: static; margiontop: 2px; margin-bottom: 2px`, id: "oscilloscopeAll" }), 1);
+            this._globalOscscopeContainer = div({ style: "height: 70px; margin-left: auto; margin-right: auto;" }, this._globalOscscope.canvas);
             this._customWaveDrawCanvas = new CustomChipCanvas(canvas({ width: 128, height: 52, style: "border:2px solid " + ColorConfig.uiWidgetBackground, id: "customWaveDrawCanvas" }), this._doc, (newArray) => new ChangeCustomWave(this._doc, newArray));
             this._customWavePresetDrop = buildHeaderedOptions("Load Preset", select({ style: "width: 50%; height:1.5em; text-align: center; text-align-last: center;" }), Config.chipWaves.map(wave => wave.name));
             this._customWaveZoom = button({ style: "margin-left:0.5em; height:1.5em; max-width: 20px;", onclick: () => this._openPrompt("customChipSettings") }, "+");
@@ -41365,7 +41376,7 @@ You should be redirected to the song at:<br /><br />
                 div({ style: "height:54px; display:flex; justify-content:center;" }, [this._customWaveDrawCanvas.canvas]),
                 div({ style: "margin-top:5px; display:flex; justify-content:center;" }, [this._customWavePresetDrop, this._customWaveZoom]),
             ]);
-            this._songTitleInputBox = new InputBox(input({ style: "font-weight:bold; border:none; width: 98%; background-color:${ColorConfig.editorBackground}; color:${ColorConfig.primaryText}; text-align:center", maxlength: "30", type: "text", value: EditorConfig.versionDisplayName }), this._doc, (oldValue, newValue) => new ChangeSongTitle(this._doc, oldValue, newValue));
+            this._songTitleInputBox = new InputBox(input({ style: "font-weight:bold; border:none; width: 98%; background-color:${ColorConfig.editorBackground}; color:${ColorConfig.primaryText}; text-align:center", maxlength: "60", type: "text", value: EditorConfig.versionDisplayName }), this._doc, (oldValue, newValue) => new ChangeSongTitle(this._doc, oldValue, newValue));
             this._feedbackAmplitudeSlider = new Slider(input({ type: "range", min: "0", max: Config.operatorAmplitudeMax, value: "0", step: "1", title: "Feedback Amplitude" }), this._doc, (oldValue, newValue) => new ChangeFeedbackAmplitude(this._doc, oldValue, newValue), false);
             this._feedbackRow2 = div({ class: "selectRow" }, span({ class: "tip", onclick: () => this._openPrompt("feedbackVolume") }, "Fdback Vol:"), this._feedbackAmplitudeSlider.container);
             this._addEnvelopeButton = button({ type: "button", class: "add-envelope" });
