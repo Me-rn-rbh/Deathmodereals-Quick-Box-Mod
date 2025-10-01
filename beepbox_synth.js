@@ -1528,7 +1528,7 @@ var beepbox = (function (exports) {
             return (_a = EditorConfig.presetCategories[0].presets.dictionary) === null || _a === void 0 ? void 0 : _a[TypePresets === null || TypePresets === void 0 ? void 0 : TypePresets[instrument]];
         }
     }
-    EditorConfig.version = "V50";
+    EditorConfig.version = "V61";
     EditorConfig.revamp = "2";
     EditorConfig.versionDisplayName = "D's Quick Box Mod";
     EditorConfig.releaseNotesURL = "./patch_notes.html";
@@ -4760,13 +4760,15 @@ var beepbox = (function (exports) {
             return (channelIndex >= this.pitchChannelCount + this.noiseChannelCount);
         }
         initToDefault(andResetChannels = true) {
+            let randomtempos = [20, 25, 50, 75, 100, 150, 160, 200, 225, 250, 300, 320];
+            let randomkeys = [0, 2, 4, 6, 8, 10, 12];
             this.scale = 0;
             this.scaleCustom = [true, false, true, true, false, false, false, true, true, false, true, true];
-            this.key = 0;
+            this.key = randomkeys[(Math.floor(Math.random() * randomkeys.length))];
             this.octave = 0;
             this.loopStart = 16;
             this.loopLength = 1;
-            this.tempo = 150;
+            this.tempo = randomtempos[(Math.floor(Math.random() * randomtempos.length))];
             this.reverb = 0;
             this.beatsPerBar = 8;
             this.barCount = 16;
@@ -4774,8 +4776,15 @@ var beepbox = (function (exports) {
             this.rhythm = 1;
             this.layeredInstruments = true;
             this.patternInstruments = true;
-            this.title = "D's Quick Song";
-            document.title = this.title + " - " + EditorConfig.versionDisplayName;
+            let randomtitles = ["D's Quick Song", "D's Quick Beep", "D's Quick Sounds", "D's Quick Noise", "D's Quick Music"];
+            this.title = randomtitles[(Math.floor(Math.random() * randomtitles.length))];
+            if (this.title == randomtitles[0]) {
+                if (Math.floor(Math.random() * 2) == 0) ;
+                else {
+                    this.title = randomtitles[1];
+                }
+            }
+            document.title = this.title + " - " + EditorConfig.versionDisplayName + " " + EditorConfig.revamp + " " + EditorConfig.version;
             if (andResetChannels) {
                 this.pitchChannelCount = 5;
                 this.noiseChannelCount = 2;
