@@ -432,7 +432,7 @@ var beepbox = (function (exports) {
     Config.attackVal = 0;
     Config.releaseVal = 0.25;
     Config.willReloadForCustomSamples = false;
-    Config.jsonFormat = "UltraBox";
+    Config.jsonFormat = "D's Quick Box Mod";
     Config.scales = toNameMap([
         { name: "Free", realName: "chromatic", flags: [true, true, true, true, true, true, true, true, true, true, true, true] },
         { name: "Major", realName: "ionian", flags: [true, false, true, false, true, true, false, true, false, true, false, true] },
@@ -1545,7 +1545,7 @@ var beepbox = (function (exports) {
             return (_a = EditorConfig.presetCategories[0].presets.dictionary) === null || _a === void 0 ? void 0 : _a[TypePresets === null || TypePresets === void 0 ? void 0 : TypePresets[instrument]];
         }
     }
-    EditorConfig.version = "V61";
+    EditorConfig.version = "V69";
     EditorConfig.revamp = "2";
     EditorConfig.versionDisplayName = "D's Quick Box Mod";
     EditorConfig.releaseNotesURL = "./patch_notes.html";
@@ -13415,7 +13415,7 @@ li.select2-results__option[role=group] > strong:hover {
             let bits;
             let buffer = [];
             buffer.push(Song._variant);
-            buffer.push(base64IntToCharCode[Song._latestUltraBoxVersion]);
+            buffer.push(base64IntToCharCode[Song._latestDsboxmodVersion]);
             buffer.push(78);
             var encodedSongTitle = encodeURIComponent(this.title);
             buffer.push(base64IntToCharCode[encodedSongTitle.length >> 6], base64IntToCharCode[encodedSongTitle.length & 0x3f]);
@@ -14013,11 +14013,13 @@ li.select2-results__option[role=group] > strong:hover {
             let fromJummBox;
             let fromGoldBox;
             let fromUltraBox;
+            let fromDsboxmod;
             if (variantTest == 0x6A) {
                 fromBeepBox = false;
                 fromJummBox = true;
                 fromGoldBox = false;
                 fromUltraBox = false;
+                fromDsboxmod = false;
                 charIndex++;
             }
             else if (variantTest == 0x67) {
@@ -14025,6 +14027,7 @@ li.select2-results__option[role=group] > strong:hover {
                 fromJummBox = false;
                 fromGoldBox = true;
                 fromUltraBox = false;
+                fromDsboxmod = false;
                 charIndex++;
             }
             else if (variantTest == 0x75) {
@@ -14032,6 +14035,7 @@ li.select2-results__option[role=group] > strong:hover {
                 fromJummBox = false;
                 fromGoldBox = false;
                 fromUltraBox = true;
+                fromDsboxmod = false;
                 charIndex++;
             }
             else if (variantTest == 0x64) {
@@ -14039,6 +14043,15 @@ li.select2-results__option[role=group] > strong:hover {
                 fromJummBox = true;
                 fromGoldBox = false;
                 fromUltraBox = false;
+                fromDsboxmod = false;
+                charIndex++;
+            }
+            else if (variantTest == 0x44) {
+                fromBeepBox = false;
+                fromJummBox = false;
+                fromGoldBox = false;
+                fromUltraBox = false;
+                fromDsboxmod = true;
                 charIndex++;
             }
             else {
@@ -14046,6 +14059,7 @@ li.select2-results__option[role=group] > strong:hover {
                 fromJummBox = false;
                 fromGoldBox = false;
                 fromUltraBox = false;
+                fromDsboxmod = false;
             }
             const version = base64CharCodeToInt[compressed.charCodeAt(charIndex++)];
             if (fromBeepBox && (version == -1 || version > Song._latestBeepboxVersion || version < Song._oldestBeepboxVersion))
@@ -14056,6 +14070,10 @@ li.select2-results__option[role=group] > strong:hover {
                 return;
             if (fromUltraBox && (version == -1 || version > Song._latestUltraBoxVersion || version < Song._oldestUltraBoxVersion))
                 return;
+            if (fromUltraBox && (version == -1 || version > Song._latestUltraBoxVersion || version < Song._oldestUltraBoxVersion))
+                return;
+            if (fromDsboxmod)
+                return;
             const beforeTwo = version < 2;
             const beforeThree = version < 3;
             const beforeFour = version < 4;
@@ -14064,7 +14082,7 @@ li.select2-results__option[role=group] > strong:hover {
             const beforeSeven = version < 7;
             const beforeEight = version < 8;
             const beforeNine = version < 9;
-            this.initToDefault((fromBeepBox && beforeNine) || ((fromJummBox && beforeFive) || (beforeFour && fromGoldBox)));
+            this.initToDefault(((fromBeepBox && beforeNine)) || ((fromJummBox && beforeFive) || (beforeFour && fromGoldBox)));
             const forceSimpleFilter = (fromBeepBox && beforeNine || fromJummBox && beforeFive);
             let willLoadLegacySamplesForOldSongs = false;
             if (fromUltraBox || fromGoldBox) {
@@ -14134,7 +14152,7 @@ li.select2-results__option[role=group] > strong:hover {
                 this.channels[3].instruments[0].chipNoise = 0;
             }
             let legacySettingsCache = null;
-            if ((fromBeepBox && beforeNine) || ((fromJummBox && beforeFive) || (beforeFour && fromGoldBox))) {
+            if (((fromBeepBox && beforeNine)) || ((fromJummBox && beforeFive) || (beforeFour && fromGoldBox))) {
                 legacySettingsCache = [];
                 for (let i = legacySettingsCache.length; i < this.getChannelCount(); i++) {
                     legacySettingsCache[i] = [];
@@ -14154,7 +14172,7 @@ li.select2-results__option[role=group] > strong:hover {
                         {
                             var songNameLength = (base64CharCodeToInt[compressed.charCodeAt(charIndex++)] << 6) + base64CharCodeToInt[compressed.charCodeAt(charIndex++)];
                             this.title = decodeURIComponent(compressed.substring(charIndex, charIndex + songNameLength));
-                            document.title = this.title + " - " + EditorConfig.versionDisplayName;
+                            document.title = this.title + " - " + EditorConfig.versionDisplayName + " " + EditorConfig.revamp + " " + EditorConfig.version;
                             charIndex += songNameLength;
                         }
                         break;
@@ -16908,7 +16926,8 @@ li.select2-results__option[role=group] > strong:hover {
     Song._latestGoldBoxVersion = 4;
     Song._oldestUltraBoxVersion = 1;
     Song._latestUltraBoxVersion = 5;
-    Song._variant = 0x75;
+    Song._latestDsboxmodVersion = 64;
+    Song._variant = 0x44;
     class PickedString {
         constructor() {
             this.delayLine = null;
@@ -33031,9 +33050,10 @@ You should be redirected to the song at:<br /><br />
             this.outVolumeHistoricTimer = 0.0;
             this.outVolumeHistoricCap = 0.0;
             this._cancelButton = button$e({ class: "cancelButton" });
-            this._okayButton = button$e({ class: "okayButton", style: "width:45%;" }, "Okay");
-            this._resetButton = button$e({ style: "width:45%;" }, "Reset");
-            this.container = div$e({ class: "prompt noSelection", style: "width: 250px;" }, h2$d("Limiter Options"), div$e({ style: "display: flex; width: 55%; align-self: center; flex-direction: row; align-items: center; justify-content: center;" }, this._playButton), div$e({ style: "display: flex; flex-direction: row; align-items: center; justify-content: center;" }, this.limiterCanvas.container), div$e({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; margin-top: 1.5em; justify-content: flex-end;" }, div$e({ style: `text-align: right; width: 25%; margin-right: 4.5%; color: ${ColorConfig.primaryText};` }, ""), div$e({ style: `text-align: center; width: 33%; margin-right: 4.5%; color: ${ColorConfig.textSelection};` }, "Boost"), div$e({ style: `text-align: center; width: 33%; margin-right: 0%; color: ${ColorConfig.linkAccent};` }, "Cutoff")), div$e({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; margin-top: 0.5em; justify-content: flex-end;" }, div$e({ style: `text-align: right; width: 25%; margin-right: 4.5%; color: ${ColorConfig.primaryText};` }, "Threshold:"), div$e({ style: `width: 33%; margin-right: 4.5%;` }, this.compressionThresholdSlider), div$e({ style: `width: 33%; margin-right: 0%;` }, this.limitThresholdSlider)), div$e({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$e({ style: `text-align: right; width: 25%; margin-right: 4.5%; color: ${ColorConfig.primaryText};` }, "Ratio:"), div$e({ style: `width: 33%; margin-right: 4.5%;` }, this.compressionRatioSlider), div$e({ style: `width: 33%; margin-right: 0%;` }, this.limitRatioSlider)), div$e({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$e({ style: `text-align: right; width: 8.5em; margin-right: 1em; color: ${ColorConfig.primaryText};` }, "Limit Decay:"), this.limitDecaySlider), div$e({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$e({ style: `text-align: right; width: 8.5em; margin-right: 1em; color: ${ColorConfig.primaryText};` }, "Limit Rise:"), this.limitRiseSlider), div$e({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$e({ style: `text-align: right; width: 8.5em; margin-right: 1em; color: ${ColorConfig.primaryText};` }, "Master Gain:"), this.masterGainSlider), div$e({ style: "display: flex; flex-direction: row-reverse; justify-content: space-between;" }, this._okayButton, this._resetButton), this._cancelButton);
+            this._okayButton = button$e({ class: "okayButton", style: "width:30%;" }, "Okay");
+            this._resetButton = button$e({ style: "width:30%;" }, "Reset");
+            this._lineButton = button$e({ style: "width:30%;" }, "Line");
+            this.container = div$e({ class: "prompt noSelection", style: "width: 250px;" }, h2$d("Limiter Options"), div$e({ style: "display: flex; width: 55%; align-self: center; flex-direction: row; align-items: center; justify-content: center;" }, this._playButton), div$e({ style: "display: flex; flex-direction: row; align-items: center; justify-content: center;" }, this.limiterCanvas.container), div$e({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; margin-top: 1.5em; justify-content: flex-end;" }, div$e({ style: `text-align: right; width: 25%; margin-right: 4.5%; color: ${ColorConfig.primaryText};` }, ""), div$e({ style: `text-align: center; width: 33%; margin-right: 4.5%; color: ${ColorConfig.textSelection};` }, "Boost"), div$e({ style: `text-align: center; width: 33%; margin-right: 0%; color: ${ColorConfig.linkAccent};` }, "Cutoff")), div$e({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; margin-top: 0.5em; justify-content: flex-end;" }, div$e({ style: `text-align: right; width: 25%; margin-right: 4.5%; color: ${ColorConfig.primaryText};` }, "Threshold:"), div$e({ style: `width: 33%; margin-right: 4.5%;` }, this.compressionThresholdSlider), div$e({ style: `width: 33%; margin-right: 0%;` }, this.limitThresholdSlider)), div$e({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$e({ style: `text-align: right; width: 25%; margin-right: 4.5%; color: ${ColorConfig.primaryText};` }, "Ratio:"), div$e({ style: `width: 33%; margin-right: 4.5%;` }, this.compressionRatioSlider), div$e({ style: `width: 33%; margin-right: 0%;` }, this.limitRatioSlider)), div$e({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$e({ style: `text-align: right; width: 8.5em; margin-right: 1em; color: ${ColorConfig.primaryText};` }, "Limit Decay:"), this.limitDecaySlider), div$e({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$e({ style: `text-align: right; width: 8.5em; margin-right: 1em; color: ${ColorConfig.primaryText};` }, "Limit Rise:"), this.limitRiseSlider), div$e({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$e({ style: `text-align: right; width: 8.5em; margin-right: 1em; color: ${ColorConfig.primaryText};` }, "Master Gain:"), this.masterGainSlider), div$e({ style: "display: flex; flex-direction: row-reverse; justify-content: space-between;" }, this._okayButton, this._resetButton, this._lineButton), this._cancelButton);
             this._volumeUpdate = () => {
                 this.inVolumeHistoricTimer--;
                 if (this.inVolumeHistoricTimer <= 0) {
@@ -33100,6 +33120,7 @@ You should be redirected to the song at:<br /><br />
                 this.compressionThresholdSlider.removeEventListener("input", this._whenInput);
                 this.masterGainSlider.removeEventListener("input", this._whenInput);
                 this._playButton.removeEventListener("click", this._togglePlay);
+                this._lineButton.removeEventListener("click", this._straightlineLimiter);
             };
             this.whenKeyPressed = (event) => {
                 if (event.target.tagName != "BUTTON" && event.keyCode == 13) {
@@ -33121,6 +33142,16 @@ You should be redirected to the song at:<br /><br />
                     this.masterGainSlider.value = "1";
                     this._whenInput();
                 }
+            };
+            this._straightlineLimiter = () => {
+                this.limitRatioSlider.value = "0";
+                this.limitRiseSlider.value = "0";
+                this.limitDecaySlider.value = "0";
+                this.limitThresholdSlider.value = "0";
+                this.compressionRatioSlider.value = "0";
+                this.compressionThresholdSlider.value = "0";
+                this.masterGainSlider.value = "1";
+                this._whenInput();
             };
             this._updateLimiter = () => {
                 this._doc.record(new ChangeLimiterSettings(this._doc, (+this.limitRatioSlider.value < 10 ? +this.limitRatioSlider.value / 10 : (+this.limitRatioSlider.value - 9)), (+this.compressionRatioSlider.value < 10 ? +this.compressionRatioSlider.value / 10 : (1 + (+this.compressionRatioSlider.value - 10) / 60)), +this.limitThresholdSlider.value, +this.compressionThresholdSlider.value, +this.limitRiseSlider.value, +this.limitDecaySlider.value, +this.masterGainSlider.value), true);
@@ -33155,6 +33186,7 @@ You should be redirected to the song at:<br /><br />
             this.compressionThresholdSlider.addEventListener("input", this._whenInput);
             this.masterGainSlider.addEventListener("input", this._whenInput);
             this._playButton.addEventListener("click", this._togglePlay);
+            this._lineButton.addEventListener("click", this._straightlineLimiter);
             window.requestAnimationFrame(this._volumeUpdate);
             this.updatePlayButton();
             setTimeout(() => this._playButton.focus());
