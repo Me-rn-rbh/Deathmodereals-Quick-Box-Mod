@@ -418,7 +418,7 @@ var beepbox = (function (exports) {
     Config.attackVal = 0;
     Config.releaseVal = 0.25;
     Config.willReloadForCustomSamples = false;
-    Config.jsonFormat = "D's Quick Box Mod";
+    Config.jsonFormat = "Dsboxmod";
     Config.scales = toNameMap([
         { name: "Free", realName: "chromatic", flags: [true, true, true, true, true, true, true, true, true, true, true, true] },
         { name: "Major", realName: "ionian", flags: [true, false, true, false, true, true, false, true, false, true, false, true] },
@@ -1528,7 +1528,7 @@ var beepbox = (function (exports) {
             return (_a = EditorConfig.presetCategories[0].presets.dictionary) === null || _a === void 0 ? void 0 : _a[TypePresets === null || TypePresets === void 0 ? void 0 : TypePresets[instrument]];
         }
     }
-    EditorConfig.version = "V69";
+    EditorConfig.version = "V82";
     EditorConfig.revamp = "2";
     EditorConfig.versionDisplayName = "D's Quick Box Mod";
     EditorConfig.releaseNotesURL = "./patch_notes.html";
@@ -4825,7 +4825,7 @@ var beepbox = (function (exports) {
             let bits;
             let buffer = [];
             buffer.push(Song._variant);
-            buffer.push(base64IntToCharCode[Song._latestDsboxmodVersion]);
+            buffer.push(base64IntToCharCode[Song._latestUltraBoxVersion]);
             buffer.push(78);
             var encodedSongTitle = encodeURIComponent(this.title);
             buffer.push(base64IntToCharCode[encodedSongTitle.length >> 6], base64IntToCharCode[encodedSongTitle.length & 0x3f]);
@@ -5423,13 +5423,11 @@ var beepbox = (function (exports) {
             let fromJummBox;
             let fromGoldBox;
             let fromUltraBox;
-            let fromDsboxmod;
             if (variantTest == 0x6A) {
                 fromBeepBox = false;
                 fromJummBox = true;
                 fromGoldBox = false;
                 fromUltraBox = false;
-                fromDsboxmod = false;
                 charIndex++;
             }
             else if (variantTest == 0x67) {
@@ -5437,7 +5435,6 @@ var beepbox = (function (exports) {
                 fromJummBox = false;
                 fromGoldBox = true;
                 fromUltraBox = false;
-                fromDsboxmod = false;
                 charIndex++;
             }
             else if (variantTest == 0x75) {
@@ -5445,7 +5442,6 @@ var beepbox = (function (exports) {
                 fromJummBox = false;
                 fromGoldBox = false;
                 fromUltraBox = true;
-                fromDsboxmod = false;
                 charIndex++;
             }
             else if (variantTest == 0x64) {
@@ -5453,15 +5449,6 @@ var beepbox = (function (exports) {
                 fromJummBox = true;
                 fromGoldBox = false;
                 fromUltraBox = false;
-                fromDsboxmod = false;
-                charIndex++;
-            }
-            else if (variantTest == 0x44) {
-                fromBeepBox = false;
-                fromJummBox = false;
-                fromGoldBox = false;
-                fromUltraBox = false;
-                fromDsboxmod = true;
                 charIndex++;
             }
             else {
@@ -5469,7 +5456,6 @@ var beepbox = (function (exports) {
                 fromJummBox = false;
                 fromGoldBox = false;
                 fromUltraBox = false;
-                fromDsboxmod = false;
             }
             const version = base64CharCodeToInt[compressed.charCodeAt(charIndex++)];
             if (fromBeepBox && (version == -1 || version > Song._latestBeepboxVersion || version < Song._oldestBeepboxVersion))
@@ -5482,8 +5468,6 @@ var beepbox = (function (exports) {
                 return;
             if (fromUltraBox && (version == -1 || version > Song._latestUltraBoxVersion || version < Song._oldestUltraBoxVersion))
                 return;
-            if (fromDsboxmod)
-                return;
             const beforeTwo = version < 2;
             const beforeThree = version < 3;
             const beforeFour = version < 4;
@@ -5492,7 +5476,7 @@ var beepbox = (function (exports) {
             const beforeSeven = version < 7;
             const beforeEight = version < 8;
             const beforeNine = version < 9;
-            this.initToDefault(((fromBeepBox && beforeNine)) || ((fromJummBox && beforeFive) || (beforeFour && fromGoldBox)));
+            this.initToDefault((fromBeepBox && beforeNine) || (fromJummBox && beforeFive) || (beforeFour && fromGoldBox));
             const forceSimpleFilter = (fromBeepBox && beforeNine || fromJummBox && beforeFive);
             let willLoadLegacySamplesForOldSongs = false;
             if (fromUltraBox || fromGoldBox) {
@@ -5562,7 +5546,7 @@ var beepbox = (function (exports) {
                 this.channels[3].instruments[0].chipNoise = 0;
             }
             let legacySettingsCache = null;
-            if (((fromBeepBox && beforeNine)) || ((fromJummBox && beforeFive) || (beforeFour && fromGoldBox))) {
+            if ((fromBeepBox && beforeNine) || (fromJummBox && beforeFive) || (beforeFour && fromGoldBox)) {
                 legacySettingsCache = [];
                 for (let i = legacySettingsCache.length; i < this.getChannelCount(); i++) {
                     legacySettingsCache[i] = [];
@@ -8336,8 +8320,7 @@ var beepbox = (function (exports) {
     Song._latestGoldBoxVersion = 4;
     Song._oldestUltraBoxVersion = 1;
     Song._latestUltraBoxVersion = 5;
-    Song._latestDsboxmodVersion = 64;
-    Song._variant = 0x44;
+    Song._variant = 0x75;
     class PickedString {
         constructor() {
             this.delayLine = null;

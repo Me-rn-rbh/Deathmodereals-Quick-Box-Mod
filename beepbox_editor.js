@@ -432,7 +432,7 @@ var beepbox = (function (exports) {
     Config.attackVal = 0;
     Config.releaseVal = 0.25;
     Config.willReloadForCustomSamples = false;
-    Config.jsonFormat = "D's Quick Box Mod";
+    Config.jsonFormat = "Dsboxmod";
     Config.scales = toNameMap([
         { name: "Free", realName: "chromatic", flags: [true, true, true, true, true, true, true, true, true, true, true, true] },
         { name: "Major", realName: "ionian", flags: [true, false, true, false, true, true, false, true, false, true, false, true] },
@@ -1545,7 +1545,7 @@ var beepbox = (function (exports) {
             return (_a = EditorConfig.presetCategories[0].presets.dictionary) === null || _a === void 0 ? void 0 : _a[TypePresets === null || TypePresets === void 0 ? void 0 : TypePresets[instrument]];
         }
     }
-    EditorConfig.version = "V69";
+    EditorConfig.version = "V82";
     EditorConfig.revamp = "2";
     EditorConfig.versionDisplayName = "D's Quick Box Mod";
     EditorConfig.releaseNotesURL = "./patch_notes.html";
@@ -13415,7 +13415,7 @@ li.select2-results__option[role=group] > strong:hover {
             let bits;
             let buffer = [];
             buffer.push(Song._variant);
-            buffer.push(base64IntToCharCode[Song._latestDsboxmodVersion]);
+            buffer.push(base64IntToCharCode[Song._latestUltraBoxVersion]);
             buffer.push(78);
             var encodedSongTitle = encodeURIComponent(this.title);
             buffer.push(base64IntToCharCode[encodedSongTitle.length >> 6], base64IntToCharCode[encodedSongTitle.length & 0x3f]);
@@ -14013,13 +14013,11 @@ li.select2-results__option[role=group] > strong:hover {
             let fromJummBox;
             let fromGoldBox;
             let fromUltraBox;
-            let fromDsboxmod;
             if (variantTest == 0x6A) {
                 fromBeepBox = false;
                 fromJummBox = true;
                 fromGoldBox = false;
                 fromUltraBox = false;
-                fromDsboxmod = false;
                 charIndex++;
             }
             else if (variantTest == 0x67) {
@@ -14027,7 +14025,6 @@ li.select2-results__option[role=group] > strong:hover {
                 fromJummBox = false;
                 fromGoldBox = true;
                 fromUltraBox = false;
-                fromDsboxmod = false;
                 charIndex++;
             }
             else if (variantTest == 0x75) {
@@ -14035,7 +14032,6 @@ li.select2-results__option[role=group] > strong:hover {
                 fromJummBox = false;
                 fromGoldBox = false;
                 fromUltraBox = true;
-                fromDsboxmod = false;
                 charIndex++;
             }
             else if (variantTest == 0x64) {
@@ -14043,15 +14039,6 @@ li.select2-results__option[role=group] > strong:hover {
                 fromJummBox = true;
                 fromGoldBox = false;
                 fromUltraBox = false;
-                fromDsboxmod = false;
-                charIndex++;
-            }
-            else if (variantTest == 0x44) {
-                fromBeepBox = false;
-                fromJummBox = false;
-                fromGoldBox = false;
-                fromUltraBox = false;
-                fromDsboxmod = true;
                 charIndex++;
             }
             else {
@@ -14059,7 +14046,6 @@ li.select2-results__option[role=group] > strong:hover {
                 fromJummBox = false;
                 fromGoldBox = false;
                 fromUltraBox = false;
-                fromDsboxmod = false;
             }
             const version = base64CharCodeToInt[compressed.charCodeAt(charIndex++)];
             if (fromBeepBox && (version == -1 || version > Song._latestBeepboxVersion || version < Song._oldestBeepboxVersion))
@@ -14072,8 +14058,6 @@ li.select2-results__option[role=group] > strong:hover {
                 return;
             if (fromUltraBox && (version == -1 || version > Song._latestUltraBoxVersion || version < Song._oldestUltraBoxVersion))
                 return;
-            if (fromDsboxmod)
-                return;
             const beforeTwo = version < 2;
             const beforeThree = version < 3;
             const beforeFour = version < 4;
@@ -14082,7 +14066,7 @@ li.select2-results__option[role=group] > strong:hover {
             const beforeSeven = version < 7;
             const beforeEight = version < 8;
             const beforeNine = version < 9;
-            this.initToDefault(((fromBeepBox && beforeNine)) || ((fromJummBox && beforeFive) || (beforeFour && fromGoldBox)));
+            this.initToDefault((fromBeepBox && beforeNine) || (fromJummBox && beforeFive) || (beforeFour && fromGoldBox));
             const forceSimpleFilter = (fromBeepBox && beforeNine || fromJummBox && beforeFive);
             let willLoadLegacySamplesForOldSongs = false;
             if (fromUltraBox || fromGoldBox) {
@@ -14152,7 +14136,7 @@ li.select2-results__option[role=group] > strong:hover {
                 this.channels[3].instruments[0].chipNoise = 0;
             }
             let legacySettingsCache = null;
-            if (((fromBeepBox && beforeNine)) || ((fromJummBox && beforeFive) || (beforeFour && fromGoldBox))) {
+            if ((fromBeepBox && beforeNine) || (fromJummBox && beforeFive) || (beforeFour && fromGoldBox)) {
                 legacySettingsCache = [];
                 for (let i = legacySettingsCache.length; i < this.getChannelCount(); i++) {
                     legacySettingsCache[i] = [];
@@ -16926,8 +16910,7 @@ li.select2-results__option[role=group] > strong:hover {
     Song._latestGoldBoxVersion = 4;
     Song._oldestUltraBoxVersion = 1;
     Song._latestUltraBoxVersion = 5;
-    Song._latestDsboxmodVersion = 64;
-    Song._variant = 0x44;
+    Song._variant = 0x75;
     class PickedString {
         constructor() {
             this.delayLine = null;
@@ -41207,7 +41190,7 @@ You should be redirected to the song at:<br /><br />
             this._volumeBarBox = div({ class: "playback-volume-bar", style: "height: 12px; align-self: center;" }, this._volumeBarContainer);
             this._fileMenu = select({ style: "width: 100%;" }, option({ selected: true, disabled: true, hidden: false }, "File"), option({ value: "new" }, "+ New Blank Song (⇧`)"), option({ value: "import" }, "↑ Import Song... (" + EditorConfig.ctrlSymbol + "O)"), option({ value: "export" }, "↓ Export Song... (" + EditorConfig.ctrlSymbol + "S)"), option({ value: "copyUrl" }, "⎘ Copy Song URL"), option({ value: "shareUrl" }, "⤳ Share Song URL"), option({ value: "configureShortener" }, "🛠 Customize Url Shortener..."), option({ value: "shortenUrl" }, "… Shorten Url (Open Tinyurl/Shorten with is.gd)"), option({ value: "viewPlayer" }, "▶ View in Song Player (⇧P)"), option({ value: "copyEmbed" }, "⎘ Copy HTML Embed Code"), option({ value: "songRecovery" }, "⚠ Recover Recent Song... (`)"));
             this._editMenu = select({ style: "width: 100%;" }, option({ selected: true, disabled: true, hidden: false }, "Edit"), option({ value: "undo" }, "Undo (Z)"), option({ value: "redo" }, "Redo (Y)"), option({ value: "copy" }, "Copy Pattern (C)"), option({ value: "pasteNotes" }, "Paste Pattern Notes (V)"), option({ value: "pasteNumbers" }, "Paste Pattern Numbers (" + EditorConfig.ctrlSymbol + "⇧V)"), option({ value: "insertBars" }, "Insert Bar (⏎)"), option({ value: "deleteBars" }, "Delete Selected Bars (⌫)"), option({ value: "insertChannel" }, "Insert Channel (" + EditorConfig.ctrlSymbol + "⏎)"), option({ value: "deleteChannel" }, "Delete Selected Channels (" + EditorConfig.ctrlSymbol + "⌫)"), option({ value: "selectChannel" }, "Select Channel (⇧A)"), option({ value: "selectAll" }, "Select All (A)"), option({ value: "duplicatePatterns" }, "Duplicate Reused Patterns (D)"), option({ value: "transposeUp" }, "Move Notes Up (+ or ⇧+)"), option({ value: "transposeDown" }, "Move Notes Down (- or ⇧-)"), option({ value: "moveNotesSideways" }, "Move All Notes Sideways... (W)"), option({ value: "generateEuclideanRhythm" }, "Generate Euclidean Rhythm... (E)"), option({ value: "beatsPerBar" }, "Change Beats Per Bar... (⇧B)"), option({ value: "barCount" }, "Change Song Length... (L)"), option({ value: "channelSettings" }, "Channel Settings... (Q)"), option({ value: "limiterSettings" }, "Limiter Settings... (⇧L)"), option({ value: "addExternal" }, "Add Custom Samples... (⇧Q)"));
-            this._optionsMenu = select({ style: "width: 100%;" }, option({ selected: true, disabled: true, hidden: false }, "Preferences"), optgroup({ label: "Technical" }, option({ value: "autoPlay" }, "Auto Play on Load"), option({ value: "autoFollow" }, "Auto Follow Playhead"), option({ value: "enableNotePreview" }, "Hear Added Notes"), option({ value: "notesOutsideScale" }, "Place Notes Out of Scale"), option({ value: "setDefaultScale" }, "Set Current Scale as Default"), option({ value: "alwaysFineNoteVol" }, "Always Fine Note Volume"), option({ value: "enableChannelMuting" }, "Enable Channel Muting"), option({ value: "instrumentCopyPaste" }, "Enable Copy/Paste Buttons"), option({ value: "instrumentImportExport" }, "Enable Import/Export Buttons"), option({ value: "displayBrowserUrl" }, "Enable Song Data in URL"), option({ value: "closePromptByClickoff" }, "Close Prompts on Click Off"), option({ value: "recordingSetup" }, "Note Recording...")), optgroup({ label: "Appearance" }, option({ value: "showFifth" }, 'Highlight "Fifth" Note'), option({ value: "notesFlashWhenPlayed" }, "Notes Flash When Played"), option({ value: "instrumentButtonsAtTop" }, "Instrument Buttons at Top"), option({ value: "frostedGlassBackground" }, "Frosted Glass Prompt Backdrop"), option({ value: "showChannels" }, "Show All Channels"), option({ value: "showScrollBar" }, "Show Octave Scroll Bar"), option({ value: "showInstrumentScrollbars" }, "Show Intsrument Scrollbars"), option({ value: "showLetters" }, "Show Piano Keys"), option({ value: "displayVolumeBar" }, "Show Playback Volume"), option({ value: "showOscilloscope" }, "Show Oscilloscope"), option({ value: "showSampleLoadingStatus" }, "Show Sample Loading Status"), option({ value: "showDescription" }, "Show Description"), option({ value: "layout" }, "Set Layout..."), option({ value: "colorTheme" }, "Set Theme..."), option({ value: "customTheme" }, "Custom Theme...")));
+            this._optionsMenu = select({ style: "width: 100%;" }, option({ selected: true, disabled: true, hidden: false }, "Preferences"), optgroup({ label: "Technical" }, option({ value: "autoPlay" }, "Auto Play on Load"), option({ value: "autoFollow" }, "Auto Follow Playhead"), option({ value: "enableNotePreview" }, "Hear Added Notes"), option({ value: "notesOutsideScale" }, "Place Notes Out of Scale"), option({ value: "setDefaultScale" }, "Set Current Scale as Default"), option({ value: "alwaysFineNoteVol" }, "Always Fine Note Volume"), option({ value: "enableChannelMuting" }, "Enable Channel Muting"), option({ value: "instrumentCopyPaste" }, "Enable Copy/Paste Buttons"), option({ value: "instrumentImportExport" }, "Enable Import/Export Buttons"), option({ value: "displayBrowserUrl" }, "Enable Song Data in URL"), option({ value: "closePromptByClickoff" }, "Close Prompts on Click Off"), option({ value: "recordingSetup" }, "Note Recording...")), optgroup({ label: "Appearance" }, option({ value: "showFifth" }, 'Highlight "Fifth" Note'), option({ value: "notesFlashWhenPlayed" }, "Notes Flash When Played"), option({ value: "instrumentButtonsAtTop" }, "Instrument Buttons at Top"), option({ value: "frostedGlassBackground" }, "Frosted Glass Prompt Backdrop"), option({ value: "showChannels" }, "Show All Channels"), option({ value: "showScrollBar" }, "Show Octave Scroll Bar"), option({ value: "showInstrumentScrollbars" }, "Show Intsrument Scrollbars"), option({ value: "showLetters" }, "Show Piano Keys"), option({ value: "displayVolumeBar" }, "Show Playback Volume"), option({ value: "showOscilloscope" }, "Show Oscilloscope"), option({ value: "showSampleLoadingStatus" }, "Show Sample Loading Status"), option({ value: "showDescription" }, "Show Description"), option({ value: "showInstructions" }, "Show Instructions"), option({ value: "layout" }, "Set Layout..."), option({ value: "colorTheme" }, "Set Theme..."), option({ value: "customTheme" }, "Custom Theme...")));
             this._scaleSelect = buildOptions(select(), Config.scales.map(scale => scale.name));
             this._keySelect = buildOptions(select(), Config.keys.map(key => key.name).reverse());
             this._octaveStepper = input({ style: "width: 59.5%;", type: "number", min: Config.octaveMin, max: Config.octaveMax, value: "0" });
@@ -41541,6 +41524,8 @@ You should be redirected to the song at:<br /><br />
                 this._instrumentSettingsArea.style.scrollbarWidth = this._doc.prefs.showInstrumentScrollbars ? "" : "none";
                 if (document.getElementById('text-content'))
                     document.getElementById('text-content').style.display = this._doc.prefs.showDescription ? "" : "none";
+                if (document.getElementById('instructions'))
+                    document.getElementById('instructions').style.display = this._doc.prefs.showInstructions ? "" : "none";
                 if (this._doc.getFullScreen()) {
                     const semitoneHeight = this._patternEditorRow.clientHeight / this._doc.getVisiblePitchCount();
                     const targetBeatWidth = semitoneHeight * 5;
@@ -41611,6 +41596,7 @@ You should be redirected to the song at:<br /><br />
                     (prefs.showOscilloscope ? textOnIcon : textOffIcon) + "Show Oscilloscope",
                     (prefs.showSampleLoadingStatus ? textOnIcon : textOffIcon) + "Show Sample Loading Status",
                     (prefs.showDescription ? textOnIcon : textOffIcon) + "Show Description",
+                    (prefs.showInstructions ? textOnIcon : textOffIcon) + "Show Instructions",
                     textSpacingIcon + "Set Layout...",
                     textSpacingIcon + "Set Theme...",
                     textSpacingIcon + "Custom Theme...",
@@ -43957,6 +43943,9 @@ You should be redirected to the song at:<br /><br />
                     case "showDescription":
                         this._doc.prefs.showDescription = !this._doc.prefs.showDescription;
                         break;
+                    case "showInstructions":
+                        this._doc.prefs.showInstructions = !this._doc.prefs.showInstructions;
+                        break;
                     case "showInstrumentScrollbars":
                         this._doc.prefs.showInstrumentScrollbars = !this._doc.prefs.showInstrumentScrollbars;
                         break;
@@ -46143,6 +46132,7 @@ You should be redirected to the song at:<br /><br />
             this.showOscilloscope = window.localStorage.getItem("showOscilloscope") == "true";
             this.showSampleLoadingStatus = window.localStorage.getItem("showSampleLoadingStatus") != "false";
             this.showDescription = window.localStorage.getItem("showDescription") != "false";
+            this.showInstructions = window.localStorage.getItem("showInstructions") != "false";
             this.showInstrumentScrollbars = window.localStorage.getItem("showInstrumentScrollbars") == "true";
             this.closePromptByClickoff = window.localStorage.getItem("closePromptByClickoff") == "true";
             this.frostedGlassBackground = window.localStorage.getItem("frostedGlassBackground") == "true";
@@ -46192,6 +46182,7 @@ You should be redirected to the song at:<br /><br />
             window.localStorage.setItem("showOscilloscope", this.showOscilloscope ? "true" : "false");
             window.localStorage.setItem("showSampleLoadingStatus", this.showSampleLoadingStatus ? "true" : "false");
             window.localStorage.setItem("showDescription", this.showDescription ? "true" : "false");
+            window.localStorage.setItem("showInstructions", this.showInstructions ? "true" : "false");
             window.localStorage.setItem("showInstrumentScrollbars", this.showInstrumentScrollbars ? "true" : "false");
             window.localStorage.setItem("closePromptByClickoff", this.closePromptByClickoff ? "true" : "false");
             window.localStorage.setItem("frostedGlassBackground", this.frostedGlassBackground ? "true" : "false");
