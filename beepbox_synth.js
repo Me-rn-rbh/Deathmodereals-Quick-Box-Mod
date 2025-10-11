@@ -1145,6 +1145,8 @@ var beepbox = (function (exports) {
             promptName: "Supersaw Spread", promptDesc: ["This setting controls the supersaw spread of your instrument, just like the spread slider.", "At $LO, all the pulses in your supersaw will be at the same frequency. Increasing this value raises the frequency spread of the contributing waves, up to a dissonant spread at the max value, $HI.", "[OVERWRITING] [$LO - $HI]"] },
         { name: "saw shape", pianoName: "Saw Shape", maxRawVol: Config.supersawShapeMax, newNoteVol: 0, forSong: false, convertRealFactor: 0, associatedEffect: 12,
             promptName: "Supersaw Shape", promptDesc: ["This setting controls the supersaw shape of your instrument, just like the Saw↔Pulse slider.", "As the slider's name implies, this effect will give you a sawtooth wave at $LO, and a full pulse width wave at $HI. Values in between will be a blend of the two.", "[OVERWRITING] [$LO - $HI] [%]"] },
+        { name: "prev bar", pianoName: "Prev. Bar", maxRawVol: 1, newNoteVol: 1, forSong: true, convertRealFactor: 0, associatedEffect: 12,
+            promptName: "Go To Previous Bar", promptDesc: ["This feature works like Next Bar, but you'll be sent to the previous bar.", "Infinite loops yay!!!!"] },
     ]);
     function centerWave(wave) {
         let sum = 0.0;
@@ -1528,7 +1530,7 @@ var beepbox = (function (exports) {
             return (_a = EditorConfig.presetCategories[0].presets.dictionary) === null || _a === void 0 ? void 0 : _a[TypePresets === null || TypePresets === void 0 ? void 0 : TypePresets[instrument]];
         }
     }
-    EditorConfig.version = "V82";
+    EditorConfig.version = "V231";
     EditorConfig.revamp = "2";
     EditorConfig.versionDisplayName = "D's Quick Box Mod";
     EditorConfig.releaseNotesURL = "./patch_notes.html";
@@ -9826,7 +9828,7 @@ var beepbox = (function (exports) {
                 if (pattern != null) {
                     let instrument = this.song.channels[channel].instruments[pattern.instruments[0]];
                     for (let mod = 0; mod < Config.modCount; mod++) {
-                        if (instrument.modulators[mod] == Config.modulators.dictionary["next bar"].index) {
+                        if (instrument.modulators[mod] == Config.modulators.dictionary["next bar"].index || instrument.modulators[mod] == Config.modulators.dictionary["prev bar"].index) {
                             for (const note of pattern.notes) {
                                 if (note.pitches[0] == (Config.modCount - 1 - mod)) {
                                     if (partsInBar > note.start)
@@ -9846,6 +9848,7 @@ var beepbox = (function (exports) {
             let endBar = enableOutro ? this.song.barCount : (this.song.loopStart + this.song.loopLength);
             let hasTempoMods = false;
             let hasNextBarMods = false;
+            let hasPrevBarMods = false;
             let prevTempo = this.song.tempo;
             for (let channel = this.song.getChannelCount() - 1; channel >= this.song.pitchChannelCount + this.song.noiseChannelCount; channel--) {
                 for (let bar = startBar; bar < endBar; bar++) {
@@ -9858,6 +9861,9 @@ var beepbox = (function (exports) {
                             }
                             if (instrument.modulators[mod] == Config.modulators.dictionary["next bar"].index) {
                                 hasNextBarMods = true;
+                            }
+                            if (instrument.modulators[mod] == Config.modulators.dictionary["prev bar"].index) {
+                                hasPrevBarMods = true;
                             }
                         }
                     }
@@ -9903,7 +9909,7 @@ var beepbox = (function (exports) {
                     }
                 }
             }
-            if (hasTempoMods || hasNextBarMods) {
+            if (hasTempoMods || hasNextBarMods || hasPrevBarMods) {
                 let bar = startBar;
                 let ended = false;
                 let totalSamples = 0;
@@ -9911,6 +9917,9 @@ var beepbox = (function (exports) {
                     let partsInBar = Config.partsPerBeat * this.song.beatsPerBar;
                     let currentPart = 0;
                     if (hasNextBarMods) {
+                        partsInBar = this.findPartsInBar(bar);
+                    }
+                    if (hasPrevBarMods) {
                         partsInBar = this.findPartsInBar(bar);
                     }
                     if (hasTempoMods) {
@@ -10008,6 +10017,7 @@ var beepbox = (function (exports) {
             this.renderingSong = false;
             this.heldMods = [];
             this.wantToSkip = false;
+            this.wantToReverse = false;
             this.playheadInternal = 0.0;
             this.bar = 0;
             this.prevBar = null;
@@ -10355,6 +10365,29 @@ var beepbox = (function (exports) {
                     this.loopRepeatCount--;
             }
         }
+        unskipBar() {
+            if (!this.song)
+                return;
+            const samplesPerTick = this.getSamplesPerTick();
+            this.nextBar = this.bar;
+            if (this.loopBarStart != this.bar)
+                this.bar--;
+            else {
+                this.bar = this.loopBarEnd;
+            }
+            this.beat = 0;
+            this.part = 0;
+            this.tick = 0;
+            this.tickSampleCountdown = samplesPerTick;
+            this.isAtStartOfTick = true;
+            if (this.loopRepeatCount != 0 && this.bar == Math.min(this.loopBarEnd - this.song.loopLength, this.song.loopStart)) {
+                this.bar = this.song.loopStart;
+                if (this.loopBarEnd != -1)
+                    this.bar = this.loopBarEnd;
+                if (this.loopRepeatCount > 0)
+                    this.loopRepeatCount++;
+            }
+        }
         synthesize(outputDataL, outputDataR, outputBufferLength, playSong = true) {
             if (this.song == null) {
                 for (let i = 0; i < outputBufferLength; i++) {
@@ -10465,6 +10498,21 @@ var beepbox = (function (exports) {
                         skippedBars.push(this.bar);
                     this.wantToSkip = false;
                     this.skipBar();
+                    continue;
+                }
+                if (this.wantToReverse) {
+                    let barVisited = this.bar;
+                    if (barVisited && bufferIndex == firstSkippedBufferIndex) {
+                        this.pause();
+                        return;
+                    }
+                    if (firstSkippedBufferIndex == -1) {
+                        firstSkippedBufferIndex = bufferIndex;
+                    }
+                    if (!barVisited)
+                        skippedBars.push(this.bar);
+                    this.wantToReverse = false;
+                    this.unskipBar();
                     continue;
                 }
                 for (let channelIndex = 0; channelIndex < song.pitchChannelCount + song.noiseChannelCount; channelIndex++) {
@@ -13808,6 +13856,9 @@ var beepbox = (function (exports) {
                 }
                 else if (setting == Config.modulators.dictionary["next bar"].index) {
                     synth.wantToSkip = true;
+                }
+                else if (setting == Config.modulators.dictionary["prev bar"].index) {
+                    synth.wantToReverse = true;
                 }
                 else if (setting == Config.modulators.dictionary["eq filter"].index) {
                     const tgtInstrument = synth.song.channels[instrument.modChannels[mod]].instruments[usedInstruments[instrumentIndex]];

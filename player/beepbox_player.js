@@ -1064,6 +1064,8 @@ var beepbox = (function (exports) {
             promptName: "Song Reverb", promptDesc: ["This setting affects the overall reverb of your song. It works by multiplying existing reverb for instruments, so those with no reverb set will be unaffected.", "At $MID, all instruments' reverb will be unchanged from default. This increases up to double the reverb value at $HI, or down to no reverb at $LO.", "[MULTIPLICATIVE] [$LO - $HI]"] },
         { name: "next bar", pianoName: "Next Bar", maxRawVol: 1, newNoteVol: 1, forSong: true, convertRealFactor: 0, associatedEffect: 12,
             promptName: "Go To Next Bar", promptDesc: ["This setting functions a little different from most. Wherever a note is placed, the song will jump immediately to the next bar when it is encountered.", "This jump happens at the very start of the note, so the length of a next-bar note is irrelevant. Also, the note can be value 0 or 1, but the value is also irrelevant - wherever you place a note, the song will jump.", "You can make mixed-meter songs or intro sections by cutting off unneeded beats with a next-bar modulator.", "[$LO - $HI]"] },
+        { name: "prev bar", pianoName: "Prev. Bar", maxRawVol: 1, newNoteVol: 1, forSong: true, convertRealFactor: 0, associatedEffect: 12,
+            promptName: "Go To Previous Bar", promptDesc: ["This feature works like Next Bar, but you'll be sent to the previous bar.", "Infinite loops yay!!!!"] },
         { name: "note volume", pianoName: "Note Vol.", maxRawVol: Config.volumeRange, newNoteVol: Math.ceil(Config.volumeRange / 2), forSong: false, convertRealFactor: Math.ceil(-Config.volumeRange / 2.0), associatedEffect: 12,
             promptName: "Note Volume", promptDesc: ["This setting affects the volume of your instrument as if its note size had been scaled.", "At $MID, an instrument's volume will be unchanged from default. This means you can still use the volume sliders to mix the base volume of instruments. The volume gradually increases up to $HI, or decreases down to mute at $LO.", "This setting was the default for volume modulation in JummBox for a long time. Due to some new effects like distortion and bitcrush, note volume doesn't always allow fine volume control. Also, this modulator affects the value of FM modulator waves instead of just carriers. This can distort the sound which may be useful, but also may be undesirable. In those cases, use the 'mix volume' modulator instead, which will always just scale the volume with no added effects.", "For display purposes, this mod will show up on the instrument volume slider, as long as there is not also an active 'mix volume' modulator anyhow. However, as mentioned, it works more like changing note volume.", "[MULTIPLICATIVE] [$LO - $HI]"] },
         { name: "pan", pianoName: "Pan", maxRawVol: Config.panMax, newNoteVol: Math.ceil(Config.panMax / 2), forSong: false, convertRealFactor: 0, associatedEffect: 2,
@@ -8250,7 +8252,7 @@ var beepbox = (function (exports) {
             return (_a = EditorConfig.presetCategories[0].presets.dictionary) === null || _a === void 0 ? void 0 : _a[TypePresets === null || TypePresets === void 0 ? void 0 : TypePresets[instrument]];
         }
     }
-    EditorConfig.version = "V82";
+    EditorConfig.version = "V106";
     EditorConfig.revamp = "2";
     EditorConfig.versionDisplayName = "D's Quick Box Mod";
     EditorConfig.releaseNotesURL = "./patch_notes.html";
@@ -16730,6 +16732,7 @@ var beepbox = (function (exports) {
             this.renderingSong = false;
             this.heldMods = [];
             this.wantToSkip = false;
+            this.wantToReverse = false;
             this.playheadInternal = 0.0;
             this.bar = 0;
             this.prevBar = null;
@@ -17077,6 +17080,29 @@ var beepbox = (function (exports) {
                     this.loopRepeatCount--;
             }
         }
+        unskipBar() {
+            if (!this.song)
+                return;
+            const samplesPerTick = this.getSamplesPerTick();
+            this.nextBar = this.bar;
+            if (this.loopBarStart != this.bar)
+                this.bar--;
+            else {
+                this.bar = this.loopBarEnd;
+            }
+            this.beat = 0;
+            this.part = 0;
+            this.tick = 0;
+            this.tickSampleCountdown = samplesPerTick;
+            this.isAtStartOfTick = true;
+            if (this.loopRepeatCount != 0 && this.bar == Math.min(this.loopBarEnd - this.song.loopLength, this.song.loopStart)) {
+                this.bar = this.song.loopStart;
+                if (this.loopBarEnd != -1)
+                    this.bar = this.loopBarEnd;
+                if (this.loopRepeatCount > 0)
+                    this.loopRepeatCount++;
+            }
+        }
         synthesize(outputDataL, outputDataR, outputBufferLength, playSong = true) {
             if (this.song == null) {
                 for (let i = 0; i < outputBufferLength; i++) {
@@ -17187,6 +17213,21 @@ var beepbox = (function (exports) {
                         skippedBars.push(this.bar);
                     this.wantToSkip = false;
                     this.skipBar();
+                    continue;
+                }
+                if (this.wantToReverse) {
+                    let barVisited = this.bar;
+                    if (barVisited && bufferIndex == firstSkippedBufferIndex) {
+                        this.pause();
+                        return;
+                    }
+                    if (firstSkippedBufferIndex == -1) {
+                        firstSkippedBufferIndex = bufferIndex;
+                    }
+                    if (!barVisited)
+                        skippedBars.push(this.bar);
+                    this.wantToReverse = false;
+                    this.unskipBar();
                     continue;
                 }
                 for (let channelIndex = 0; channelIndex < song.pitchChannelCount + song.noiseChannelCount; channelIndex++) {
@@ -20530,6 +20571,9 @@ var beepbox = (function (exports) {
                 }
                 else if (setting == Config.modulators.dictionary["next bar"].index) {
                     synth.wantToSkip = true;
+                }
+                else if (setting == Config.modulators.dictionary["prev bar"].index) {
+                    synth.wantToReverse = true;
                 }
                 else if (setting == Config.modulators.dictionary["eq filter"].index) {
                     const tgtInstrument = synth.song.channels[instrument.modChannels[mod]].instruments[usedInstruments[instrumentIndex]];
