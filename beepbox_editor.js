@@ -1547,7 +1547,7 @@ var beepbox = (function (exports) {
             return (_a = EditorConfig.presetCategories[0].presets.dictionary) === null || _a === void 0 ? void 0 : _a[TypePresets === null || TypePresets === void 0 ? void 0 : TypePresets[instrument]];
         }
     }
-    EditorConfig.version = "V231";
+    EditorConfig.version = "V308";
     EditorConfig.revamp = "2";
     EditorConfig.versionDisplayName = "D's Quick Box Mod";
     EditorConfig.releaseNotesURL = "./patch_notes.html";
@@ -8518,7 +8518,7 @@ var beepbox = (function (exports) {
 				--invert-text: #ffffff;
 				--box-selection-fill: #0f44af; 		
 				--loop-accent: #000000; 		
-				--link-accent: #df88ff; 		
+				--link-accent: #0f44af; 		
 				--ui-widget-background: #ffffff; 		
 				--ui-widget-focus: #ffffff; 		
 				--pitch-background: #ffffff; 		
@@ -8736,6 +8736,362 @@ var beepbox = (function (exports) {
 					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
 				}
 	
+				`,
+        "discord": `
+				:root {		
+				--page-margin: #121214; 		
+				--editor-background: #1a1a1e; 		
+				--playhead: #ffffff; 	
+				--primary-text: #ffffff;
+				--secondary-text: #8f9097; 		
+				--invert-text: #000000;
+				--box-selection-fill: #0539a4; 		
+				--loop-accent: #28282d; 		
+				--link-accent: #4b86d0; 		
+				--ui-widget-background: #28282d; 		
+				--ui-widget-focus: #212126; 		
+				--pitch-background: #202024; 		
+				--tonic: #ce9c5c; 		
+				--fifth-note: #25201c; 		
+				--white-piano-key: #ffffff; 		
+				--black-piano-key: #1a1a1e;
+				--white-piano-key-text: #ffffff;
+				--black-piano-key-text: #1a1a1e;
+				--use-color-formula: false; 		
+				--track-editor-bg-pitch: #aaaab1; 		
+				--track-editor-bg-pitch-dim: #777880; 		
+				--track-editor-bg-noise: #aaaab1; 		
+				--track-editor-bg-noise-dim: #777880; 		
+				--track-editor-bg-mod: #aaaab1; 		
+				--track-editor-bg-mod-dim: #777880; 		
+				--multiplicative-mod-slider: #1f1f22; 		
+				--overwriting-mod-slider: #35353b; 		
+				--indicator-primary: #bfc7c9; 		
+				--indicator-secondary: #87878f; 		
+				--select2-opt-group: #28282d; 		
+				--input-box-outline: #303135; 		
+				--mute-button-normal: #aaaab1;	 		
+				--mute-button-mod: #222327; 	
+			
+		  --pitch1-secondary-channel: #21203f;
+		  --pitch1-primary-channel: #31304f; 
+		  --pitch2-secondary-channel: #21203f;
+		  --pitch2-primary-channel: #31304f; 
+		  --pitch3-secondary-channel: #21203f;
+		  --pitch3-primary-channel: #31304f; 
+		  --pitch4-secondary-channel: #21203f;
+		  --pitch4-primary-channel: #31304f; 
+		  --pitch5-secondary-channel: #21203f;
+		  --pitch5-primary-channel: #31304f; 
+		  --pitch6-secondary-channel: #21203f;
+		  --pitch6-primary-channel: #31304f; 
+		  --pitch7-secondary-channel: #21203f;
+		  --pitch7-primary-channel: #31304f; 
+		  --pitch8-secondary-channel: #21203f;
+		  --pitch8-primary-channel: #31304f; 
+		  --pitch9-secondary-channel: #21203f;
+		  --pitch9-primary-channel: #31304f; 
+		  --pitch10-secondary-channel: #21203f;
+		  --pitch10-primary-channel: #31304f; 
+		  --noise1-secondary-channel: #21203f;
+		  --noise1-primary-channel: #31304f; 
+		  --noise2-secondary-channel: #21203f;
+		  --noise2-primary-channel: #31304f; 
+		  --noise3-secondary-channel: #21203f;
+		  --noise3-primary-channel: #31304f; 
+		  --noise4-secondary-channel: #21203f;
+		  --noise4-primary-channel: #31304f; 
+		  --noise5-secondary-channel: #21203f;
+		  --noise5-primary-channel: #31304f; 
+		  --mod1-secondary-channel: #ad6a84;
+		  --mod1-primary-channel: #bd7a94;
+		  --mod2-secondary-channel: #d071e0;
+		  --mod2-primary-channel: #e081f0; 
+		  --mod3-secondary-channel: #7a68db;
+		  --mod3-primary-channel: #8a78eb; 
+		  --mod4-secondary-channel: #3353ce;
+		  --mod4-primary-channel: #4363de;
+		  --mod1-secondary-note: #ad6a84;
+		  --mod1-primary-note: #bd7a94;
+		  --mod2-secondary-note: #d071e0;
+		  --mod2-primary-note: #e081f0; 
+		  --mod3-secondary-note: #7a68db;
+		  --mod3-primary-note: #8a78eb; 
+		  --mod4-secondary-note: #3353ce;
+		  --mod4-primary-note: #4363de; 
+	
+				--note-flash: #ffffff;
+				--note-flash-secondary: #ffffff77;
+				
+				--oscilloscope-line-R: #00ff00;
+				--oscilloscope-line-L: #00ff00;
+				--text-spacing-icon: - ;
+				--scrollbar-color: #666771;
+			}
+
+			@font-face {
+			   font-family: "ggsans";
+			   src:
+				url("theme_resources/ggsansmono-Normal.ttf") format("truetype") tech(color-COLRv1),
+				}
+
+			@font-face {
+			   font-family: "ggsansbold";
+			   src:
+				url("theme_resources/ggsansmono-Bold.ttf") format("truetype") tech(color-COLRv1),
+				}
+
+			@font-face {
+			   font-family: "ginto";
+			   src:
+				url("theme_resources/gABCGintoDiscord-Regular.ttf") format("truetype") tech(color-COLRv1),
+				}
+
+			@font-face {
+			   font-family: "gintomedium";
+			   src:
+				url("theme_resources/ABCGintoDiscord-Medium.ttf") format("truetype") tech(color-COLRv1),
+				}
+
+			@font-face {
+			   font-family: "gintonordbold";
+			   src:
+				url("theme_resources/ABCGintoDiscordNord-Bold.ttf") format("truetype") tech(color-COLRv1),
+				}
+
+			html {
+				font-family: "ggsans"
+			}
+
+			bold {
+				font-family: "ggsansbold"
+			}
+
+			h1 {
+				font-family: "gintonordbold"
+			}
+
+			h2 {
+				font-family: "gintomedium"
+			}
+
+			h3 {
+				font-family: "ginto"
+			}
+
+			`,
+        "minesweeper": `
+				:root {		
+				--page-margin: #888888; 		
+				--editor-background: #bdbdbd; 		
+				--playhead: #ffffff; 	
+				--primary-text: #000000;
+				--secondary-text: #000000; 		
+				--invert-text: #ffffff;
+				--box-selection-fill: #0f44af; 		
+				--loop-accent: #7b7b7b; 		
+				--link-accent: #0f44af; 		
+				--ui-widget-background: #bdbdbd; 		
+				--ui-widget-focus: #bdbdbd; 		
+				--pitch-background: #dbdbdb; 		
+				--tonic: #8b8b8b; 		
+				--fifth-note: #acacac; 		
+				--white-piano-key: #ffffff; 		
+				--black-piano-key: #7b7b7b;
+				--white-piano-key-text: #7b7b7b;
+				--black-piano-key-text: #ffffff;
+				--use-color-formula: false; 		
+				--track-editor-bg-pitch: #4d0000; 		
+				--track-editor-bg-pitch-dim: #000000; 		
+				--track-editor-bg-noise: #4d0000; 		
+				--track-editor-bg-noise-dim: #000000; 		
+				--track-editor-bg-mod: #2f0000; 		
+				--track-editor-bg-mod-dim: #000000; 		
+				--multiplicative-mod-slider: #ff0101; 		
+				--overwriting-mod-slider: #ff0101; 		
+				--indicator-primary: #ffffff; 		
+				--indicator-secondary: #acacac; 		
+				--select2-opt-group: #bdbdbd; 		
+				--input-box-outline: #acacac; 		
+				--mute-button-normal: #4d0000;	 		
+				--mute-button-mod: #2f0000; 		
+			
+		  --pitch1-secondary-channel: #0000ef;
+		  --pitch1-primary-channel: #0101ff;
+		  --pitch1-secondary-note: #0000ef;
+		  --pitch1-primary-note: #0101ff;
+		  --pitch2-secondary-channel: #006b00;
+		  --pitch2-primary-channel: #007b00;
+		  --pitch2-secondary-note: #006b00;
+		  --pitch2-primary-note: #007b00;
+		  --pitch3-secondary-channel: #ef0000;
+		  --pitch3-primary-channel: #ff0101;
+		  --pitch3-secondary-note: #ef0000;
+		  --pitch3-primary-note: #ff0101;
+		  --pitch4-secondary-channel: #00006b;
+		  --pitch4-primary-channel: #00007b;
+		  --pitch4-secondary-note: #00006b;
+		  --pitch4-primary-note: #00007b;
+		  --pitch5-secondary-channel: #6b0000;
+		  --pitch5-primary-channel: #7b0000;
+		  --pitch5-secondary-note: #6b0000;
+		  --pitch5-primary-note: #7b0000;
+		   --pitch6-secondary-channel: #007274;
+		  --pitch6-primary-channel: #008284;
+		  --pitch6-secondary-note: #007274;
+		  --pitch6-primary-note: #008284;
+		  --pitch7-secondary-channel: #740074;
+		  --pitch7-primary-channel: #840084;
+		  --pitch7-secondary-note: #740074;
+		  --pitch7-primary-note: #840084;
+		  --pitch8-secondary-channel: #656565;
+		  --pitch8-primary-channel: #757575;
+		  --pitch8-secondary-note: #656565;
+		  --pitch8-primary-note: #757575;
+		  --pitch9-secondary-channel: #ef00bf;
+		  --pitch9-primary-channel: #ff00af;
+		  --pitch9-secondary-note: #ef00bf;
+		  --pitch9-primary-note: #ff00af;
+		  --pitch10-secondary-channel: #efaad9;
+		  --pitch10-primary-channel: #ffbae9;
+		  --pitch10-secondary-note: #efaad9;
+		  --pitch10-primary-note: #ffbae9;
+		  --noise1-secondary-channel: #efef00;
+		  --noise1-primary-channel: #ffff00;
+		  --noise1-secondary-note: #efef00;
+		  --noise1-primary-note: #ffff00;
+		  --noise2-secondary-channel: #ef6def;
+		  --noise2-primary-channel: #ff7dff;
+		  --noise2-secondary-note: #ef6def;
+		  --noise2-primary-note: #ff7dff;
+		  --noise3-secondary-channel: #00efef;
+		  --noise3-primary-channel: #01ffff;
+		  --noise3-secondary-note: #00efef;
+		  --noise3-primary-note: #01ffff;
+		  --noise4-secondary-channel: #efef6b;
+		  --noise4-primary-channel: #ffff7b;
+		  --noise4-secondary-note: #efef6b;
+		  --noise4-primary-note: #ffff7b;
+		  --noise5-secondary-channel: #6befef;
+		  --noise5-primary-channel: #7bffff;
+		  --noise5-secondary-note: #6befef;
+		  --noise5-primary-note: #7bffff;
+		  --mod1-secondary-channel: #ef0000;
+		  --mod1-primary-channel: #ff0000;
+		  --mod1-secondary-note: #ef0000;
+		  --mod1-primary-note: #ff0000;
+		  --mod2-secondary-channel: #ef0000;
+		  --mod2-primary-channel: #00a2ff;
+		  --mod2-secondary-note: #ef0000;
+		  --mod2-primary-note: #00a2ff;
+		  --mod3-secondary-channel: #ef0000;
+		  --mod3-primary-channel: #00a2ff;
+		  --mod3-secondary-note: #ef0000;
+		  --mod3-primary-note: #00a2ff;
+		  --mod4-secondary-channel: #ef0000;
+		  --mod4-primary-channel: #00a2ff;
+		  --mod4-secondary-note: #ef0000;
+		  --mod4-primary-note: #00a2ff;
+		  --disabled-note-primary: #bdbdbd;
+		  --disabled-note-secondary: #7b7b7b;
+	
+				--note-flash: #ffffff;
+				--note-flash-secondary: #ffffff77;
+				
+				--oscilloscope-line-R: #000000;
+				--oscilloscope-line-L: #000000;
+				--text-spacing-icon:   ;
+				--scrollbar-color: #bfc7c9;
+
+					}
+			* {
+			cursor: url("theme_resources/windows_cursor.png"), auto;
+			}
+			#Hotdog {
+				display: none !important;
+				content: url("theme_resources/hotdog.png") !important;
+			}
+			
+				@font-face {
+			   font-family: "minesweeper";
+			   src:
+				url("theme_resources/mine-sweeper.otf") format("opentype") tech(color-COLRv1),
+				}
+				
+				@font-face {
+			   font-family: "W95FA";
+			   src:
+				url("theme_resources/W95FA.otf") format("opentype") tech(color-COLRv1),
+				}
+	
+				#text-content
+				{
+						border-image-source: url("theme_resources/minesweeper_border.png");
+						border-image-slice: 4 fill; 
+					   border-image-width: 8px; 
+					border-image-repeat: stretch; 
+						padding: 12px; 
+	
+						image-rendering: -moz-crisp-edges !important;         /* Firefox */
+						image-rendering: -webkit-optimize-contrast !important; /* Webkit (Chrome/Safari) */
+						image-rendering: -o-crisp-edges !important;            /* Opera */
+						image-rendering: pixelated !important;                 /* Future browsers */
+						image-rendering: optimizeSpeed !important;             /* IE */
+					}
+
+				#beepboxEditorContainer
+				{
+						border-image-source: url("theme_resources/minesweeper_border.png");
+						border-image-slice: 4 fill; 
+					   	border-image-width: 8px; 
+						border-image-repeat: stretch;
+						padding: 12px;
+						margin-bottom: 10px;
+						margin-top: 10px;
+	
+						image-rendering: -moz-crisp-edges !important;         /* Firefox */
+						image-rendering: -webkit-optimize-contrast !important; /* Webkit (Chrome/Safari) */
+						image-rendering: -o-crisp-edges !important;            /* Opera */
+						image-rendering: pixelated !important;                 /* Future browsers */
+						image-rendering: optimizeSpeed !important;             /* IE */ 
+					}
+
+				.beepboxEditor select,
+				.beepboxEditor button,
+				.beepboxEditor option,
+				.beepboxEditor optgroup,
+				.beepboxEditor .select2-selection__rendered
+				{
+						border-image-source: url("theme_resources/minesweeper_border.png") !important;
+						border-image-slice: 4 fill !important; 
+					   border-image-width: 4px !important; 
+					border-image-repeat: stretch !important;
+						padding: 2px !important; 
+	
+						image-rendering: -moz-crisp-edges !important;         /* Firefox */
+						image-rendering: -webkit-optimize-contrast !important; /* Webkit (Chrome/Safari) */
+						image-rendering: -o-crisp-edges !important;            /* Opera */
+						image-rendering: pixelated !important;                 /* Future browsers */
+						image-rendering: optimizeSpeed !important;             /* IE */
+	
+					}
+					
+	
+				.trackContainer {
+					font-family: 'minesweeper';
+				}
+
+				.version-area {
+					content: url("../website/theme_resources/minesweeper_face.png") !important;
+					align-items: center;
+					margin: 10px
+				}
+				
+				html {
+					font-family: 'W95FA';
+				}
+
+				
 				`,
         "custom": `${localStorage.getItem("customColors") || `:root {  }`}`,
     };
@@ -33027,6 +33383,10 @@ You should be redirected to the song at:<br /><br />
                 this._renderedBorderRight = border;
             }
         }
+        setColor(color) {
+            this.container.style.setProperty("color", color);
+            this._renderedLabelColor = color;
+        }
     }
     class ChannelRow {
         constructor(_doc, index) {
@@ -33069,9 +33429,14 @@ You should be redirected to the song at:<br /><br />
                 const selected = (i == this._doc.bar && this.index == this._doc.channel);
                 const dim = (pattern == null || pattern.notes.length == 0);
                 const box = this._boxes[i];
-                if (i < this._doc.song.barCount) {
-                    const colors = ColorConfig.getChannelColor(this._doc.song, this.index);
-                    box.setIndex(this._doc.song.channels[this.index].bars[i], selected, dim, dim && !selected ? colors.secondaryChannel : colors.primaryChannel, this.index >= this._doc.song.pitchChannelCount && this.index < this._doc.song.pitchChannelCount + this._doc.song.noiseChannelCount, this.index >= this._doc.song.pitchChannelCount + this._doc.song.noiseChannelCount);
+                if (window.localStorage.getItem("colorTheme") != "minesweeper") {
+                    if (i < this._doc.song.barCount) {
+                        const colors = ColorConfig.getChannelColor(this._doc.song, this.index);
+                        box.setIndex(this._doc.song.channels[this.index].bars[i], selected, dim, dim && !selected ? colors.secondaryChannel : colors.primaryChannel, this.index >= this._doc.song.pitchChannelCount && this.index < this._doc.song.pitchChannelCount + this._doc.song.noiseChannelCount, this.index >= this._doc.song.pitchChannelCount + this._doc.song.noiseChannelCount);
+                        box.setVisibility("visible");
+                    }
+                }
+                else if (window.localStorage.getItem("colorTheme") == "minesweeper") {
                     box.setVisibility("visible");
                 }
                 else {
@@ -33089,11 +33454,70 @@ You should be redirected to the song at:<br /><br />
                 else {
                     box.setBorderRight("none");
                 }
-                if (window.localStorage.getItem("colorTheme") == "windows95") {
+                if (window.localStorage.getItem("colorTheme") == "windows95" || window.localStorage.getItem("colorTheme") == "minesweeper") {
                     box.setBorder(`2px outset ${ColorConfig.uiWidgetFocus}`);
                 }
                 else {
                     box.setBorder("none");
+                }
+                if (window.localStorage.getItem("colorTheme") == "minesweeper") {
+                    if (pattern == null) {
+                        box.container.textContent = "";
+                    }
+                    if (pattern != null && box.container.textContent != null) {
+                        box.container.textContent = `${pattern.notes.length}`;
+                        if (pattern.notes.length == 0) {
+                            box.setColor("#000000");
+                        }
+                        if (pattern.notes.length == 1) {
+                            box.setColor("var(--pitch1-primary-note)");
+                        }
+                        if (pattern.notes.length == 2) {
+                            box.setColor("var(--pitch2-primary-note)");
+                        }
+                        if (pattern.notes.length == 3) {
+                            box.setColor("var(--pitch3-primary-note)");
+                        }
+                        if (pattern.notes.length == 4) {
+                            box.setColor("var(--pitch4-primary-note)");
+                        }
+                        if (pattern.notes.length == 5) {
+                            box.setColor("var(--pitch5-primary-note)");
+                        }
+                        if (pattern.notes.length == 6) {
+                            box.setColor("var(--pitch6-primary-note)");
+                        }
+                        if (pattern.notes.length == 7) {
+                            box.setColor("var(--pitch7-primary-note)");
+                        }
+                        if (pattern.notes.length == 8) {
+                            box.setColor("var(--pitch8-primary-note)");
+                        }
+                        if (pattern.notes.length == 9) {
+                            box.setColor("var(--pitch9-primary-note)");
+                        }
+                        if (pattern.notes.length == 10) {
+                            box.setColor("var(--pitch10-primary-note)");
+                        }
+                        if (pattern.notes.length == 11) {
+                            box.setColor("var(--noise1-primary-note)");
+                        }
+                        if (pattern.notes.length == 12) {
+                            box.setColor("var(--noise2-primary-note)");
+                        }
+                        if (pattern.notes.length == 13) {
+                            box.setColor("var(--noise3-primary-note)");
+                        }
+                        if (pattern.notes.length == 14) {
+                            box.setColor("var(--noise4-primary-note)");
+                        }
+                        if (pattern.notes.length == 15) {
+                            box.setColor("var(--noise5-primary-note)");
+                        }
+                        if (pattern.notes.length > 15) {
+                            box.setColor("#000000");
+                        }
+                    }
                 }
             }
         }
@@ -38839,7 +39263,7 @@ You should be redirected to the song at:<br /><br />
     class ThemePrompt {
         constructor(_doc) {
             this._doc = _doc;
-            this._themeSelect = select$4({ style: "width: 100%;" }, optgroup$1({ label: "Default Themes" }, option$4({ value: "ultrabox dark" }, "UltraBox"), option$4({ value: "forest" }, "Forest"), option$4({ value: "canyon" }, "Canyon"), option$4({ value: "midnight" }, "Midnight"), option$4({ value: "beachcombing" }, "Beachcombing"), option$4({ value: "violet verdant" }, "Violet Verdant"), option$4({ value: "sunset" }, "Sunset"), option$4({ value: "autumn" }, "Autumn"), option$4({ value: "fruit" }, "Shadowfruit"), option$4({ value: "toxic" }, "Toxic"), option$4({ value: "roe" }, "Roe"), option$4({ value: "moonlight" }, "Moonlight"), option$4({ value: "portal" }, "Portal"), option$4({ value: "fusion" }, "Fusion"), option$4({ value: "inverse" }, "Inverse"), option$4({ value: "nebula" }, "Nebula"), option$4({ value: "roe light" }, "Roe Light"), option$4({ value: "amoled dark" }, "High Contrast Dark"), option$4({ value: "energized" }, "Energized"), option$4({ value: "neapolitan" }, "Neapolitan"), option$4({ value: "poly" }, "Poly"), option$4({ value: "blutonium" }, "Blutonium"), option$4({ value: "slushie" }, "Slushie")), optgroup$1({ label: "Mod Themes" }, option$4({ value: "dark classic" }, "BeepBox Dark"), option$4({ value: "light classic" }, "BeepBox Light"), option$4({ value: "dark competition" }, "BeepBox Competition Dark"), option$4({ value: "jummbox classic" }, "JummBox Dark"), option$4({ value: "modbox classic" }, "Modbox"), option$4({ value: "sandbox classic" }, "Sandbox"), option$4({ value: "harrybox" }, "Haileybox"), option$4({ value: "brucebox" }, "Brucebox"), option$4({ value: "shitbox 3.0" }, "Shitbox 1.0/3.0"), option$4({ value: "shitbox 2.0" }, "Shitbox 2.0"), option$4({ value: "nerdbox" }, "NerdBox"), option$4({ value: "zefbox" }, "Zefbox"), option$4({ value: "cardboardbox classic" }, "Cardboardbox"), option$4({ value: "blubox classic" }, "Blubox"), option$4({ value: "dogebox classic" }, "Dogebox"), option$4({ value: "wackybox" }, "Wackybox"), option$4({ value: "todbox dark mode" }, "Todbox Dark Mode"), option$4({ value: "mainbox 1.0" }, "Mainbox"), option$4({ value: "microbox" }, "MicroBox"), option$4({ value: "paandorasbox" }, "PaandorasBox"), option$4({ value: "foxbox" }, "FoxBox"), option$4({ value: "midbox" }, "Midbox"), option$4({ value: "dogebox2" }, "Dogebox2"), option$4({ value: "abyssbox classic" }, "AbyssBox Classic"), option$4({ value: "abyssbox light" }, "AbyssBox Light"), option$4({ value: "nepbox" }, "Nepbox"), option$4({ value: "slarmoosbox" }, "Slarmoo's Box"), option$4({ value: "axobox" }, "AxoBox"), option$4({ value: "lemmbox dark" }, "LemmBox"), option$4({ value: "death" }, "D's Quick Box Mod")), optgroup$1({ label: "Misc" }, option$4({ value: "azur lane" }, "Azur Lane"), option$4({ value: "Roblox" }, "Powering Imagination"), option$4({ value: "windows95" }, "Windows 95"), option$4({ value: "custom" }, "Custom")));
+            this._themeSelect = select$4({ style: "width: 100%;" }, optgroup$1({ label: "Default Themes" }, option$4({ value: "ultrabox dark" }, "UltraBox"), option$4({ value: "forest" }, "Forest"), option$4({ value: "canyon" }, "Canyon"), option$4({ value: "midnight" }, "Midnight"), option$4({ value: "beachcombing" }, "Beachcombing"), option$4({ value: "violet verdant" }, "Violet Verdant"), option$4({ value: "sunset" }, "Sunset"), option$4({ value: "autumn" }, "Autumn"), option$4({ value: "fruit" }, "Shadowfruit"), option$4({ value: "toxic" }, "Toxic"), option$4({ value: "roe" }, "Roe"), option$4({ value: "moonlight" }, "Moonlight"), option$4({ value: "portal" }, "Portal"), option$4({ value: "fusion" }, "Fusion"), option$4({ value: "inverse" }, "Inverse"), option$4({ value: "nebula" }, "Nebula"), option$4({ value: "roe light" }, "Roe Light"), option$4({ value: "amoled dark" }, "High Contrast Dark"), option$4({ value: "energized" }, "Energized"), option$4({ value: "neapolitan" }, "Neapolitan"), option$4({ value: "poly" }, "Poly"), option$4({ value: "blutonium" }, "Blutonium"), option$4({ value: "slushie" }, "Slushie")), optgroup$1({ label: "Mod Themes" }, option$4({ value: "dark classic" }, "BeepBox Dark"), option$4({ value: "light classic" }, "BeepBox Light"), option$4({ value: "dark competition" }, "BeepBox Competition Dark"), option$4({ value: "jummbox classic" }, "JummBox Dark"), option$4({ value: "modbox classic" }, "Modbox"), option$4({ value: "sandbox classic" }, "Sandbox"), option$4({ value: "harrybox" }, "Haileybox"), option$4({ value: "brucebox" }, "Brucebox"), option$4({ value: "shitbox 3.0" }, "Shitbox 1.0/3.0"), option$4({ value: "shitbox 2.0" }, "Shitbox 2.0"), option$4({ value: "nerdbox" }, "NerdBox"), option$4({ value: "zefbox" }, "Zefbox"), option$4({ value: "cardboardbox classic" }, "Cardboardbox"), option$4({ value: "blubox classic" }, "Blubox"), option$4({ value: "dogebox classic" }, "Dogebox"), option$4({ value: "wackybox" }, "Wackybox"), option$4({ value: "todbox dark mode" }, "Todbox Dark Mode"), option$4({ value: "mainbox 1.0" }, "Mainbox"), option$4({ value: "microbox" }, "MicroBox"), option$4({ value: "paandorasbox" }, "PaandorasBox"), option$4({ value: "foxbox" }, "FoxBox"), option$4({ value: "midbox" }, "Midbox"), option$4({ value: "dogebox2" }, "Dogebox2"), option$4({ value: "abyssbox classic" }, "AbyssBox Classic"), option$4({ value: "abyssbox light" }, "AbyssBox Light"), option$4({ value: "nepbox" }, "Nepbox"), option$4({ value: "slarmoosbox" }, "Slarmoo's Box"), option$4({ value: "axobox" }, "AxoBox"), option$4({ value: "lemmbox dark" }, "LemmBox"), option$4({ value: "death" }, "D's Quick Box Mod")), optgroup$1({ label: "Misc" }, option$4({ value: "azur lane" }, "Azur Lane"), option$4({ value: "Roblox" }, "Powering Imagination"), option$4({ value: "windows95" }, "Windows 95"), option$4({ value: "discord" }, "Discord"), option$4({ value: "minesweeper" }, "Minesweeper"), option$4({ value: "custom" }, "Custom")));
             this._cancelButton = button$7({ class: "cancelButton" });
             this._okayButton = button$7({ class: "okayButton", style: "width:45%;" }, "Okay");
             this.container = div$7({ class: "prompt noSelection", style: "width: 220px;" }, h2$6("Set Theme"), div$7({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$7({ class: "selectContainer", style: "width: 100%;" }, this._themeSelect)), div$7({ style: "display: flex; flex-direction: row-reverse; justify-content: space-between;" }, this._okayButton), this._cancelButton);
@@ -41823,8 +42247,8 @@ You should be redirected to the song at:<br /><br />
             this._instrumentButtons = [];
             this._instrumentAddButton = button({ type: "button", class: "add-instrument last-button" });
             this._instrumentRemoveButton = button({ type: "button", class: "remove-instrument" });
-            this._instrumentsButtonBar = div({ class: "instrument-bar" }, this._instrumentRemoveButton, this._instrumentAddButton);
-            this._instrumentsButtonRow = div({ class: "selectRow", style: "display: none;" }, span({ class: "tip", onclick: () => this._openPrompt("instrumentIndex") }, "Instrument:"), this._instrumentsButtonBar);
+            this._instrumentsButtonBar = div({ class: "instrument-bar", style: "margin: 0px 10px; display: flex; min-width: 125px" }, this._instrumentRemoveButton, this._instrumentAddButton);
+            this._instrumentsButtonRow = div({ class: "selectRow", style: "display: none;" }, span({ class: "tip", onclick: () => this._openPrompt("instrumentIndex") }, "?"), this._instrumentsButtonBar);
             this._instrumentVolumeSlider = new Slider(input({ style: "margin: 0; position: sticky;", type: "range", min: Math.floor(-Config.volumeRange / 2), max: Math.floor(Config.volumeRange / 2), value: "0", step: "1" }), this._doc, (oldValue, newValue) => new ChangeVolume(this._doc, oldValue, newValue), true);
             this._instrumentVolumeSliderInputBox = input({ style: "width: 4em; font-size: 80%", id: "volumeSliderInputBox", type: "number", step: "1", min: Math.floor(-Config.volumeRange / 2), max: Math.floor(Config.volumeRange / 2), value: "0" });
             this._instrumentVolumeSliderTip = div({ class: "selectRow", style: "height: 1em" }, span({ class: "tip", style: "font-size: smaller;", onclick: () => this._openPrompt("instrumentVolume") }, "Volume: "));
@@ -42012,10 +42436,10 @@ You should be redirected to the song at:<br /><br />
                 div({ style: "margin-top:5px; display:flex; justify-content:center;" }, [this._customWavePresetDrop, this._customWaveZoom]),
             ]);
             this._songTitleInputBox = new InputBox(input({ style: `font-weight:bold; border:none; width: 98%; background-color:${ColorConfig.editorBackground}; color:${ColorConfig.primaryText}; text-align:center`, maxlength: "60", type: "text", value: EditorConfig.versionDisplayName }), this._doc, (oldValue, newValue) => new ChangeSongTitle(this._doc, oldValue, newValue));
-            this._removeLoopButton = button({ style: `margin: 4px; border: thin, inset; max-width: 200px`, class: "removeLoopButton", type: "button", title: "removeLoopButton" }, "Remove Loop");
-            this._barLoopButton = button({ style: `margin: 4px; border: thin, inset; max-width: 200px`, class: "barLoopButton", type: "button", title: "barLoopButton" }, "One Bar Loop");
-            this._songLoopButton = button({ style: `margin: 4px; border: thin, inset; max-width: 200px`, class: "songLoopButton", type: "button", title: "songLoopButton" }, "Song Wide Loop");
-            this._selectLoopButton = button({ style: `margin: 4px; border: thin, inset; max-width: 200px`, class: "selectLoopButton", type: "button", title: "selectLoopButton" }, "Selection Wide Loop");
+            this._removeLoopButton = button({ style: `margin: 4px; border: thin, inset; max-width: 200px; height: auto`, class: "removeLoopButton", type: "button", title: "removeLoopButton" }, "Remove Loop");
+            this._barLoopButton = button({ style: `margin: 4px; border: thin, inset; max-width: 200px; height: auto`, class: "barLoopButton", type: "button", title: "barLoopButton" }, "One Bar Loop");
+            this._songLoopButton = button({ style: `margin: 4px; border: thin, inset; max-width: 200px; height: auto`, class: "songLoopButton", type: "button", title: "songLoopButton" }, "Song Wide Loop");
+            this._selectLoopButton = button({ style: `margin: 4px; border: thin, inset; max-width: 200px; height: auto`, class: "selectLoopButton", type: "button", title: "selectLoopButton" }, "Selection Wide Loop");
             this._feedbackAmplitudeSlider = new Slider(input({ type: "range", min: "0", max: Config.operatorAmplitudeMax, value: "0", step: "1", title: "Feedback Amplitude" }), this._doc, (oldValue, newValue) => new ChangeFeedbackAmplitude(this._doc, oldValue, newValue), false);
             this._feedbackRow2 = div({ class: "selectRow" }, span({ class: "tip", onclick: () => this._openPrompt("feedbackVolume") }, "Fdback Vol:"), this._feedbackAmplitudeSlider.container);
             this._addEnvelopeButton = button({ type: "button", class: "add-envelope" });

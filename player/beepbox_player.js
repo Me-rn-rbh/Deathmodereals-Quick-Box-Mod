@@ -1064,8 +1064,6 @@ var beepbox = (function (exports) {
             promptName: "Song Reverb", promptDesc: ["This setting affects the overall reverb of your song. It works by multiplying existing reverb for instruments, so those with no reverb set will be unaffected.", "At $MID, all instruments' reverb will be unchanged from default. This increases up to double the reverb value at $HI, or down to no reverb at $LO.", "[MULTIPLICATIVE] [$LO - $HI]"] },
         { name: "next bar", pianoName: "Next Bar", maxRawVol: 1, newNoteVol: 1, forSong: true, convertRealFactor: 0, associatedEffect: 12,
             promptName: "Go To Next Bar", promptDesc: ["This setting functions a little different from most. Wherever a note is placed, the song will jump immediately to the next bar when it is encountered.", "This jump happens at the very start of the note, so the length of a next-bar note is irrelevant. Also, the note can be value 0 or 1, but the value is also irrelevant - wherever you place a note, the song will jump.", "You can make mixed-meter songs or intro sections by cutting off unneeded beats with a next-bar modulator.", "[$LO - $HI]"] },
-        { name: "prev bar", pianoName: "Prev. Bar", maxRawVol: 1, newNoteVol: 1, forSong: true, convertRealFactor: 0, associatedEffect: 12,
-            promptName: "Go To Previous Bar", promptDesc: ["This feature works like Next Bar, but you'll be sent to the previous bar.", "Infinite loops yay!!!!"] },
         { name: "note volume", pianoName: "Note Vol.", maxRawVol: Config.volumeRange, newNoteVol: Math.ceil(Config.volumeRange / 2), forSong: false, convertRealFactor: Math.ceil(-Config.volumeRange / 2.0), associatedEffect: 12,
             promptName: "Note Volume", promptDesc: ["This setting affects the volume of your instrument as if its note size had been scaled.", "At $MID, an instrument's volume will be unchanged from default. This means you can still use the volume sliders to mix the base volume of instruments. The volume gradually increases up to $HI, or decreases down to mute at $LO.", "This setting was the default for volume modulation in JummBox for a long time. Due to some new effects like distortion and bitcrush, note volume doesn't always allow fine volume control. Also, this modulator affects the value of FM modulator waves instead of just carriers. This can distort the sound which may be useful, but also may be undesirable. In those cases, use the 'mix volume' modulator instead, which will always just scale the volume with no added effects.", "For display purposes, this mod will show up on the instrument volume slider, as long as there is not also an active 'mix volume' modulator anyhow. However, as mentioned, it works more like changing note volume.", "[MULTIPLICATIVE] [$LO - $HI]"] },
         { name: "pan", pianoName: "Pan", maxRawVol: Config.panMax, newNoteVol: Math.ceil(Config.panMax / 2), forSong: false, convertRealFactor: 0, associatedEffect: 2,
@@ -1147,6 +1145,8 @@ var beepbox = (function (exports) {
             promptName: "Supersaw Spread", promptDesc: ["This setting controls the supersaw spread of your instrument, just like the spread slider.", "At $LO, all the pulses in your supersaw will be at the same frequency. Increasing this value raises the frequency spread of the contributing waves, up to a dissonant spread at the max value, $HI.", "[OVERWRITING] [$LO - $HI]"] },
         { name: "saw shape", pianoName: "Saw Shape", maxRawVol: Config.supersawShapeMax, newNoteVol: 0, forSong: false, convertRealFactor: 0, associatedEffect: 12,
             promptName: "Supersaw Shape", promptDesc: ["This setting controls the supersaw shape of your instrument, just like the Saw↔Pulse slider.", "As the slider's name implies, this effect will give you a sawtooth wave at $LO, and a full pulse width wave at $HI. Values in between will be a blend of the two.", "[OVERWRITING] [$LO - $HI] [%]"] },
+        { name: "prev bar", pianoName: "Prev. Bar", maxRawVol: 1, newNoteVol: 1, forSong: true, convertRealFactor: 0, associatedEffect: 12,
+            promptName: "Go To Previous Bar", promptDesc: ["This feature works like Next Bar, but you'll be sent to the previous bar.", "Infinite loops yay!!!!"] },
     ]);
     function centerWave(wave) {
         let sum = 0.0;
@@ -7728,7 +7728,7 @@ var beepbox = (function (exports) {
 		  --noise5-primary-channel: #00d70e;
 		  --noise5-secondary-note: #29b700;
 		  --noise5-primary-note: #00f7ff;
-		  --mod1-secondary-channel: #9d5bb9;
+		  --mod1-secondary-channel: #00a2cc;
 		  --mod1-primary-channel: #e16bff;
 		  --mod1-secondary-note: #3a3ea4;
 		  --mod1-primary-note: #fff;
@@ -7784,6 +7784,7 @@ var beepbox = (function (exports) {
 		}`,
         "death": `
 			:root {
+				--mod-title: #CCCCFF;
 				--page-margin: #112335;
 					--editor-background: #112335;
 					--playhead: #AABBFF;
@@ -7889,7 +7890,505 @@ var beepbox = (function (exports) {
 					--disabled-note-primary:    #91879f;
 					--disabled-note-secondary:  #6a679a;
 			}
+
+			@font-face {
+			font-family: "Comic Sans MS";
+			)
 		`,
+        "Roblox": `
+		:root {
+			--mod-title: #ff0000;
+			--page-margin: #f9feff;
+			--editor-background: #f9feff;
+			--playhead: rgba(255, 255, 255, 0.9);
+			--primary-text: #202227;
+			--secondary-text: #696a6d;
+			--box-selection-fill: #2252ba;
+			--loop-accent: #0074bf;
+			--link-accent: #0074bf;
+			--ui-widget-background: #f68802;
+			--ui-widget-focus: #d6d8df;
+			--pitch-background: #68d7f5;
+			--tonic: #ffffff;
+			--fifth-note: #5c6064;
+			--white-piano-key: #fff;
+			--black-piano-key: #000;
+			--track-editor-bg-pitch: #00a2ff;
+			--track-editor-bg-pitch-dim: #00a2cc;
+			--track-editor-bg-noise: #f68802;
+			--track-editor-bg-noise-dim: #c64402;
+			--track-editor-bg-mod: #02b757;
+			--track-editor-bg-mod-dim: #029157;
+			--multiplicative-mod-slider: #bb0000;
+			--overwriting-mod-slider: #ad0000;
+			--indicator-primary: #9c64f7;
+			--indicator-secondary: #393e4f;
+			--select2-opt-group: #5d576f;
+			--input-box-outline: #696a6d;
+			--mute-button-normal: #d6d8df;
+			--mute-button-mod: #d6d8df;
+			--mod-label-primary: #696a6d;
+		  --pitch1-secondary-channel: #cc0000;
+		  --pitch1-primary-channel: #ff0000;
+		  --pitch1-secondary-note: #cc0000;
+		  --pitch1-primary-note: #ff0000;
+		  --pitch2-secondary-channel: #bb0000;
+		  --pitch2-primary-channel: #ee0000;
+		  --pitch2-secondary-note: #bb0000;
+		  --pitch2-primary-note: #ee0000;
+		  --pitch3-secondary-channel: #aa0000;
+		  --pitch3-primary-channel: #dd0000;
+		  --pitch3-secondary-note: #aa0000;
+		  --pitch3-primary-note: #dd0000;
+		  --pitch4-secondary-channel: #990000;
+		  --pitch4-primary-channel: #cc0000;
+		  --pitch4-secondary-note: #990000;
+		  --pitch4-primary-note: #cc0000;
+		  --pitch5-secondary-channel: #880000;
+		  --pitch5-primary-channel: #bb0000;
+		  --pitch5-secondary-note: #880000;
+		  --pitch5-primary-note: #bb0000;
+		   --pitch6-secondary-channel: #cc0000;
+		  --pitch6-primary-channel: #ff0000;
+		  --pitch6-secondary-note: #cc0000;
+		  --pitch6-primary-note: #ff0000;
+		  --pitch7-secondary-channel: #bb0000;
+		  --pitch7-primary-channel: #ee0000;
+		  --pitch7-secondary-note: #bb0000;
+		  --pitch7-primary-note: #ee0000;
+		  --pitch8-secondary-channel: #aa0000;
+		  --pitch8-primary-channel: #dd0000;
+		  --pitch8-secondary-note: #aa0000;
+		  --pitch8-primary-note: #dd0000;
+		  --pitch9-secondary-channel: #990000;
+		  --pitch9-primary-channel: #cc0000;
+		  --pitch9-secondary-note: #990000;
+		  --pitch9-primary-note: #cc0000;
+		  --pitch10-secondary-channel: #880000;
+		  --pitch10-primary-channel: #bb0000;
+		  --pitch10-secondary-note: #880000;
+		  --pitch10-primary-note: #bb0000;
+		  --noise1-secondary-channel: #770000;
+		  --noise1-primary-channel: #aa0000;
+		  --noise1-secondary-note: #770000;
+		  --noise1-primary-note: #aa0000;
+		  --noise2-secondary-channel: #660000;
+		  --noise2-primary-channel: #990000;
+		  --noise2-secondary-note: #660000;
+		  --noise2-primary-note: #990000;
+		  --noise3-secondary-channel: #550000;
+		  --noise3-primary-channel: #880000;
+		  --noise3-secondary-note: #50000;
+		  --noise3-primary-note: #880000;
+		  --noise4-secondary-channel: #550000;
+		  --noise4-primary-channel: #880000;
+		  --noise4-secondary-note: #550000;
+		  --noise4-primary-note: #880000;
+		  --noise5-secondary-channel: #440000;
+		  --noise5-primary-channel: #770000;
+		  --noise5-secondary-note: #440000;
+		  --noise5-primary-note: #770000;
+		  --mod1-secondary-channel: #00a2cc;
+		  --mod1-primary-channel: #00a2ff;
+		  --mod1-secondary-note: #00a2cc;
+		  --mod1-primary-note: #00a2ff;
+		  --mod2-secondary-channel: #00a2cc;
+		  --mod2-primary-channel: #00a2ff;
+		  --mod2-secondary-note: #00a2cc;
+		  --mod2-primary-note: #00a2ff;
+		  --mod3-secondary-channel: #00a2cc;
+		  --mod3-primary-channel: #00a2ff;
+		  --mod3-secondary-note: #00a2cc;
+		  --mod3-primary-note: #00a2ff;
+		  --mod4-secondary-channel: #00a2cc;
+		  --mod4-primary-channel: #00a2ff;
+		  --mod4-secondary-note: #00a2cc;
+		  --mod4-primary-note: #00a2ff;
+		  --disabled-note-primary: #696a6d;
+		  --disabled-note-secondary: #60728b;
+			}
+
+		/* replaces hotdog with nothing */
+		#Hotdog {
+			display: hidden !important;
+			content: url("theme_resources/Roblox_logo.png") !important;
+			width: 50%;
+			height: 50%;
+			text-align: center;
+			margin-top: 25px;
+		}
+
+		/* sets cursor */
+		* {
+		cursor: url("theme_resources/Roblox_cursor.png"), auto !important;
+		}
+
+		/* sets background image */
+		body {
+		background-image: url("theme_resources/Roblox_headquarters.png") !important;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+			}
+
+			/* font-nanigans */
+			@font-face {
+			font-family: "BuilderSans";
+			src:
+			url("theme_resources/BuilderSans-Regular-400.otf") format("opentype") tech(color-COLRv1),
+			}
+
+			@font-face {
+			font-family: "BuilderSansSemiBold";
+			src:
+			url("theme_resources/BuilderSans-SemiBold-600.otf") format("opentype") tech(color-COLRv1),
+			}
+
+			@font-face {
+			font-family: "BuilderSansExtraBold";
+			src:
+			url("theme_resources/BuilderSans-ExtraBold-800.otf") format("opentype") tech(color-COLRv1),
+			}
+
+			@font-face {
+			font-family: "BuilderSansBold";
+			src:
+			url("theme_resources/BuilderSans-Bold-700.otf") format("opentype") tech(color-COLRv1),
+			}
+
+			html {
+				font-family: 'BuilderSans';
+			}
+			h1 {
+				font-family: 'BuilderSansExtraBold';
+			}
+			h2 {
+				font-family: 'BuilderSansBold';
+			}
+			h3 {
+				font-family: 'BuilderSansSemiBold';
+			}
+
+			/* make editor background transparent */
+		#beepboxEditorContainer, .beepboxEditor, #text-content {
+		background: #f9feff7d !important;
+		}
+
+			#text-content > section > h1 > font {
+		display: none;
+		}
+
+		#text-content > section > h1 {
+		margin: auto;
+		width: 100%;
+		height: 100%;
+		content: url("theme_resources/Roblox_logo.png");
+		}
+		.promptContainerBG::before {
+			box-shadow: inset 0 0 2000px rgba(0, 0, 0, .5);
+		}
+
+		.beepboxEditor input[type="range"]::-webkit-slider-thumb
+				{
+					cursor: url("theme_resources/Roblox_cursor-hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]::-webkit-slider-runnable-track
+				{
+					cursor: url("theme_resources/Roblox_cursor-hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]:focus::-webkit-slider-runnable-track
+				{
+					cursor: url("theme_resources/Roblox_cursor-hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]::-ms-thumb
+				{
+					cursor: url("theme_resources/Roblox_cursor-hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]::-ms-track
+				{
+					cursor: url("theme_resources/Roblox_cursor-hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]:focus::-ms-track
+				{
+					cursor: url("theme_resources/Roblox_cursor-hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]::-moz-range-thumb
+				{
+					cursor: url("theme_resources/Roblox_cursor-hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]::-moz-range-track
+				{
+					cursor: url("theme_resources/Roblox_cursor-hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]:focus::-moz-range-track
+				{
+					cursor: url("theme_resources/Roblox_cursor-hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="text"],
+				.beepboxEditor input[type="number"]
+				{
+					cursor: url("theme_resources/Roblox_cursor-hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="checkbox"]
+				{
+					cursor: url("theme_resources/Roblox_cursor-hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="checkbox"]:checked
+				{
+					cursor: url("theme_resources/Roblox_cursor-hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="checkbox"]:checked:after
+				{
+					cursor: url("theme_resources/Roblox_cursor-hand.png"), pointer !important;
+				}
+	
+				div.selectRow span {
+					cursor: url("theme_resources/Roblox_cursor-hand.png"), pointer !important;
+				}
+
+
+		}`,
+        "windows95": `
+				:root {		
+				--page-margin: #57a8a9; 		
+				--editor-background: #bfc7c9; 		
+				--playhead: #000000; 	
+				--primary-text: #000000;
+				--secondary-text: #000000; 		
+				--invert-text: #ffffff;
+				--box-selection-fill: #0f44af; 		
+				--loop-accent: #000000; 		
+				--link-accent: #98f; 		
+				--ui-widget-background: #ffffff; 		
+				--ui-widget-focus: #ffffff; 		
+				--pitch-background: #ffffff; 		
+				--tonic: #ffffff; 		
+				--fifth-note: #ffffff; 		
+				--white-piano-key: #bfc7c9; 		
+				--black-piano-key: #bfc7c9;
+				--white-piano-key-text: #000000;
+				--black-piano-key-text: #000000;
+				--use-color-formula: false; 		
+				--track-editor-bg-pitch: #bfc7c9; 		
+				--track-editor-bg-pitch-dim: #87878f; 		
+				--track-editor-bg-noise: #bfc7c9; 		
+				--track-editor-bg-noise-dim: #87878f; 		
+				--track-editor-bg-mod: #bfc7c9; 		
+				--track-editor-bg-mod-dim: #87878f; 		
+				--multiplicative-mod-slider: #9f6082; 		
+				--overwriting-mod-slider: #bfc7c9; 		
+				--indicator-primary: #bfc7c9; 		
+				--indicator-secondary: #87878f; 		
+				--select2-opt-group: #bfc7c9; 		
+				--input-box-outline: #18041a; 		
+				--mute-button-normal: #000000;	 		
+				--mute-button-mod: #000000; 		
+			
+		  --pitch1-secondary-channel: #000000;
+		  --pitch1-primary-channel: #ffffff; 
+		  --pitch2-secondary-channel: #000000;
+		  --pitch2-primary-channel: #ffffff; 
+		  --pitch3-secondary-channel: #000000;
+		  --pitch3-primary-channel: #ffffff; 
+		  --pitch4-secondary-channel: #000000;
+		  --pitch4-primary-channel: #ffffff; 
+		  --pitch5-secondary-channel: #000000;
+		  --pitch5-primary-channel: #ffffff; 
+		  --pitch6-secondary-channel: #000000;
+		  --pitch6-primary-channel: #ffffff; 
+		  --pitch7-secondary-channel: #000000;
+		  --pitch7-primary-channel: #ffffff; 
+		  --pitch8-secondary-channel: #000000;
+		  --pitch8-primary-channel: #ffffff; 
+		  --pitch9-secondary-channel: #000000;
+		  --pitch9-primary-channel: #ffffff; 
+		  --pitch10-secondary-channel: #000000;
+		  --pitch10-primary-channel: #ffffff; 
+		  --noise1-secondary-channel: #000000;
+		  --noise1-primary-channel: #ffffff; 
+		  --noise2-secondary-channel: #000000;
+		  --noise2-primary-channel: #ffffff; 
+		  --noise3-secondary-channel: #000000;
+		  --noise3-primary-channel: #ffffff; 
+		  --noise4-secondary-channel: #000000;
+		  --noise4-primary-channel: #ffffff; 
+		  --noise5-secondary-channel: #000000;
+		  --noise5-primary-channel: #ffffff; 
+		  --mod1-secondary-channel: #000000;
+		  --mod1-primary-channel: #ffffff; 
+		  --mod2-secondary-channel: #000000;
+		  --mod2-primary-channel: #ffffff; 
+		  --mod3-secondary-channel: #000000;
+		  --mod3-primary-channel: #ffffff; 
+		  --mod4-secondary-channel: #000000;
+		  --mod4-primary-channel: #ffffff; 
+	
+				--note-flash: #ffffff;
+				--note-flash-secondary: #ffffff77;
+				
+				--oscilloscope-line-R: #00ff00;
+				--oscilloscope-line-L: #00ff00;
+				--text-spacing-icon:   ;
+				--scrollbar-color: #bfc7c9;
+
+					}
+			* {
+			cursor: url("theme_resources/windows_cursor.png"), auto;
+			}
+			#Hotdog {
+				display: none !important;
+				content: url("theme_resources/hotdog.png") !important;
+			}
+			
+				@font-face {
+			   font-family: "W95";
+			   src:
+				url("theme_resources/W95FA.otf") format("opentype") tech(color-COLRv1),
+				}
+	
+	
+				#text-content
+				{
+						border-image-source: url("theme_resources/windows_editorborder.png");
+						border-image-slice: 4 fill; 
+					   border-image-width: 8px; 
+					border-image-repeat: stretch; 
+						padding: 12px; 
+	
+						image-rendering: -moz-crisp-edges !important;         /* Firefox */
+						image-rendering: -webkit-optimize-contrast !important; /* Webkit (Chrome/Safari) */
+						image-rendering: -o-crisp-edges !important;            /* Opera */
+						image-rendering: pixelated !important;                 /* Future browsers */
+						image-rendering: optimizeSpeed !important;             /* IE */
+					}
+
+				#beepboxEditorContainer
+				{
+						border-image-source: url("theme_resources/windows_editorborder.png");
+						border-image-slice: 4 fill; 
+					   	border-image-width: 8px; 
+						border-image-repeat: stretch;
+						padding: 12px;
+						margin-bottom: 10px;
+						margin-top: 10px;
+	
+						image-rendering: -moz-crisp-edges !important;         /* Firefox */
+						image-rendering: -webkit-optimize-contrast !important; /* Webkit (Chrome/Safari) */
+						image-rendering: -o-crisp-edges !important;            /* Opera */
+						image-rendering: pixelated !important;                 /* Future browsers */
+						image-rendering: optimizeSpeed !important;             /* IE */ 
+					}
+
+				.beepboxEditor input,
+				.beepboxEditor select,
+				.beepboxEditor button,
+				.beepboxEditor option,
+				.beepboxEditor optgroup,
+				.beepboxEditor .select2-selection__rendered
+				{
+						border-image-source: url("theme_resources/windows_border.png") !important;
+						border-image-slice: 4 fill !important; 
+					   border-image-width: 4px !important; 
+					border-image-repeat: stretch !important;
+						padding: 2px !important; 
+	
+						image-rendering: -moz-crisp-edges !important;         /* Firefox */
+						image-rendering: -webkit-optimize-contrast !important; /* Webkit (Chrome/Safari) */
+						image-rendering: -o-crisp-edges !important;            /* Opera */
+						image-rendering: pixelated !important;                 /* Future browsers */
+						image-rendering: optimizeSpeed !important;             /* IE */
+	
+						cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+					}
+					
+	
+				html {
+					font-family: 'W95';
+				}
+	
+				.beepboxEditor input[type="range"]::-webkit-slider-thumb
+				{
+					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]::-webkit-slider-runnable-track
+				{
+					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]:focus::-webkit-slider-runnable-track
+				{
+					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]::-ms-thumb
+				{
+					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]::-ms-track
+				{
+					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]:focus::-ms-track
+				{
+					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]::-moz-range-thumb
+				{
+					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]::-moz-range-track
+				{
+					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]:focus::-moz-range-track
+				{
+					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="text"],
+				.beepboxEditor input[type="number"]
+				{
+					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="checkbox"]
+				{
+					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="checkbox"]:checked
+				{
+					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="checkbox"]:checked:after
+				{
+					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+				}
+	
+				div.selectRow span {
+					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+				}
+	
+				`,
         "custom": `${localStorage.getItem("customColors") || `:root {  }`}`,
     };
     ColorConfig.pageMargin = "var(--page-margin, black)";
@@ -8252,7 +8751,7 @@ var beepbox = (function (exports) {
             return (_a = EditorConfig.presetCategories[0].presets.dictionary) === null || _a === void 0 ? void 0 : _a[TypePresets === null || TypePresets === void 0 ? void 0 : TypePresets[instrument]];
         }
     }
-    EditorConfig.version = "V106";
+    EditorConfig.version = "V261";
     EditorConfig.revamp = "2";
     EditorConfig.versionDisplayName = "D's Quick Box Mod";
     EditorConfig.releaseNotesURL = "./patch_notes.html";
@@ -16550,7 +17049,7 @@ var beepbox = (function (exports) {
                 if (pattern != null) {
                     let instrument = this.song.channels[channel].instruments[pattern.instruments[0]];
                     for (let mod = 0; mod < Config.modCount; mod++) {
-                        if (instrument.modulators[mod] == Config.modulators.dictionary["next bar"].index) {
+                        if (instrument.modulators[mod] == Config.modulators.dictionary["next bar"].index || instrument.modulators[mod] == Config.modulators.dictionary["prev bar"].index) {
                             for (const note of pattern.notes) {
                                 if (note.pitches[0] == (Config.modCount - 1 - mod)) {
                                     if (partsInBar > note.start)
@@ -16570,6 +17069,7 @@ var beepbox = (function (exports) {
             let endBar = enableOutro ? this.song.barCount : (this.song.loopStart + this.song.loopLength);
             let hasTempoMods = false;
             let hasNextBarMods = false;
+            let hasPrevBarMods = false;
             let prevTempo = this.song.tempo;
             for (let channel = this.song.getChannelCount() - 1; channel >= this.song.pitchChannelCount + this.song.noiseChannelCount; channel--) {
                 for (let bar = startBar; bar < endBar; bar++) {
@@ -16582,6 +17082,9 @@ var beepbox = (function (exports) {
                             }
                             if (instrument.modulators[mod] == Config.modulators.dictionary["next bar"].index) {
                                 hasNextBarMods = true;
+                            }
+                            if (instrument.modulators[mod] == Config.modulators.dictionary["prev bar"].index) {
+                                hasPrevBarMods = true;
                             }
                         }
                     }
@@ -16627,7 +17130,7 @@ var beepbox = (function (exports) {
                     }
                 }
             }
-            if (hasTempoMods || hasNextBarMods) {
+            if (hasTempoMods || hasNextBarMods || hasPrevBarMods) {
                 let bar = startBar;
                 let ended = false;
                 let totalSamples = 0;
@@ -16635,6 +17138,9 @@ var beepbox = (function (exports) {
                     let partsInBar = Config.partsPerBeat * this.song.beatsPerBar;
                     let currentPart = 0;
                     if (hasNextBarMods) {
+                        partsInBar = this.findPartsInBar(bar);
+                    }
+                    if (hasPrevBarMods) {
                         partsInBar = this.findPartsInBar(bar);
                     }
                     if (hasTempoMods) {
@@ -21077,14 +21583,14 @@ var beepbox = (function (exports) {
         oscilloscope.canvas.style.display = "none";
         synth.oscEnabled = false;
     }
-    let titleText = h1({ style: "flex-grow: 1; margin: 0 1px; margin-left: 10px; overflow: hidden;" }, "");
+    let titleText = h1({ style: "flex-grow: 1; margin: 0 1px; padding: 5px; overflow: hidden; border: thin, solid" }, "No Title Found!");
     let editLink = a({ target: "_top", style: "margin: 0 4px;" }, "✎ Edit");
     let copyLink = a({ href: "javascript:void(0)", style: "margin: 0 4px;" }, "⎘ Copy URL");
     let shareLink = a({ href: "javascript:void(0)", style: "margin: 0 4px;" }, "⤳ Share");
     let fullscreenLink = a({ target: "_top", style: "margin: 0 4px;" }, "⇱ Fullscreen");
     let draggingPlayhead = false;
-    const playButton = button({ style: "width: 100%; height: 100%; max-height: 50px;" });
-    const playButtonContainer = div({ style: "flex-shrink: 0; display: flex; padding: 2px; width: 80px; height: 100%; box-sizing: border-box; align-items: center;" }, playButton);
+    const playButton = button({ style: "width: 110%; height: 100%; max-height: 50px;" });
+    const playButtonContainer = div({ style: "flex-shrink: 0; display: flex; padding: 10px; width: 80px; height: 100%; box-sizing: border-box; align-items: center;" }, playButton);
     const loopIcon = path({ d: "M 4 2 L 4 0 L 7 3 L 4 6 L 4 4 Q 2 4 2 6 Q 2 8 4 8 L 4 10 Q 0 10 0 6 Q 0 2 4 2 M 8 10 L 8 12 L 5 9 L 8 6 L 8 8 Q 10 8 10 6 Q 10 4 8 4 L 8 2 Q 12 2 12 6 Q 12 10 8 10 z" });
     const loopButton = button({ title: "loop", style: "background: none; flex: 0 0 12px; margin: 0 3px; width: 12px; height: 12px; display: flex;" }, svg({ width: 12, height: 12, viewBox: "0 0 12 12" }, loopIcon));
     const volumeIcon = svg({ style: "flex: 0 0 12px; margin: 0 1px; width: 12px; height: 12px;", viewBox: "0 0 12 12" }, path({ fill: ColorConfig.uiWidgetBackground, d: "M 1 9 L 1 3 L 4 3 L 7 0 L 7 12 L 4 9 L 1 9 M 9 3 Q 12 6 9 9 L 8 8 Q 10.5 6 8 4 L 9 3 z" }));
@@ -21093,23 +21599,23 @@ var beepbox = (function (exports) {
     const zoomButton = button({ title: "zoom", style: "background: none; flex: 0 0 12px; margin: 0 3px; width: 12px; height: 12px; display: flex;" }, zoomIcon);
     const timeline = svg({ style: "min-width: 0; min-height: 0; touch-action: pan-y pinch-zoom;" });
     const playhead = div({ style: `position: absolute; left: 0; top: 0; width: 2px; height: 100%; background: ${ColorConfig.playhead}; pointer-events: none;` });
-    const timelineContainer = div({ style: "display: flex; flex-grow: 1; flex-shrink: 1; position: relative;" }, timeline, playhead);
-    const visualizationContainer = div({ style: "display: flex; flex-grow: 1; flex-shrink: 1; height: 0; position: relative; align-items: center; overflow: hidden;" }, timelineContainer);
+    const timelineContainer = div({ style: "display: flex; flex-grow: 1; flex-shrink: 1; position: relative; padding: 5px" }, timeline, playhead);
+    const visualizationContainer = div({ style: "display: flex; flex-grow: 1; flex-shrink: 1; height: 0; position: relative; align-items: center; overflow: hidden; border: medium, double; margin: 20px 20px 5px 20px;" }, timelineContainer);
     let noteFlashElementsPerBar;
     let currentNoteFlashElements = [];
     let currentNoteFlashBar = -1;
     const notesFlashWhenPlayed = getLocalStorage("notesFlashWhenPlayed") == "true";
     const outVolumeBarBg = SVG.rect({ "pointer-events": "none", width: "90%", height: "50%", x: "5%", y: "25%", fill: ColorConfig.uiWidgetBackground });
     const outVolumeBar = SVG.rect({ "pointer-events": "none", height: "50%", width: "0%", x: "5%", y: "25%", fill: "url('#volumeGrad2')" });
-    const outVolumeCap = SVG.rect({ "pointer-events": "none", width: "2px", height: "50%", x: "5%", y: "25%", fill: ColorConfig.uiWidgetFocus });
+    const outVolumeCap = SVG.rect({ "pointer-events": "none", width: "2px", height: "50%", x: "15%", y: "25%", fill: ColorConfig.uiWidgetFocus });
     const stop1 = SVG.stop({ "stop-color": "lime", offset: "60%" });
     const stop2 = SVG.stop({ "stop-color": "orange", offset: "90%" });
     const stop3 = SVG.stop({ "stop-color": "red", offset: "100%" });
     const gradient = SVG.linearGradient({ id: "volumeGrad2", gradientUnits: "userSpaceOnUse" }, stop1, stop2, stop3);
     const defs = SVG.defs({}, gradient);
-    const volumeBarContainer = SVG.svg({ style: `touch-action: none; overflow: hidden; margin: auto;`, width: "160px", height: "10px", preserveAspectRatio: "none" }, defs, outVolumeBarBg, outVolumeBar, outVolumeCap);
+    const volumeBarContainer = SVG.svg({ style: `touch-action: none; overflow: hidden; margin: auto;`, width: "200px", height: "20px", preserveAspectRatio: "none" }, defs, outVolumeBarBg, outVolumeBar, outVolumeCap);
     document.body.appendChild(visualizationContainer);
-    document.body.appendChild(div({ style: `flex-shrink: 0; height: 20vh; min-height: 22px; max-height: 70px; display: flex; align-items: center;` }, playButtonContainer, loopButton, volumeIcon, volumeSlider, zoomButton, volumeBarContainer, oscilloscope.canvas, titleText, editLink, copyLink, shareLink, fullscreenLink));
+    document.body.appendChild(div({ style: `flex-shrink: 2; height: 20vh; min-height: 22px; max-height: 77px; display: inline-flex; align-contents: center; margin: 5px 0px; gap: 25px;` }, div({ style: `flex-shrink: 0; display: flex; align-items: center; padding: 0px 10px;` }, playButtonContainer, loopButton, zoomButton, titleText, editLink, copyLink, shareLink, fullscreenLink), div({ style: `flex-shrink: 0; display: flex; align-items: center; padding: 0px 10px;` }, volumeIcon, volumeSlider), div({ style: `flex-shrink: 0; display: flex; align-items: center; padding: 0px 10px;` }, volumeBarContainer, oscilloscope.canvas), div({ style: `flex-shrink: 0; display: flex; align-items: center; padding: 0px 10px;` }, titleText)));
     function setLocalStorage(key, value) {
         try {
             localStorage.setItem(key, value);
@@ -21204,7 +21710,7 @@ var beepbox = (function (exports) {
     }
     function volumeUpdate() {
         if (synth.song == null) {
-            outVolumeCap.setAttribute("x", "5%");
+            outVolumeCap.setAttribute("x", "15%");
             outVolumeBar.setAttribute("width", "0%");
             return;
         }
@@ -21370,12 +21876,18 @@ var beepbox = (function (exports) {
         const partWidth = barWidth / (synth.song.beatsPerBar * Config.partsPerBeat);
         const wavePitchHeight = (timelineHeight - 1) / windowPitchCount;
         const drumPitchHeight = (timelineHeight - 1) / Config.drumCount;
+        const modPitchHeight = (timelineHeight - 1) / Config.modCount;
         for (let bar = 0; bar < synth.song.barCount + 1; bar++) {
             const color = (bar == synth.song.loopStart || bar == synth.song.loopStart + synth.song.loopLength) ? ColorConfig.loopAccent : ColorConfig.uiWidgetBackground;
             timeline.appendChild(rect({ x: bar * barWidth - 1, y: 0, width: 2, height: timelineHeight, fill: color }));
         }
         for (let octave = 0; octave <= windowOctaves; octave++) {
             timeline.appendChild(rect({ x: 0, y: octave * 12 * wavePitchHeight, width: timelineWidth, height: wavePitchHeight + 1, fill: ColorConfig.tonic, opacity: 0.75 }));
+        }
+        if (window.localStorage.getItem("showFifth") == "true") {
+            for (let fifth = 0; fifth <= windowOctaves; fifth++) {
+                timeline.appendChild(rect({ x: 0, y: (fifth * 12 * wavePitchHeight) + (5 * wavePitchHeight), width: timelineWidth, height: wavePitchHeight - 1, fill: ColorConfig.fifthNote, opacity: 0.75 }));
+            }
         }
         let noteFlashColor = "#ffffff";
         let noteFlashColorSecondary = "#ffffff77";
@@ -21392,7 +21904,8 @@ var beepbox = (function (exports) {
         }
         for (let channel = synth.song.channels.length - 1 - synth.song.modChannelCount; channel >= 0; channel--) {
             const isNoise = synth.song.getChannelIsNoise(channel);
-            const pitchHeight = isNoise ? drumPitchHeight : wavePitchHeight;
+            const isMod = synth.song.getChannelIsMod(channel);
+            const pitchHeight = isMod ? (modPitchHeight) : (isNoise ? drumPitchHeight : wavePitchHeight);
             const configuredOctaveScroll = synth.song.channels[channel].octave;
             const newOctaveScroll = Math.max(0, Math.min(Config.pitchOctaves - windowOctaves, Math.ceil(configuredOctaveScroll - windowOctaves * 0.5)));
             const offsetY = newOctaveScroll * pitchHeight * 12 + timelineHeight - pitchHeight * 0.5 - 0.5;
@@ -21407,6 +21920,8 @@ var beepbox = (function (exports) {
                         const d = drawNote(pitch, note.start, note.pins, (pitchHeight + 1) / 2, offsetX, offsetY, partWidth, pitchHeight);
                         const noteElement = path({ d: d, fill: ColorConfig.getChannelColor(synth.song, channel).primaryChannel });
                         if (isNoise)
+                            noteElement.style.opacity = String(0.6);
+                        if (isMod)
                             noteElement.style.opacity = String(0.6);
                         timeline.appendChild(noteElement);
                         if (notesFlashWhenPlayed) {
