@@ -466,7 +466,6 @@ var beepbox = (function (exports) {
         { name: "D", isWhiteKey: true, basePitch: 14 },
         { name: "D♯", isWhiteKey: false, basePitch: 15 },
         { name: "E", isWhiteKey: true, basePitch: 16 },
-        { name: "E#???", isWhiteKey: true, basePitch: 17 },
         { name: "F", isWhiteKey: true, basePitch: 17 },
         { name: "F♯", isWhiteKey: false, basePitch: 18 },
         { name: "G", isWhiteKey: true, basePitch: 19 },
@@ -474,7 +473,6 @@ var beepbox = (function (exports) {
         { name: "A", isWhiteKey: true, basePitch: 21 },
         { name: "A♯", isWhiteKey: false, basePitch: 22 },
         { name: "B", isWhiteKey: true, basePitch: 23 },
-        { name: "B♯???", isWhiteKey: false, basePitch: 24 },
     ]);
     Config.blackKeyNameParents = [-1, 1, -1, 1, -1, 1, -1, -1, 1, -1, 1, -1];
     Config.tempoMin = 1;
@@ -1547,7 +1545,7 @@ var beepbox = (function (exports) {
             return (_a = EditorConfig.presetCategories[0].presets.dictionary) === null || _a === void 0 ? void 0 : _a[TypePresets === null || TypePresets === void 0 ? void 0 : TypePresets[instrument]];
         }
     }
-    EditorConfig.version = "V308";
+    EditorConfig.version = "V514";
     EditorConfig.revamp = "2";
     EditorConfig.versionDisplayName = "D's Quick Box Mod";
     EditorConfig.releaseNotesURL = "./patch_notes.html";
@@ -7926,64 +7924,149 @@ var beepbox = (function (exports) {
 			--disabled-note-secondary:  #6a67ac;
 		}`,
         "lemmbox dark": `
-		:root {
-			--page-margin: #020009;
-			--editor-background: #020009;
-			--secondary-text: white;
-			--text-selection: #c2a855;
-			--loop-accent: #fff570;
-			--link-accent: #fff570;
-			--ui-widget-background: #191721;
-			--ui-widget-focus: #2d293b;
-			--pitch-background: #44444A;
-			--tonic: #c2a855;
-			--white-piano-key-text: #131200;
-			--black-piano-key-text: #fff;
-			--pitch-channel-limit: 10;
-			--indicator-primary: #6a38ff;
-			--input-box-outline: #403b4f;
-			--mute-button-mod: #8066cc;
-			--pitch1-secondary-channel: #0099A1;
-			--pitch1-primary-channel:   #25F3FF;
-			--pitch1-secondary-note:    #00BDC7;
-			--pitch1-primary-note:      #92F9FF;
-			--pitch2-secondary-channel: #A1A100;
-			--pitch2-primary-channel:   #FFFF25;
-			--pitch2-secondary-note:    #C7C700;
-			--pitch2-primary-note:      #FFFF92;
-			--pitch3-secondary-channel: #C75000;
-			--pitch3-primary-channel:   #FF9752;
-			--pitch3-secondary-note:    #FF771C;
-			--pitch3-primary-note:      #FFCDAB;
-			--pitch4-secondary-channel: #00A100;
-			--pitch4-primary-channel:   #50FF50;
-			--pitch4-secondary-note:    #00C700;
-			--pitch4-primary-note:      #A0FFA0;
-			--pitch5-secondary-channel: #D020D0;
-			--pitch5-primary-channel:   #FF90FF;
-			--pitch5-secondary-note:    #E040E0;
-			--pitch5-primary-note:      #FFC0FF;
-			--pitch6-secondary-channel: #7777B0;
-			--pitch6-primary-channel:   #A0A0FF;
-			--pitch6-secondary-note:    #8888D0;
-			--pitch6-primary-note:      #D0D0FF;
-			--pitch7-secondary-channel: #8AA100;
-			--pitch7-primary-channel:   #DEFF25;
-			--pitch7-secondary-note:    #AAC700;
-			--pitch7-primary-note:      #E6FF92;
-			--pitch8-secondary-channel: #DF0019;
-			--pitch8-primary-channel:   #FF98A4;
-			--pitch8-secondary-note:    #FF4E63;
-			--pitch8-primary-note:      #FFB2BB;
-			--pitch9-secondary-channel: #00A170;
-			--pitch9-primary-channel:   #50FFC9;
-			--pitch9-secondary-note:    #00C78A;
-			--pitch9-primary-note:      #83FFD9;
-			--pitch10-secondary-channel:#A11FFF;
-			--pitch10-primary-channel:  #CE8BFF;
-			--pitch10-secondary-note:   #B757FF;
-			--pitch10-primary-note:     #DFACFF;
-		}`,
+				:root {
+    --page-margin: #020009;
+    --editor-background: #020009;
+    --hover-preview: white;
+    --playhead: white;
+    --primary-text: white;
+    --secondary-text: white;
+    --inverted-text: black;
+    --text-selection: #c2a855;
+    --box-selection-fill: rgba(255, 255, 255, 0.2);
+    --loop-accent: #fff570;
+    --link-accent: #fff570;
+    --ui-widget-background: #191721;
+    --ui-widget-focus: #2d293b;
+    --pitch-background: #443d4a;
+    --tonic: #c2a855;
+    --fifth-note: #a0cd7c;
+    --third-note: #486;
+    --white-piano-key: #bbb;
+    --black-piano-key: #444;
+    --white-piano-key-text: #131200;
+    --black-piano-key-text: #fff;
+    --use-color-formula: false;
+    --pitch-channel-limit: 10;
+    --track-editor-bg-pitch: #444;
+    --track-editor-bg-pitch-dim: #333;
+    --track-editor-bg-noise: #444;
+    --track-editor-bg-noise-dim: #333;
+    --track-editor-bg-mod: #234;
+    --track-editor-bg-mod-dim: #123;
+    --multiplicative-mod-slider: #456;
+    --overwriting-mod-slider: #654;
+    --indicator-primary: #6a38ff;
+    --indicator-secondary: #444;
+    --select2-opt-group: #585858;
+    --input-box-outline: #403b4f;
+    --mute-button-normal: #ffa033;
+    --mute-button-mod: #8066cc;
+
+    --pitch1-secondary-channel: #e64951;
+    --pitch1-primary-channel: #f0565e;
+    --pitch1-secondary-note: #f34149;
+    --pitch1-primary-note: #f99ca9;
+
+    --pitch2-secondary-channel: #de6f2f;
+    --pitch2-primary-channel: #f18e55;
+    --pitch2-secondary-note: #ef7d3b;
+    --pitch2-primary-note: #f6ad92;
+
+    --pitch3-secondary-channel: #e1d30e;
+    --pitch3-primary-channel: #faec29;
+    --pitch3-secondary-note: #d9cd23;
+    --pitch3-primary-note: #fff570;
+
+    --pitch4-secondary-channel: #78c25a;
+    --pitch4-primary-channel: #85d947;
+    --pitch4-secondary-note: #8de02d;
+    --pitch4-primary-note: #bdff70;
+
+    --pitch5-secondary-channel: #2190eb;
+    --pitch5-primary-channel: #45a5f5;
+    --pitch5-secondary-note: #399bea;
+    --pitch5-primary-note: #70bfff;
+
+    --pitch6-secondary-channel: #7e3af2;
+    --pitch6-primary-channel: #8b4df7;
+    --pitch6-secondary-note: #752fed;
+    --pitch6-primary-note: #965cfa;
+
+    --pitch7-secondary-channel: #7e05f7;
+    --pitch7-primary-channel: #922df7;
+    --pitch7-secondary-note: #7c29cf;
+    --pitch7-primary-note: #9443e6;
+
+    --pitch8-secondary-channel: #94249e;
+    --pitch8-primary-channel: #cf2cde;
+    --pitch8-secondary-note: #b326bf;
+    --pitch8-primary-note: #c53fd1;
+
+    --pitch9-secondary-channel: #c42f6b;
+    --pitch9-primary-channel: #fc5d9d;
+    --pitch9-secondary-note: #cf3b77;   
+    --pitch9-primary-note: #e36f9e;
+
+    --pitch10-secondary-channel: #d53c5e;
+    --pitch10-primary-channel: #f65a7e;
+    --pitch10-secondary-note: #e13e60;
+    --pitch10-primary-note: #ed8090;
+
+    --noise1-secondary-channel: #6F6F6F;
+    --noise1-primary-channel: #AAAAAA;
+    --noise1-secondary-note: #A7A7A7;
+    --noise1-primary-note: #E0E0E0;
+
+    --noise2-secondary-channel: #996633;
+    --noise2-primary-channel: #DDAA77;
+    --noise2-secondary-note: #CC9966;
+    --noise2-primary-note: #F0D0BB;
+
+    --noise3-secondary-channel: #4A6D8F;
+    --noise3-primary-channel: #77AADD;
+    --noise3-secondary-note: #6F9FCF;
+    --noise3-primary-note: #BBD7FF;
+
+    --noise4-secondary-channel: #7A4F9A;
+    --noise4-primary-channel: #AF82D2;
+    --noise4-secondary-note: #9E71C1;
+    --noise4-primary-note: #D4C1EA;
+
+    --noise5-secondary-channel: #607837;
+    --noise5-primary-channel: #A2BB77;
+    --noise5-secondary-note: #91AA66;
+    --noise5-primary-note: #C5E2B2;
+
+    --mod1-secondary-channel: #339955;
+    --mod1-primary-channel: #77fc55;
+    --mod1-secondary-note: #77ff8a;
+    --mod1-primary-note: #cdffee;
+
+    --mod2-secondary-channel: #993355;
+    --mod2-primary-channel: #f04960;
+    --mod2-secondary-note: #f057a0;
+    --mod2-primary-note: #ffb8de;
+
+    --mod3-secondary-channel: #553399;
+    --mod3-primary-channel: #8855fc;
+    --mod3-secondary-note: #aa64ff;
+    --mod3-primary-note: #f8ddff;
+
+    --mod4-secondary-channel: #a86436;
+    --mod4-primary-channel: #c8a825;
+    --mod4-secondary-note: #e8ba46;
+    --mod4-primary-note: #fff6d3;
+
+    --mod-label-primary: #999;
+    --mod-label-secondary-text: #333;
+    --mod-label-primary-text: black;
+    --disabled-note-primary: #999;
+    --disabled-note-secondary: #666;
+    
+    --pitch1-background: #777;
+}
+`,
         "azur lane": `
 		:root {
 			--page-margin: #19337e;
@@ -8593,7 +8676,7 @@ var beepbox = (function (exports) {
 
 					}
 			* {
-			cursor: url("theme_resources/windows_cursor.png"), auto;
+			cursor: url("theme_resources/windows_cursor2.png"), auto !important;
 			}
 			#Hotdog {
 				display: none !important;
@@ -8658,7 +8741,7 @@ var beepbox = (function (exports) {
 						image-rendering: pixelated !important;                 /* Future browsers */
 						image-rendering: optimizeSpeed !important;             /* IE */
 	
-						cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+						cursor: url("theme_resources/windows_cursor_hand2.png"), pointer !important;
 					}
 					
 	
@@ -8668,72 +8751,72 @@ var beepbox = (function (exports) {
 	
 				.beepboxEditor input[type="range"]::-webkit-slider-thumb
 				{
-					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+					cursor: url("theme_resources/windows_cursor_hand2.png"), pointer !important;
 				}
 				 
 				.beepboxEditor input[type="range"]::-webkit-slider-runnable-track
 				{
-					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+					cursor: url("theme_resources/windows_cursor_hand2.png"), pointer !important;
 				}
 				 
 				.beepboxEditor input[type="range"]:focus::-webkit-slider-runnable-track
 				{
-					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+					cursor: url("theme_resources/windows_cursor_hand2.png"), pointer !important;
 				}
 				 
 				.beepboxEditor input[type="range"]::-ms-thumb
 				{
-					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+					cursor: url("theme_resources/windows_cursor_hand2.png"), pointer !important;
 				}
 				 
 				.beepboxEditor input[type="range"]::-ms-track
 				{
-					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+					cursor: url("theme_resources/windows_cursor_hand2.png"), pointer !important;
 				}
 				 
 				.beepboxEditor input[type="range"]:focus::-ms-track
 				{
-					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+					cursor: url("theme_resources/windows_cursor_hand2.png"), pointer !important;
 				}
 				 
 				.beepboxEditor input[type="range"]::-moz-range-thumb
 				{
-					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+					cursor: url("theme_resources/windows_cursor_hand2.png"), pointer !important;
 				}
 				 
 				.beepboxEditor input[type="range"]::-moz-range-track
 				{
-					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+					cursor: url("theme_resources/windows_cursor_hand2.png"), pointer !important;
 				}
 				 
 				.beepboxEditor input[type="range"]:focus::-moz-range-track
 				{
-					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+					cursor: url("theme_resources/windows_cursor_hand2.png"), pointer !important;
 				}
 				 
 				.beepboxEditor input[type="text"],
 				.beepboxEditor input[type="number"]
 				{
-					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+					cursor: url("theme_resources/windows_cursor_hand2.png"), pointer !important;
 				}
 				 
 				.beepboxEditor input[type="checkbox"]
 				{
-					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+					cursor: url("theme_resources/windows_cursor_hand2.png"), pointer !important;
 				}
 				 
 				.beepboxEditor input[type="checkbox"]:checked
 				{
-					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+					cursor: url("theme_resources/windows_cursor_hand2.png"), pointer !important;
 				}
 				 
 				.beepboxEditor input[type="checkbox"]:checked:after
 				{
-					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+					cursor: url("theme_resources/windows_cursor_hand2.png"), pointer !important;
 				}
 	
 				div.selectRow span {
-					cursor: url("theme_resources/windows_cursor_hand.png"), pointer !important;
+					cursor: url("theme_resources/windows_cursor_hand2.png"), pointer !important;
 				}
 	
 				`,
@@ -9005,7 +9088,7 @@ var beepbox = (function (exports) {
 
 					}
 			* {
-			cursor: url("theme_resources/windows_cursor.png"), auto;
+			cursor: url("theme_resources/windows_cursor2.png"), auto !important;
 			}
 			#Hotdog {
 				display: none !important;
@@ -9093,6 +9176,539 @@ var beepbox = (function (exports) {
 
 				
 				`,
+        "starstruck": `
+			:root {
+				--page-margin: #000000;
+				--editor-background: rgba(0,0,0,0.5);
+				--hover-preview: #ffffff;
+				--playhead: #ffffff;
+				--primary-text: #ffffff;
+				--secondary-text: #cccccc;
+				--inverted-text: #000000;
+				--text-selection: #00ccff;
+				--box-selection-fill: #00ccff;
+				--loop-accent: #ff0;
+				--link-accent: #00ccff;
+				--ui-widget-background: #000000;
+				--ui-widget-focus: #000000;
+				--pitch-background: rgba(0,0,255,0.35);
+				--tonic: rgba(255,255,0,0.5);
+				--fifth-note: rgba(0,0,255,0.5);
+				--white-piano-key: #ffffff;
+				--black-piano-key: #000000;
+					--track-editor-bg-pitch: #ececec;
+					--track-editor-bg-pitch-dim: #fdfdfd;
+					--track-editor-bg-noise: #ececec;
+					--track-editor-bg-noise-dim: #fdfdfd;
+					--track-editor-bg-mod: #dbecfd;
+					--track-editor-bg-mod-dim: #ecfdff;
+					--multiplicative-mod-slider: #789;
+					--overwriting-mod-slider: #987;
+					--indicator-primary: #98f;
+					--indicator-secondary: #cde;
+					--select2-opt-group: #cecece;
+					--input-box-outline: #ddd;
+					--mute-button-normal: #000000;
+					--mute-button-mod: #ffff00;
+					--mod-label-primary:        #ffffff;
+					--mod-label-secondary-text: #aaaaaa;
+					--disabled-note-primary:    #009;
+					--disabled-note-secondary:  #000;
+
+				--file-page-symbol: url("theme_resources/starstruck-file.png");
+				--edit-pencil-symbol: url("theme_resources/starstruck-edit.png");
+				--preferences-gear-symbol: url("theme_resources/starstruck-preferences.png");
+				/* --instrument-copy-symbol: url("theme_resources/icon-copy.png");
+				--instrument-paste-symbol: url("theme_resources/icon-paste.png"); */
+				--play-symbol: url("theme_resources/starstruck-play.png");
+				--pause-symbol: url("theme_resources/starstruck-pause.png");
+				--record-symbol: url("theme_resources/istarstruck-record.png");
+				--stop-symbol: url("theme_resources/starstruck-stop.png");
+				--prev-bar-symbol: url("theme_resources/starstruck-prev.png");
+				--next-bar-symbol: url("theme_resources/starstruck-next.png");
+				/* --muted-symbol: url("theme_resources/icon-speakerMuted.png");
+				--unmuted-symbol: url("theme_resources/icon-speaker.png");
+				--volume-symbol: url("theme_resources/icon-speaker.png");
+				--zoom-in-symbol: url("theme_resources/icon-zoomIn.png");
+				--zoom-out-symbol: url("theme_resources/icon-zoomOut.png");
+				--export-symbol: url("theme_resources/icon-export.png"); */
+
+			}
+
+			.pattern-area
+			{
+				background-image: url("theme_resources/Starstruck.png") !important;
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+
+			body {
+				background-image: url("theme_resources/Stars.gif") !important;
+				background-position: center;
+				background-repeat: repeat;
+				background-size: 75%;
+	
+				image-rendering: -moz-crisp-edges !important;         /* Firefox */
+				image-rendering: -webkit-optimize-contrast !important; /* Webkit (Chrome/Safari) */
+				image-rendering: -o-crisp-edges !important;            /* Opera */
+				image-rendering: pixelated !important;                 /* Future browsers */
+				image-rendering: optimizeSpeed !important;             /* IE */
+					}
+
+			* {
+			cursor: url("theme_resources/starstruck_cursor.png"), auto !important;
+			}
+
+			.beepboxEditor button,
+				button.playButton,
+				button.pauseButton, 
+				button.recordButton, 
+				button.stopButton,
+				button.nextBarButton, 
+				button.prevBarButton, 
+				button.copyButton, 
+				button.pasteButton, 
+				button.exportInstrumentButton, 
+				button.importInstrumentButton, 
+				.beepboxEditor select, 
+				.beepboxEditor .select2-selection__rendered,
+				.beepboxEditor input
+				.beepboxEditor option
+				{
+						cursor: url("theme_resources/starstruck_cursor_hand.png"), pointer !important;
+					}
+
+			`,
+        "you should retry NOW": `
+				:root {		
+				--page-margin: #fffffb00; 		
+				--editor-background: #faa3d799; 		
+				--playhead: #fffffb; 	
+				--primary-text: #fffffb;
+				--secondary-text: #fff6c8; 		
+				--invert-text: #000000;
+				--box-selection-fill: #bcdbe4; 		
+				--loop-accent: #bcdbe4; 		
+				--link-accent: #bcdbe4; 		
+				--ui-widget-background: #a5679caa; 		
+				--ui-widget-focus: #a5679caa; 		
+				--pitch-background: #fd99ce; 		
+				--tonic: #fff6c8; 		
+				--fifth-note: #d1219a; 		
+				--white-piano-key: #fef4fb; 		
+				--black-piano-key: #7f4ea2;
+				--white-piano-key-text: #fef4fb00;
+				--black-piano-key-text: #7f4ea200;
+				--use-color-formula: false; 		
+				--track-editor-bg-pitch: #fffffb; 		
+				--track-editor-bg-pitch-dim: #8f689e; 		
+				--track-editor-bg-noise: #fff6c8; 		
+				--track-editor-bg-noise-dim: #ffc5a6; 		
+				--track-editor-bg-mod: #badce4; 		
+				--track-editor-bg-mod-dim: #577290; 		
+				--multiplicative-mod-slider: #1f1f22; 		
+				--overwriting-mod-slider: #35353b; 		
+				--indicator-primary: #aae0ea; 		
+				--indicator-secondary: #908ab4; 		
+				--select2-opt-group: #908ab4; 		
+				--input-box-outline: #aae0ea; 		
+				--mute-button-normal: #ffffff;	 		
+				--mute-button-mod: #66749f; 	
+			
+				--pitch-channel-limit: 1;
+				--noise-channel-limit: 1;
+				--mod-channel-limit  : 1;
+
+		  --pitch1-secondary-channel: #80aab1;
+		  --pitch1-primary-channel: #e9FaFF; 
+		  --pitch1-secondary-note: #80aab1;
+		  --pitch1-primary-note: #e9FaFF;
+		  --noise1-secondary-channel: #cFcFcF;
+		  --noise1-primary-channel: #eeeeee;
+		  --noise1-secondary-note: #eeeeee;
+		  --noise1-primary-note: #ffffff;
+		  --mod1-secondary-channel: #baffda;
+		  --mod1-primary-channel: #eafffd;
+		  --mod1-secondary-note: #c6ffe6;
+		  --mod1-primary-note: #efffff;
+	
+				--note-flash: #ffffff;
+				--note-flash-secondary: #ffffff;
+				
+				--oscilloscope-line-R: #fd60ad;
+				--oscilloscope-line-L: #fd91cc;
+				--text-spacing-icon: ⭐⠀ ;
+				--scrollbar-color: #fffffb;
+				--text-enabled-icon: ❤️ ✓⠀ ;
+				--text-disabled-icon: 💔 X⠀ ;
+				}
+
+
+				body {
+				background-image: url("theme_resources/retrynow_background.gif") !important;
+				background-position: center;
+				background-size: cover;
+				background-attachment: fixed;
+	
+				image-rendering: -moz-crisp-edges !important;         /* Firefox */
+				image-rendering: -webkit-optimize-contrast !important; /* Webkit (Chrome/Safari) */
+				image-rendering: -o-crisp-edges !important;            /* Opera */
+				image-rendering: pixelated !important;                 /* Future browsers */
+				image-rendering: optimizeSpeed !important;             /* IE */
+					}
+
+			* {
+			cursor: url("theme_resources/retrynow_cursor2.png"), auto !important;
+			}
+
+			@font-face {
+			   font-family: "Retry Now";
+			   src:
+				url("theme_resources/FOT-NewRodin Pro DB.otf") format("opentype") tech(color-COLRv1),
+				}
+	
+				textbox {
+					display: block flow-root;
+				}
+
+				textboxtext {
+					font-family: 'Retry Now';
+				}
+
+				#text-content {
+					display: none;
+				}
+
+
+
+				.beepboxEditor input[type="range"]::-webkit-slider-thumb
+				{
+					cursor: url("theme_resources/retrynow_cursor.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]::-webkit-slider-runnable-track
+				{
+					cursor: url("theme_resources/retrynow_cursor.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]:focus::-webkit-slider-runnable-track
+				{
+					cursor: url("theme_resources/retrynow_cursor.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]::-ms-thumb
+				{
+					cursor: url("theme_resources/retrynow_cursor.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]::-ms-track
+				{
+					cursor: url("theme_resources/retrynow_cursor.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]:focus::-ms-track
+				{
+					cursor: url("theme_resources/retrynow_cursor.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]::-moz-range-thumb
+				{
+					cursor: url("theme_resources/retrynow_cursor.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]::-moz-range-track
+				{
+					cursor: url("theme_resources/retrynow_cursor.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="range"]:focus::-moz-range-track
+				{
+					cursor: url("theme_resources/retrynow_cursor.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="text"],
+				.beepboxEditor input[type="number"]
+				{
+					cursor: url("theme_resources/retrynow_cursor.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="checkbox"]
+				{
+					cursor: url("theme_resources/retrynow_cursor.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="checkbox"]:checked
+				{
+					cursor: url("theme_resources/retrynow_cursor.png"), pointer !important;
+				}
+				 
+				.beepboxEditor input[type="checkbox"]:checked:after
+				{
+					cursor: url("theme_resources/retrynow_cursor.png"), pointer !important;
+				}
+	
+				div.selectRow span {
+					cursor: url("theme_resources/retrynow_cursor.png"), pointer !important;
+				}
+			`,
+        "halloween": `
+		:root {
+			--page-margin: #0a101c;
+			--editor-background: #04142baa;
+			--hover-preview: #0e8bf1;
+			--playhead: #fff;
+			--primary-text: #ffffff;
+			--secondary-text: #4b6a86;
+			--inverted-text: #000000;
+			--text-selection: #115596fc;
+			--box-selection-fill: #1c859afd;
+			--loop-accent: #4e5b92;
+			--link-accent: #a0d1f2;
+			--ui-widget-background: #5a323a;
+			--ui-widget-focus: #7e4a3d;
+			--pitch-background: #143f6277;
+			--tonic: #287f9b;
+			--fifth-note: #43536a;
+			--white-piano-key: #cdcdcd;
+			--black-piano-key: #232323;
+			--track-editor-bg-pitch: #2d5475;
+			--track-editor-bg-pitch-dim: #143f62;
+			--track-editor-bg-noise: #343f6d;
+			--track-editor-bg-noise-dim: #19142b;
+			--track-editor-bg-mod: #732b6b;
+			--track-editor-bg-mod-dim: #2f2557;
+			--multiplicative-mod-slider: #f6aa23;
+			--overwriting-mod-slider: #e64f0a;
+			--indicator-primary: #ffffff;
+			--indicator-secondary: #ccdde5;
+			--select2-opt-group: #7a364f;
+			--input-box-outline: #ffffff;
+			--mute-button-normal: #a66350;
+			--mute-button-mod: #332024;
+			--pitch-channel-limit: 1;
+			--noise-channel-limit: 1;
+			--mod-channel-limit  : 1;
+			--pitch1-secondary-channel: #a63521;
+			--pitch1-primary-channel: #ef6e1a;
+			--pitch1-secondary-note: #a63521;
+			--pitch1-primary-note: #ef6e1a;
+			--noise1-secondary-channel: #503b40;
+			--noise1-primary-channel: #5c5c64;
+			--noise1-secondary-note: #503b40;
+			--noise1-primary-note: #5c5c64;
+			--mod1-secondary-channel: #703474;
+			--mod1-primary-channel: #b26ea7;
+			--mod1-secondary-note: #703474;
+			--mod1-primary-note: #b26ea7;
+			--mod-label-primary: #d0c7db;
+			--mod-label-secondary-text: #cb3434;
+			--disabled-note-primary: #616161;
+			--disabled-note-secondary: #474747;
+		}
+		.pattern-area
+			{
+				background-image: url("theme_resources/halloween_moonsky.jpg") !important;
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+		body {
+				background-image: url("theme_resources/halloween_pumpkin.gif") !important;
+				background-position: center;
+				background-repeat: repeat;
+				background-size: 150px;
+	
+				image-rendering: -moz-crisp-edges !important;         /* Firefox */
+				image-rendering: -webkit-optimize-contrast !important; /* Webkit (Chrome/Safari) */
+				image-rendering: -o-crisp-edges !important;            /* Opera */
+				image-rendering: pixelated !important;                 /* Future browsers */
+				image-rendering: optimizeSpeed !important;             /* IE */
+					}
+					
+			`,
+        "lemonlime": `
+		:root {
+			--mod-title: #ffcf32;
+			--page-margin: #d9ffe6;
+			--editor-background: #bbffd288;
+			--hover-preview: #fdce34;
+			--playhead: #fee9a1;
+			--primary-text: #000000;
+			--secondary-text: #bab357;
+			--inverted-text: #000000;
+			--text-selection: #e3ad21cc;
+			--box-selection-fill: #e3ad2188;
+			--loop-accent: #8ddca0;
+			--link-accent: #414ca2;
+			--ui-widget-background: #a0e2af;
+			--ui-widget-focus: #a0e2af;
+			--pitch-background: #bbffd277;
+			--tonic: #5c238988;
+			--fifth-note: #11063788;
+			--white-piano-key: #cdcdcd;
+			--black-piano-key: #232323;
+			--track-editor-bg-pitch: #5b7d66;
+			--track-editor-bg-pitch-dim: #354421;
+			--track-editor-bg-noise: #5b7d66;
+			--track-editor-bg-noise-dim: #354421;
+			--track-editor-bg-mod: #5b7d66;
+			--track-editor-bg-mod-dim: #354421;
+			--multiplicative-mod-slider: #ffe9a1;
+			--overwriting-mod-slider: #ffcf33;
+			--indicator-primary: #ffcf32;
+			--indicator-secondary: #b6861e;
+			--select2-opt-group: #a7a1b1;
+			--input-box-outline: #ffffff;
+			--mute-button-normal: #36452c;
+			--mute-button-mod: #4955c2;
+			--pitch-channel-limit: 1;
+			--noise-channel-limit: 1;
+			--mod-channel-limit  : 1;
+			--pitch1-secondary-channel: #e7b022;
+			--pitch1-primary-channel: #fece31;
+			--pitch1-secondary-note: #e7b022;
+			--pitch1-primary-note: #fece31;
+			--noise1-secondary-channel: #160e1b;
+			--noise1-primary-channel: #3e3742;
+			--noise1-secondary-note: #160e1b;
+			--noise1-primary-note: #3e3742;
+			--mod1-secondary-channel: #203aa2;
+			--mod1-primary-channel: #414ca2;
+			--mod1-secondary-note: #203aa2;
+			--mod1-primary-note: #414ca2;
+			--mod-label-primary: #ffffc0;
+			--mod-label-secondary-text: #f6d056;
+			--disabled-note-primary: #ffff90;
+			--disabled-note-secondary: #ffee80;
+
+			--oscilloscope-line-R: #ffcf33;
+			--oscilloscope-line-L: #fee180;
+			--text-spacing-icon: 🍋⠀ ;
+			--scrollbar-color: #ffce31;
+		}
+
+		.pattern-area
+			{
+				background-image: url("theme_resources/lemon_space.png") !important;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: 200px;
+			}
+		body {
+				background-image: url("theme_resources/lemonlime_bg.gif") !important;
+				background-position: center;
+				background-repeat: repeat;
+	
+				image-rendering: -moz-crisp-edges !important;         /* Firefox */
+				image-rendering: -webkit-optimize-contrast !important; /* Webkit (Chrome/Safari) */
+				image-rendering: -o-crisp-edges !important;            /* Opera */
+				image-rendering: pixelated !important;                 /* Future browsers */
+				image-rendering: optimizeSpeed !important;             /* IE */
+					}
+			`,
+        "hacker": `
+		:root {
+			--page-margin: #00000000;
+			--editor-background: #00000000;
+			--hover-preview: #00aa00;
+			--playhead: #0f0;
+			--primary-text: #0f0;
+			--secondary-text: #0a0;
+			--inverted-text: #000000;
+			--box-selection-fill: #00ff0099;
+			--loop-accent: #00ff00;
+			--link-accent: #0f0;
+			--ui-widget-background: #000000;
+			--ui-widget-focus: #000000;
+			--pitch-background: #00000088;
+			--tonic: #00cc00;
+			--fifth-note: #007700;
+			--white-piano-key: #ffffff;
+			--black-piano-key: #000000;
+			--track-editor-bg-pitch: #0a0;
+			--track-editor-bg-pitch-dim: #000;
+			--track-editor-bg-noise: #060;
+			--track-editor-bg-noise-dim: #000;
+			--track-editor-bg-mod: #0c0;
+			--track-editor-bg-mod-dim: #080;
+			--multiplicative-mod-slider: #008800;
+			--overwriting-mod-slider: #00ff00;
+			--indicator-primary: #00ff00;
+			--indicator-secondary: #00aa00;
+			--select2-opt-group: #000;
+			--input-box-outline: #00ff00;
+			--mute-button-normal: #0f0;
+			--mute-button-mod: #0c0;
+			--pitch-channel-limit: 1;
+			--noise-channel-limit: 1;
+			--mod-channel-limit  : 1;
+			--pitch1-secondary-channel: #00cc00;
+			--pitch1-primary-channel: #00ff00;
+			--pitch1-secondary-note: #00cc00;
+			--pitch1-primary-note: #00ff00;
+			--noise1-secondary-channel: #00cc00;
+			--noise1-primary-channel: #0f0;
+			--noise1-secondary-note: #0c0;
+			--noise1-primary-note: #0f0;
+			--mod1-secondary-channel: #0c0;
+			--mod1-primary-channel: #0f0;
+			--mod1-secondary-note: #0c0;
+			--mod1-primary-note: #0f0;
+			--mod-label-primary: #0f0;
+			--mod-label-secondary-text: #fff;
+			--disabled-note-primary: #040;
+			--disabled-note-secondary: #020;
+
+			--oscilloscope-line-R: #0f0;
+			--oscilloscope-line-L: #0c0;
+			--text-spacing-icon: > ;
+			--scrollbar-color: #0f0;
+
+			--text-enabled-icon: + ;
+			--text-disabled-icon: - ;
+
+		}
+
+
+
+		@font-face {
+			   font-family: "Lucida Console";
+			   src:
+				url("theme_resources/lucon.ttf") format("truetype") tech(color-COLRv1),
+				}
+		
+		html {
+			font-family: "Lucida Console";
+		}
+
+
+
+		.pattern-area {
+				background-image: url("theme_resources/commandline.gif") !important;
+				background-size: contain;
+				background-position: center;
+				background-repeat: no-repeat;
+				z-index: -100;
+			}
+
+		body {
+				background-image: url("theme_resources/hacker_bg.png") !important;
+				background-position: left;
+				background-repeat: repeat-y;
+				backdrop-filter: brightness(0.5) blur(3px);
+				opacity: 1;
+	
+				image-rendering: -moz-crisp-edges !important;         /* Firefox */
+				image-rendering: -webkit-optimize-contrast !important; /* Webkit (Chrome/Safari) */
+				image-rendering: -o-crisp-edges !important;            /* Opera */
+				image-rendering: pixelated !important;                 /* Future browsers */
+				image-rendering: optimizeSpeed !important;             /* IE */
+					}
+		
+
+
+			`,
         "custom": `${localStorage.getItem("customColors") || `:root {  }`}`,
     };
     ColorConfig.pageMargin = "var(--page-margin, black)";
@@ -14208,7 +14824,7 @@ li.select2-results__option[role=group] > strong:hover {
         }
         initToDefault(andResetChannels = true) {
             let randomtempos = [20, 25, 50, 75, 100, 150, 160, 200, 225, 250, 300, 320];
-            let randomkeys = [0, 2, 4, 6, 8, 10, 12];
+            let randomkeys = [0, 2, 4, 5, 7, 9, 11];
             this.scale = 0;
             this.scaleCustom = [true, false, true, true, false, false, false, true, true, false, true, true];
             this.key = randomkeys[(Math.floor(Math.random() * randomkeys.length))];
@@ -32037,6 +32653,89 @@ You should be redirected to the song at:<br /><br />
 				}
 			}
 		`,
+        "monstrosity": `\
+			/* Top-heavy */
+			@media (min-width: 711px) {
+				#beepboxEditorContainer {
+					max-width: initial;
+					height: 100%;
+					padding-top: 0px;
+				}
+				.beepboxEditor {
+					width: 100%;
+					height: 100%;
+					grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+					grid-template-rows: max-content 1fr;
+					grid-template-areas: "track-area pattern-area" "settings-area pattern-area";
+				}
+				.beepboxEditor .pattern-area {
+					width: 100%;
+					height: 100%;
+				}
+				.beepboxEditor .track-area {
+					width: 100%;
+					height: 25%;
+					max-height: 35%
+				}
+				.beepboxEditor .editor-widget-column {
+					flex: 0;
+				}
+				.beepboxEditor .trackAndMuteContainer {
+					width: 100%;
+					flex: 0;
+					flex-basis: initial;
+					flex-grow: 0;
+					overflow-y: auto;
+					max-height: 97.5vh;
+				}
+				.beepboxEditor .instrument-settings-area {
+					overflow-y: scroll;
+					position: relative;
+				}
+				.beepboxEditor .instrument-settings-area > .editor-controls {
+					position: absolute;
+					width: 100%;
+					overflow-y: scroll;
+				}
+				
+				.beepboxEditor .song-settings-area {
+					overflow-y: scroll;
+				}
+				
+				.beepboxEditor .settings-area {
+					width: 100%;
+					grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+					grid-template-rows: auto auto auto minmax(0, 1fr);
+					grid-template-areas:
+						"version-area instrument-settings-area"
+						"play-pause-area instrument-settings-area"
+						"menu-area instrument-settings-area"
+						"song-settings-area instrument-settings-area";
+				}
+				.beepboxEditor .version-area {
+					position: sticky;
+					top: 0;
+					z-index: 1;
+					background: ${ColorConfig.editorBackground};
+				}
+				.beepboxEditor .play-pause-area {
+					position: sticky;
+					top: 22px;
+					z-index: 1;
+					background: ${ColorConfig.editorBackground};
+				}
+				.beepboxEditor .menu-area {
+					position: sticky;
+					top: 82px;
+					z-index: 1;
+					background: ${ColorConfig.editorBackground};
+				}
+				
+				.beepboxEditor .trackContainer {
+					overflow: visible;
+				}
+			}
+		`,
     };
     Layout._styleElement = document.head.appendChild(HTML.style({ type: "text/css" }));
 
@@ -33584,7 +34283,15 @@ You should be redirected to the song at:<br /><br />
 						<rect x="20" y="2" width="4" height="16" fill="currentColor"/>
 						<rect x="2" y="13" width="17" height="5" fill="currentColor"/>
 					</svg>
-				`), div$g("Focused long (AB)")));
+				`), div$g("Focused long (AB)")), label$1({ class: "layout-option" }, input$b({ type: "radio", name: "layout", value: "monstrosity" }), SVG(`\
+					<svg viewBox="-1 -1 28 22">
+						<rect x="0" y="0" width="26" height="20" fill="none" stroke="currentColor" stroke-width="1"/>
+						<rect x="2" y="2" width="10.5" height="10" fill="currentColor"/>
+						<rect x="13.5" y="2" width="10.5" height="16" fill="currentColor"/>
+						<rect x="2" y="13" width="5" height="5" fill="currentColor"/>
+						<rect x="7.5" y="13" width="5" height="5" fill="currentColor"/>
+					</svg>
+				`), div$g("Monstrosity (D's)")));
             this.container = div$g({ class: "prompt noSelection", style: "width: 300px;" }, h2$f("Layout"), this._form, div$g({ style: "display: flex; flex-direction: row-reverse; justify-content: space-between;" }, this._okayButton), this._cancelButton);
             this._close = () => {
                 this._doc.undo();
@@ -37582,8 +38289,10 @@ You should be redirected to the song at:<br /><br />
                     for (let channel = this._doc.song.pitchChannelCount + this._doc.song.noiseChannelCount - 1; channel >= 0; channel--) {
                         if (channel == this._doc.channel)
                             continue;
-                        if (this._doc.song.getChannelIsNoise(channel) != this._doc.song.getChannelIsNoise(this._doc.channel))
-                            continue;
+                        if (this._doc.prefs.realshowchannels == false) {
+                            if (this._doc.song.getChannelIsNoise(channel) != this._doc.song.getChannelIsNoise(this._doc.channel))
+                                continue;
+                        }
                         const pattern2 = this._doc.song.getPattern(channel, this._doc.bar + this._barOffset);
                         if (pattern2 == null)
                             continue;
@@ -37593,13 +38302,33 @@ You should be redirected to the song at:<br /><br />
                                 let notePath = SVG.path();
                                 notePath.setAttribute("fill", ColorConfig.getChannelColor(this._doc.song, channel).secondaryNote);
                                 notePath.setAttribute("pointer-events", "none");
-                                this._drawNote(notePath, pitch, note.start, note.pins, this._pitchHeight * 0.19, false, octaveOffset);
+                                if (this._doc.prefs.realshowchannels) {
+                                    if (this._doc.song.getChannelIsNoise(channel) == false) {
+                                        this._drawNote(notePath, pitch, note.start, note.pins, this._pitchHeight * 0.35, true, octaveOffset);
+                                    }
+                                    else if (this._doc.song.getChannelIsNoise(channel) == true) {
+                                        this._drawNote(notePath, pitch, note.start, note.pins, this._pitchHeight * 0.5, true, 0);
+                                    }
+                                }
+                                else {
+                                    this._drawNote(notePath, pitch, note.start, note.pins, this._pitchHeight * 0.19, false, octaveOffset);
+                                }
                                 this._svgNoteContainer.appendChild(notePath);
                                 if (this._doc.prefs.notesFlashWhenPlayed) {
                                     notePath = SVG.path();
                                     notePath.setAttribute("fill", noteFlashColor);
                                     notePath.setAttribute("pointer-events", "none");
-                                    this._drawNote(notePath, pitch, note.start, note.pins, this._pitchHeight * 0.19, false, octaveOffset);
+                                    if (this._doc.prefs.realshowchannels) {
+                                        if (this._doc.song.getChannelIsNoise(channel) == false) {
+                                            this._drawNote(notePath, pitch, note.start, note.pins, this._pitchHeight * 0.35, true, octaveOffset);
+                                        }
+                                        else if (this._doc.song.getChannelIsNoise(channel) == true) {
+                                            this._drawNote(notePath, pitch, note.start, note.pins, this._pitchHeight * 0.5, true, 0);
+                                        }
+                                    }
+                                    else {
+                                        this._drawNote(notePath, pitch, note.start, note.pins, this._pitchHeight * 0.19, false, octaveOffset);
+                                    }
                                     this._svgNoteContainer.appendChild(notePath);
                                     notePath.classList.add('note-flash');
                                     notePath.style.opacity = "0";
@@ -39263,7 +39992,7 @@ You should be redirected to the song at:<br /><br />
     class ThemePrompt {
         constructor(_doc) {
             this._doc = _doc;
-            this._themeSelect = select$4({ style: "width: 100%;" }, optgroup$1({ label: "Default Themes" }, option$4({ value: "ultrabox dark" }, "UltraBox"), option$4({ value: "forest" }, "Forest"), option$4({ value: "canyon" }, "Canyon"), option$4({ value: "midnight" }, "Midnight"), option$4({ value: "beachcombing" }, "Beachcombing"), option$4({ value: "violet verdant" }, "Violet Verdant"), option$4({ value: "sunset" }, "Sunset"), option$4({ value: "autumn" }, "Autumn"), option$4({ value: "fruit" }, "Shadowfruit"), option$4({ value: "toxic" }, "Toxic"), option$4({ value: "roe" }, "Roe"), option$4({ value: "moonlight" }, "Moonlight"), option$4({ value: "portal" }, "Portal"), option$4({ value: "fusion" }, "Fusion"), option$4({ value: "inverse" }, "Inverse"), option$4({ value: "nebula" }, "Nebula"), option$4({ value: "roe light" }, "Roe Light"), option$4({ value: "amoled dark" }, "High Contrast Dark"), option$4({ value: "energized" }, "Energized"), option$4({ value: "neapolitan" }, "Neapolitan"), option$4({ value: "poly" }, "Poly"), option$4({ value: "blutonium" }, "Blutonium"), option$4({ value: "slushie" }, "Slushie")), optgroup$1({ label: "Mod Themes" }, option$4({ value: "dark classic" }, "BeepBox Dark"), option$4({ value: "light classic" }, "BeepBox Light"), option$4({ value: "dark competition" }, "BeepBox Competition Dark"), option$4({ value: "jummbox classic" }, "JummBox Dark"), option$4({ value: "modbox classic" }, "Modbox"), option$4({ value: "sandbox classic" }, "Sandbox"), option$4({ value: "harrybox" }, "Haileybox"), option$4({ value: "brucebox" }, "Brucebox"), option$4({ value: "shitbox 3.0" }, "Shitbox 1.0/3.0"), option$4({ value: "shitbox 2.0" }, "Shitbox 2.0"), option$4({ value: "nerdbox" }, "NerdBox"), option$4({ value: "zefbox" }, "Zefbox"), option$4({ value: "cardboardbox classic" }, "Cardboardbox"), option$4({ value: "blubox classic" }, "Blubox"), option$4({ value: "dogebox classic" }, "Dogebox"), option$4({ value: "wackybox" }, "Wackybox"), option$4({ value: "todbox dark mode" }, "Todbox Dark Mode"), option$4({ value: "mainbox 1.0" }, "Mainbox"), option$4({ value: "microbox" }, "MicroBox"), option$4({ value: "paandorasbox" }, "PaandorasBox"), option$4({ value: "foxbox" }, "FoxBox"), option$4({ value: "midbox" }, "Midbox"), option$4({ value: "dogebox2" }, "Dogebox2"), option$4({ value: "abyssbox classic" }, "AbyssBox Classic"), option$4({ value: "abyssbox light" }, "AbyssBox Light"), option$4({ value: "nepbox" }, "Nepbox"), option$4({ value: "slarmoosbox" }, "Slarmoo's Box"), option$4({ value: "axobox" }, "AxoBox"), option$4({ value: "lemmbox dark" }, "LemmBox"), option$4({ value: "death" }, "D's Quick Box Mod")), optgroup$1({ label: "Misc" }, option$4({ value: "azur lane" }, "Azur Lane"), option$4({ value: "Roblox" }, "Powering Imagination"), option$4({ value: "windows95" }, "Windows 95"), option$4({ value: "discord" }, "Discord"), option$4({ value: "minesweeper" }, "Minesweeper"), option$4({ value: "custom" }, "Custom")));
+            this._themeSelect = select$4({ style: "width: 100%;" }, optgroup$1({ label: "Default Themes" }, option$4({ value: "ultrabox dark" }, "UltraBox"), option$4({ value: "forest" }, "Forest"), option$4({ value: "canyon" }, "Canyon"), option$4({ value: "midnight" }, "Midnight"), option$4({ value: "beachcombing" }, "Beachcombing"), option$4({ value: "violet verdant" }, "Violet Verdant"), option$4({ value: "sunset" }, "Sunset"), option$4({ value: "autumn" }, "Autumn"), option$4({ value: "fruit" }, "Shadowfruit"), option$4({ value: "toxic" }, "Toxic"), option$4({ value: "roe" }, "Roe"), option$4({ value: "moonlight" }, "Moonlight"), option$4({ value: "portal" }, "Portal"), option$4({ value: "fusion" }, "Fusion"), option$4({ value: "inverse" }, "Inverse"), option$4({ value: "nebula" }, "Nebula"), option$4({ value: "roe light" }, "Roe Light"), option$4({ value: "amoled dark" }, "High Contrast Dark"), option$4({ value: "energized" }, "Energized"), option$4({ value: "neapolitan" }, "Neapolitan"), option$4({ value: "poly" }, "Poly"), option$4({ value: "blutonium" }, "Blutonium"), option$4({ value: "slushie" }, "Slushie")), optgroup$1({ label: "Mod Themes" }, option$4({ value: "dark classic" }, "BeepBox Dark"), option$4({ value: "light classic" }, "BeepBox Light"), option$4({ value: "dark competition" }, "BeepBox Competition Dark"), option$4({ value: "jummbox classic" }, "JummBox Dark"), option$4({ value: "modbox classic" }, "Modbox"), option$4({ value: "sandbox classic" }, "Sandbox"), option$4({ value: "harrybox" }, "Haileybox"), option$4({ value: "brucebox" }, "Brucebox"), option$4({ value: "shitbox 3.0" }, "Shitbox 1.0/3.0"), option$4({ value: "shitbox 2.0" }, "Shitbox 2.0"), option$4({ value: "nerdbox" }, "NerdBox"), option$4({ value: "zefbox" }, "Zefbox"), option$4({ value: "cardboardbox classic" }, "Cardboardbox"), option$4({ value: "blubox classic" }, "Blubox"), option$4({ value: "dogebox classic" }, "Dogebox"), option$4({ value: "wackybox" }, "Wackybox"), option$4({ value: "todbox dark mode" }, "Todbox Dark Mode"), option$4({ value: "mainbox 1.0" }, "Mainbox"), option$4({ value: "microbox" }, "MicroBox"), option$4({ value: "paandorasbox" }, "PaandorasBox"), option$4({ value: "foxbox" }, "FoxBox"), option$4({ value: "midbox" }, "Midbox"), option$4({ value: "dogebox2" }, "Dogebox2"), option$4({ value: "abyssbox classic" }, "AbyssBox Classic"), option$4({ value: "abyssbox light" }, "AbyssBox Light"), option$4({ value: "nepbox" }, "Nepbox"), option$4({ value: "slarmoosbox" }, "Slarmoo's Box"), option$4({ value: "axobox" }, "AxoBox"), option$4({ value: "lemmbox dark" }, "LemmBox"), option$4({ value: "death" }, "D's Quick Box Mod")), optgroup$1({ label: "Misc" }, option$4({ value: "azur lane" }, "Azur Lane"), option$4({ value: "Roblox" }, "Powering Imagination"), option$4({ value: "windows95" }, "Windows 95"), option$4({ value: "discord" }, "Discord"), option$4({ value: "minesweeper" }, "Minesweeper"), option$4({ value: "starstruck" }, "Starstruck (bad)"), option$4({ value: "you should retry NOW" }, "Retry Now"), option$4({ value: "halloween" }, "Halloween"), option$4({ value: "lemonlime" }, "LemonLime"), option$4({ value: "hacker" }, "Hacker Stock Images"), option$4({ value: "custom" }, "Custom")));
             this._cancelButton = button$7({ class: "cancelButton" });
             this._okayButton = button$7({ class: "okayButton", style: "width:45%;" }, "Okay");
             this.container = div$7({ class: "prompt noSelection", style: "width: 220px;" }, h2$6("Set Theme"), div$7({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$7({ class: "selectContainer", style: "width: 100%;" }, this._themeSelect)), div$7({ style: "display: flex; flex-direction: row-reverse; justify-content: space-between;" }, this._okayButton), this._cancelButton);
@@ -39308,7 +40037,7 @@ You should be redirected to the song at:<br /><br />
         }
     }
 
-    const { button: button$6, div: div$6, p, h2: h2$5, h3: h3$1 } = HTML;
+    const { button: button$6, div: div$6, p, h2: h2$5, h3 } = HTML;
     class TipPrompt {
         constructor(_doc, type) {
             this._doc = _doc;
@@ -39583,12 +40312,12 @@ You should be redirected to the song at:<br /><br />
                     break;
                 case "usedInstrument":
                     {
-                        message = div$6(h3$1("'Is this instrument used somewhere else?'"), p("This indicator will light up when the instrument you're currently looking at is used in another place in your song (outside the selection)."), p("This can be useful when you're not sure if you've used the instrument before and making edits carelessly could change other parts of the song."));
+                        message = div$6(h3("'Is this instrument used somewhere else?'"), p("This indicator will light up when the instrument you're currently looking at is used in another place in your song (outside the selection)."), p("This can be useful when you're not sure if you've used the instrument before and making edits carelessly could change other parts of the song."));
                     }
                     break;
                 case "usedPattern":
                     {
-                        message = div$6(h3$1("'Is this pattern used somewhere else?'"), p("This indicator will light up when the pattern you're currently looking at is used in another place in your song (outside the selection)."), p("This can be useful when you're not sure if you've used the pattern before and making edits carelessly could change other parts of the song."));
+                        message = div$6(h3("'Is this pattern used somewhere else?'"), p("This indicator will light up when the pattern you're currently looking at is used in another place in your song (outside the selection)."), p("This can be useful when you're not sure if you've used the pattern before and making edits carelessly could change other parts of the song."));
                     }
                     break;
                 case "modChannel":
@@ -41601,7 +42330,7 @@ You should be redirected to the song at:<br /><br />
         }
     }
 
-    const { button: button$1, div: div$1, input: input$1, h2, h3 } = HTML;
+    const { button: button$1, div: div$1, input: input$1, h2, } = HTML;
     class BackDropPrompt {
         constructor(_doc) {
             this._doc = _doc;
@@ -41610,7 +42339,7 @@ You should be redirected to the song at:<br /><br />
             this._backdropbrightnessInputBox = input$1({ style: "width: 4em; font-size: 80%", id: "backdropbrightnessInputBox", type: "number", step: "0.1", min: 0, max: 1, value: "0" });
             this._cancelButton = button$1({ class: "cancelButton" });
             this._okayButton = button$1({ class: "okayButton", style: "width:45%;" }, "Okay");
-            this.container = div$1({ class: "prompt noSelection", style: "width: 300px;" }, h2("Customize Backdrop"), div$1({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$1({ style: "display: flex" }, h3("Blur"), div$1({ class: "selectContainer", style: "width: 100%;" }, this._backdropblurInputBox))), div$1({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$1({ style: "display: flex" }, h3("Brightness"), div$1({ class: "selectContainer", style: "width: 100%;" }, this._backdropbrightnessInputBox))), div$1({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$1({ style: "display: flex" }, h3("Opacity"), div$1({ class: "selectContainer", style: "width: 100%;" }, this._backdropopacityInputBox))), div$1({ style: "display: flex; flex-direction: row-reverse; justify-content: space-between;" }, this._okayButton), this._cancelButton);
+            this.container = div$1({ class: "prompt noSelection", style: "width: 300px;" }, h2("Customize Backdrop"), div$1({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$1({ style: "display: flex" }, div$1("Blur"), div$1({ class: "selectContainer", style: "width: 100%;" }, this._backdropblurInputBox))), div$1({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$1({ style: "display: flex" }, div$1("Brightness"), div$1({ class: "selectContainer", style: "width: 100%;" }, this._backdropbrightnessInputBox))), div$1({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$1({ style: "display: flex" }, div$1("Opacity"), div$1({ class: "selectContainer", style: "width: 100%;" }, this._backdropopacityInputBox))), div$1({ style: "display: flex; flex-direction: row-reverse; justify-content: space-between;" }, this._okayButton), this._cancelButton);
             this._close = () => {
                 this._doc.undo();
             };
@@ -41625,13 +42354,18 @@ You should be redirected to the song at:<br /><br />
                 }
             };
             this._saveChanges = () => {
-                this._doc.prompt = null;
-                BackDropPrompt.backdropfilter = "brightness" + `(${this._backdropbrightnessInputBox})` + "blur" + `(${this._backdropblurInputBox}px)`;
-                BackDropPrompt.backdropopacity = `${this._backdropopacityInputBox}`;
-                BackDropPrompt.active = "yes";
-                if (BackDropPrompt.backdropfilter == "brightness(0) blur(0px)" && BackDropPrompt.backdropopacity == "0") {
-                    BackDropPrompt.active = "none";
+                BackDropPrompt.backdropfilter = "brightness" + `(${this._backdropbrightnessInputBox.value})` + " " + "blur" + `(${this._backdropblurInputBox.value}px)`;
+                BackDropPrompt.backdropopacity = `${this._backdropopacityInputBox.value}`;
+                if (this._doc.prefs.frostedopacity != BackDropPrompt.backdropopacity || this._doc.prefs.frostedfilter != BackDropPrompt.backdropfilter) {
+                    BackDropPrompt.active = true;
                 }
+                else if (this._doc.prefs.frostedopacity == BackDropPrompt.backdropopacity && this._doc.prefs.frostedfilter == BackDropPrompt.backdropfilter) {
+                    BackDropPrompt.active = false;
+                }
+                this._doc.prefs.frostedactive = BackDropPrompt.active;
+                this._doc.prefs.frostedopacity = BackDropPrompt.backdropopacity;
+                this._doc.prefs.frostedfilter = BackDropPrompt.backdropfilter;
+                this._doc.prompt = null;
                 this._doc.undo();
             };
             this._okayButton.addEventListener("click", this._saveChanges);
@@ -41641,9 +42375,7 @@ You should be redirected to the song at:<br /><br />
     }
     BackDropPrompt.backdropfilter = "";
     BackDropPrompt.backdropopacity = "";
-    BackDropPrompt.backdropblur = 0;
-    BackDropPrompt.backdropbrightness = 0;
-    BackDropPrompt.active = "none";
+    BackDropPrompt.active = false;
 
     const { button, div, input, select, span, optgroup, option, canvas } = HTML;
     function buildOptions(menu, items) {
@@ -42225,7 +42957,8 @@ You should be redirected to the song at:<br /><br />
             this._volumeBarBox = div({ class: "playback-volume-bar", style: "height: 12px; align-self: center;" }, this._volumeBarContainer);
             this._fileMenu = select({ style: "width: 100%;" }, option({ selected: true, disabled: true, hidden: false }, "File"), option({ value: "new" }, "+ New Blank Song (⇧`)"), option({ value: "import" }, "↑ Import Song... (" + EditorConfig.ctrlSymbol + "O)"), option({ value: "export" }, "↓ Export Song... (" + EditorConfig.ctrlSymbol + "S)"), option({ value: "copyUrl" }, "⎘ Copy Song URL"), option({ value: "shareUrl" }, "⤳ Share Song URL"), option({ value: "configureShortener" }, "🛠 Customize Url Shortener..."), option({ value: "shortenUrl" }, "… Shorten Url (Open Tinyurl/Shorten with is.gd)"), option({ value: "viewPlayer" }, "▶ View in Song Player (⇧P)"), option({ value: "copyEmbed" }, "⎘ Copy HTML Embed Code"), option({ value: "songRecovery" }, "⚠ Recover Recent Song... (`)"));
             this._editMenu = select({ style: "width: 100%;" }, option({ selected: true, disabled: true, hidden: false }, "Edit"), option({ value: "undo" }, "Undo (Z)"), option({ value: "redo" }, "Redo (Y)"), option({ value: "copy" }, "Copy Pattern (C)"), option({ value: "pasteNotes" }, "Paste Pattern Notes (V)"), option({ value: "pasteNumbers" }, "Paste Pattern Numbers (" + EditorConfig.ctrlSymbol + "⇧V)"), option({ value: "insertBars" }, "Insert Bar (⏎)"), option({ value: "deleteBars" }, "Delete Selected Bars (⌫)"), option({ value: "insertChannel" }, "Insert Channel (" + EditorConfig.ctrlSymbol + "⏎)"), option({ value: "deleteChannel" }, "Delete Selected Channels (" + EditorConfig.ctrlSymbol + "⌫)"), option({ value: "selectChannel" }, "Select Channel (⇧A)"), option({ value: "selectAll" }, "Select All (A)"), option({ value: "duplicatePatterns" }, "Duplicate Reused Patterns (D)"), option({ value: "transposeUp" }, "Move Notes Up (+ or ⇧+)"), option({ value: "transposeDown" }, "Move Notes Down (- or ⇧-)"), option({ value: "moveNotesSideways" }, "Move All Notes Sideways... (W)"), option({ value: "generateEuclideanRhythm" }, "Generate Euclidean Rhythm... (E)"), option({ value: "beatsPerBar" }, "Change Beats Per Bar... (⇧B)"), option({ value: "barCount" }, "Change Song Length... (L)"), option({ value: "channelSettings" }, "Channel Settings... (Q)"), option({ value: "limiterSettings" }, "Limiter Settings... (⇧L)"), option({ value: "addExternal" }, "Add Custom Samples... (⇧Q)"));
-            this._optionsMenu = select({ style: "width: 100%;" }, option({ selected: true, disabled: true, hidden: false }, "Preferences"), optgroup({ label: "Technical" }, option({ value: "autoPlay" }, "Auto Play on Load"), option({ value: "autoFollow" }, "Auto Follow Playhead"), option({ value: "enableNotePreview" }, "Hear Added Notes"), option({ value: "notesOutsideScale" }, "Place Notes Out of Scale"), option({ value: "setDefaultScale" }, "Set Current Scale as Default"), option({ value: "alwaysFineNoteVol" }, "Always Fine Note Volume"), option({ value: "enableChannelMuting" }, "Enable Channel Muting"), option({ value: "instrumentCopyPaste" }, "Enable Copy/Paste Buttons"), option({ value: "instrumentImportExport" }, "Enable Import/Export Buttons"), option({ value: "displayBrowserUrl" }, "Enable Song Data in URL"), option({ value: "closePromptByClickoff" }, "Close Prompts on Click Off"), option({ value: "recordingSetup" }, "Note Recording...")), optgroup({ label: "Appearance" }, option({ value: "showFifth" }, 'Highlight "Fifth" Note'), option({ value: "notesFlashWhenPlayed" }, "Notes Flash When Played"), option({ value: "instrumentButtonsAtTop" }, "Instrument Buttons at Top"), option({ value: "frostedGlassBackground" }, "Frosted Glass Prompt Backdrop"), option({ value: "showChannels" }, "Show All Channels"), option({ value: "showScrollBar" }, "Show Octave Scroll Bar"), option({ value: "showInstrumentScrollbars" }, "Show Intsrument Scrollbars"), option({ value: "showLetters" }, "Show Piano Keys"), option({ value: "displayVolumeBar" }, "Show Playback Volume"), option({ value: "showOscilloscope" }, "Show Oscilloscope"), option({ value: "showSampleLoadingStatus" }, "Show Sample Loading Status"), option({ value: "showDescription" }, "Show Description"), option({ value: "showInstructions" }, "Show Instructions"), option({ value: "layout" }, "Set Layout..."), option({ value: "colorTheme" }, "Set Theme..."), option({ value: "customTheme" }, "Custom Theme..."), option({ value: "comical" }, "Enable Comic Sans In Song Editor")));
+            this._optionsMenu = select({ style: "width: 100%;" }, option({ selected: true, disabled: true, hidden: false }, "Preferences"), optgroup({ label: "Technical" }, option({ value: "autoPlay" }, "Auto Play on Load"), option({ value: "autoFollow" }, "Auto Follow Playhead"), option({ value: "enableNotePreview" }, "Hear Added Notes"), option({ value: "notesOutsideScale" }, "Place Notes Out of Scale"), option({ value: "setDefaultScale" }, "Set Current Scale as Default"), option({ value: "alwaysFineNoteVol" }, "Always Fine Note Volume"), option({ value: "enableChannelMuting" }, "Enable Channel Muting"), option({ value: "instrumentCopyPaste" }, "Enable Copy/Paste Buttons"), option({ value: "instrumentImportExport" }, "Enable Import/Export Buttons"), option({ value: "displayBrowserUrl" }, "Enable Song Data in URL"), option({ value: "closePromptByClickoff" }, "Close Prompts on Click Off"), option({ value: "recordingSetup" }, "Note Recording...")), optgroup({ label: "Appearance" }, option({ value: "showFifth" }, 'Highlight "Fifth" Note'), option({ value: "notesFlashWhenPlayed" }, "Notes Flash When Played"), option({ value: "instrumentButtonsAtTop" }, "Instrument Buttons at Top"), option({ value: "frostedbg" }, "Frosted Glass Backdrop"), option({ value: "reshade" }, "Frosted Glass Backdrop Outside Prompts (Refresh!)"), option({ value: "showChannels" }, "Show All Channels"), option({ value: "realShowChannels" }, "REAL Show All Channels (requires Show All Chanels)"), option({ value: "showScrollBar" }, "Show Octave Scroll Bar"), option({ value: "showInstrumentScrollbars" }, "Show Intsrument Scrollbars"), option({ value: "showLetters" }, "Show Piano Keys"), option({ value: "displayVolumeBar" }, "Show Playback Volume"), option({ value: "showOscilloscope" }, "Show Oscilloscope"), option({ value: "showSampleLoadingStatus" }, "Show Sample Loading Status"), option({ value: "showDescription" }, "Show Description"), option({ value: "showInstructions" }, "Show Instructions"), option({ value: "layout" }, "Set Layout..."), option({ value: "colorTheme" }, "Set Theme..."), option({ value: "customTheme" }, "Custom Theme..."), option({ value: "comical" }, "Enable Comic Sans In Song Editor")));
+            this._loopControls = select({ style: `margin: 4px; border: thin, inset; max-width: 200px; height: auto`, class: `menu loopControls` }, option({ selected: true, disabled: true, hidden: false }, "Loop Controls"), option({ value: "removeLoop" }, "Remove Loop"), option({ value: "barLoop" }, "One Bar Loop"), option({ value: "songLoop" }, "Song Wide Loop"), option({ value: "selectionLoop" }, "Selection Wide Loop"));
             this._scaleSelect = buildOptions(select(), Config.scales.map(scale => scale.name));
             this._keySelect = buildOptions(select(), Config.keys.map(key => key.name).reverse());
             this._octaveStepper = input({ style: "width: 59.5%;", type: "number", min: Config.octaveMin, max: Config.octaveMax, value: "0" });
@@ -42426,7 +43159,7 @@ You should be redirected to the song at:<br /><br />
                     SVG.path({ d: "M200-120v-40h560v40H200Zm185.384-150.769v-271.539H254.615L480-840l224.616 297.692h-130.77v271.539H385.384Zm40.001-40h108.461v-272.308h88.308L480-774.615 337.077-583.077h88.308v272.308ZM480-583.077Z", fill: "currentColor" }),
                 ]),
             ]);
-            this._globalOscscope = new oscilloscopeCanvas(canvas({ width: 144, height: 64, style: `border: 2px solid ${ColorConfig.uiWidgetBackground}; position: static; margiontop: 2px; margin-bottom: 2px`, id: "oscilloscopeAll" }), 1);
+            this._globalOscscope = new oscilloscopeCanvas(canvas({ width: 144, height: 64, style: `border: 2px solid ${ColorConfig.uiWidgetBackground}; position: static; margin-top: 2px; margin-bottom: 2px`, id: "oscilloscopeAll" }), 1);
             this._globalOscscopeContainer = div({ style: "height: 70px; margin-left: auto; margin-right: auto;" }, this._globalOscscope.canvas);
             this._customWaveDrawCanvas = new CustomChipCanvas(canvas({ width: 128, height: 52, style: "border:2px solid " + ColorConfig.uiWidgetBackground, id: "customWaveDrawCanvas" }), this._doc, (newArray) => new ChangeCustomWave(this._doc, newArray));
             this._customWavePresetDrop = buildHeaderedOptions("Load Preset", select({ style: "width: 50%; height:1.5em; text-align: center; text-align-last: center;" }), Config.chipWaves.map(wave => wave.name));
@@ -42436,10 +43169,6 @@ You should be redirected to the song at:<br /><br />
                 div({ style: "margin-top:5px; display:flex; justify-content:center;" }, [this._customWavePresetDrop, this._customWaveZoom]),
             ]);
             this._songTitleInputBox = new InputBox(input({ style: `font-weight:bold; border:none; width: 98%; background-color:${ColorConfig.editorBackground}; color:${ColorConfig.primaryText}; text-align:center`, maxlength: "60", type: "text", value: EditorConfig.versionDisplayName }), this._doc, (oldValue, newValue) => new ChangeSongTitle(this._doc, oldValue, newValue));
-            this._removeLoopButton = button({ style: `margin: 4px; border: thin, inset; max-width: 200px; height: auto`, class: "removeLoopButton", type: "button", title: "removeLoopButton" }, "Remove Loop");
-            this._barLoopButton = button({ style: `margin: 4px; border: thin, inset; max-width: 200px; height: auto`, class: "barLoopButton", type: "button", title: "barLoopButton" }, "One Bar Loop");
-            this._songLoopButton = button({ style: `margin: 4px; border: thin, inset; max-width: 200px; height: auto`, class: "songLoopButton", type: "button", title: "songLoopButton" }, "Song Wide Loop");
-            this._selectLoopButton = button({ style: `margin: 4px; border: thin, inset; max-width: 200px; height: auto`, class: "selectLoopButton", type: "button", title: "selectLoopButton" }, "Selection Wide Loop");
             this._feedbackAmplitudeSlider = new Slider(input({ type: "range", min: "0", max: Config.operatorAmplitudeMax, value: "0", step: "1", title: "Feedback Amplitude" }), this._doc, (oldValue, newValue) => new ChangeFeedbackAmplitude(this._doc, oldValue, newValue), false);
             this._feedbackRow2 = div({ class: "selectRow" }, span({ class: "tip", onclick: () => this._openPrompt("feedbackVolume") }, "Fdback Vol:"), this._feedbackAmplitudeSlider.container);
             this._addEnvelopeButton = button({ type: "button", class: "add-envelope" });
@@ -42465,7 +43194,6 @@ You should be redirected to the song at:<br /><br />
             this._patternEditorRow = div({ style: "flex: 1; height: 100%; display: flex; overflow: hidden; justify-content: center;" }, this._patternEditorPrev.container, this._patternEditor.container, this._patternEditorNext.container);
             this._patternArea = div({ class: "pattern-area" }, this._piano.container, this._patternEditorRow, this._octaveScrollBar.container, this._zoomInButton, this._zoomOutButton);
             this._trackContainer = div({ class: "trackContainer" }, this._trackEditor.container, this._loopEditor.container);
-            this._loopControls = div({ class: "loopControls", style: `display: flex; align-content: space-evenly; min-width: 500px` }, this._removeLoopButton, this._barLoopButton, this._songLoopButton, this._selectLoopButton);
             this._trackVisibleArea = div({ style: "position: absolute; width: 100%; height: 100%; pointer-events: none;" });
             this._trackAndMuteContainer = div({ class: "trackAndMuteContainer", style: "width: 101%;" }, this._muteEditor.container, this._trackContainer, this._trackVisibleArea);
             this._barScrollBar = new BarScrollBar(this._doc);
@@ -42627,8 +43355,10 @@ You should be redirected to the song at:<br /><br />
                     (prefs.showFifth ? textOnIcon : textOffIcon) + 'Highlight "Fifth" Note',
                     (prefs.notesFlashWhenPlayed ? textOnIcon : textOffIcon) + "Notes Flash When Played",
                     (prefs.instrumentButtonsAtTop ? textOnIcon : textOffIcon) + "Instrument Buttons at Top",
-                    textSpacingIcon + "Nothing",
+                    textSpacingIcon + "Frosted Glass Backdrop",
+                    (prefs.reshade ? textOnIcon : textOffIcon) + "Frosted Glass Backdrop Outside Prompts (Refresh!)",
                     (prefs.showChannels ? textOnIcon : textOffIcon) + "Show All Channels",
+                    (prefs.realshowchannels ? textOnIcon : textOffIcon) + "REAL Show All Channels (requires Show All Chanels)",
                     (prefs.showScrollBar ? textOnIcon : textOffIcon) + "Show Octave Scroll Bar",
                     (prefs.showInstrumentScrollbars ? textOnIcon : textOffIcon) + "Show Instrument Scrollbars",
                     (prefs.showLetters ? textOnIcon : textOffIcon) + "Show Piano Keys",
@@ -44947,6 +45677,9 @@ You should be redirected to the song at:<br /><br />
                     case "showChannels":
                         this._doc.prefs.showChannels = !this._doc.prefs.showChannels;
                         break;
+                    case "realShowChannels":
+                        this._doc.prefs.realshowchannels = !this._doc.prefs.realshowchannels;
+                        break;
                     case "showScrollBar":
                         this._doc.prefs.showScrollBar = !this._doc.prefs.showScrollBar;
                         break;
@@ -45012,6 +45745,12 @@ You should be redirected to the song at:<br /><br />
                     case "temposlider":
                         this._doc.prefs.temposlider = !this._doc.prefs.temposlider;
                         break;
+                    case "frostedbg":
+                        this._openPrompt("BackDropPrompt");
+                        break;
+                    case "reshade":
+                        this._doc.prefs.reshade = !this._doc.prefs.reshade;
+                        break;
                 }
                 this._optionsMenu.selectedIndex = 0;
                 this._doc.notifier.changed();
@@ -45046,6 +45785,23 @@ You should be redirected to the song at:<br /><br />
                 this._doc.notifier.changed();
                 this._doc.prefs.save();
             };
+            this._loopControlsHandler = (event) => {
+                switch (this._loopControls.value) {
+                    case "removeLoop":
+                        this._removeLoop();
+                        break;
+                    case "barLoop":
+                        this._barLoop();
+                        break;
+                    case "songLoop":
+                        this._songLoop();
+                        break;
+                    case "selectionLoop":
+                        this._selectLoop();
+                        break;
+                }
+                this._loopControls.selectedIndex = 0;
+            };
             this._removeLoop = () => {
                 this._doc.song.loopStart = this._doc.song.barCount;
                 this._doc.notifier.changed();
@@ -45070,12 +45826,26 @@ You should be redirected to the song at:<br /><br />
                 this._doc.notifier.changed();
                 this.refocusStage();
             };
+            this._reshade = () => {
+                if (this._doc.prefs.reshade == true) {
+                    this._promptContainerBG.style.display = "";
+                    this._promptContainerBG.style.backgroundColor = "rgba(0,0,0, 0)";
+                    this._promptContainerBG.style.backdropFilter = this._doc.prefs.frostedfilter;
+                    this._promptContainerBG.style.opacity = this._doc.prefs.frostedopacity;
+                    document.body.appendChild(this._promptContainerBG);
+                }
+                else if (this._doc.prefs.reshade == false) {
+                    this._promptContainerBG.style.display = "none";
+                    document.body.appendChild(this._promptContainerBG);
+                }
+            };
             this._doc.notifier.watch(this.whenUpdated);
             this._doc.modRecordingHandler = () => { this.handleModRecording(); };
             new MidiInputHandler(this._doc);
             window.addEventListener("resize", this.whenUpdated);
             window.requestAnimationFrame(this.updatePlayButton);
             window.requestAnimationFrame(this._animate);
+            this._reshade();
             if (!("share" in navigator)) {
                 this._fileMenu.removeChild(this._fileMenu.querySelector("[value='shareUrl']"));
             }
@@ -45173,6 +45943,7 @@ You should be redirected to the song at:<br /><br />
             this._fileMenu.addEventListener("change", this._fileMenuHandler);
             this._editMenu.addEventListener("change", this._editMenuHandler);
             this._optionsMenu.addEventListener("change", this._optionsMenuHandler);
+            this._loopControls.addEventListener("change", this._loopControlsHandler);
             this._customWavePresetDrop.addEventListener("change", this._customWavePresetHandler);
             this._tempoStepper.addEventListener("change", this._whenSetTempo);
             this._scaleSelect.addEventListener("change", this._whenSetScale);
@@ -45221,10 +45992,6 @@ You should be redirected to the song at:<br /><br />
             this._volumeSlider.input.addEventListener("input", this._setVolumeSlider);
             this._zoomInButton.addEventListener("click", this._zoomIn);
             this._zoomOutButton.addEventListener("click", this._zoomOut);
-            this._removeLoopButton.addEventListener("click", this._removeLoop);
-            this._barLoopButton.addEventListener("click", this._barLoop);
-            this._songLoopButton.addEventListener("click", this._songLoop);
-            this._selectLoopButton.addEventListener("click", this._selectLoop);
             this._patternArea.addEventListener("mousedown", this._refocusStageNotEditing);
             this._trackArea.addEventListener("mousedown", this.refocusStage);
             this._volumeSlider.container.style.setProperty("flex-grow", "1");
@@ -45555,7 +46322,7 @@ You should be redirected to the song at:<br /><br />
                     this._doc.performance.play();
                 }
                 this._wasPlaying = false;
-                this._promptContainerBG.style.display = "none";
+                this._reshade();
                 this._promptContainer.style.display = "none";
                 this._promptContainer.removeChild(this.prompt.container);
                 this.prompt.cleanUp();
@@ -45645,7 +46412,7 @@ You should be redirected to the song at:<br /><br />
                     case "configureShortener":
                         this.prompt = new ShortenerConfigPrompt(this._doc);
                         break;
-                    case "frostedGlassBackground":
+                    case "BackDropPrompt":
                         this.prompt = new BackDropPrompt(this._doc);
                         break;
                     default:
@@ -45657,7 +46424,7 @@ You should be redirected to the song at:<br /><br />
                         this._wasPlaying = this._doc.synth.playing;
                         this._doc.performance.pause();
                     }
-                    if (BackDropPrompt.active = "none") {
+                    if (window.localStorage.getItem("frostedactive") == "false") {
                         this._promptContainer.style.display = "";
                         this._promptContainerBG.style.display = "";
                         this._promptContainerBG.style.backgroundColor = ColorConfig.editorBackground;
@@ -45668,8 +46435,8 @@ You should be redirected to the song at:<br /><br />
                         this._promptContainer.style.display = "";
                         this._promptContainerBG.style.display = "";
                         this._promptContainerBG.style.backgroundColor = "rgba(0,0,0, 0)";
-                        this._promptContainerBG.style.backdropFilter = BackDropPrompt.backdropfilter;
-                        this._promptContainerBG.style.opacity = BackDropPrompt.backdropopacity;
+                        this._promptContainerBG.style.backdropFilter = this._doc.prefs.frostedfilter;
+                        this._promptContainerBG.style.opacity = this._doc.prefs.frostedopacity;
                     }
                     this._promptContainer.appendChild(this.prompt.container);
                     document.body.appendChild(this._promptContainerBG);
@@ -47212,7 +47979,9 @@ You should be redirected to the song at:<br /><br />
             this.showInstructions = window.localStorage.getItem("showInstructions") != "false";
             this.showInstrumentScrollbars = window.localStorage.getItem("showInstrumentScrollbars") == "true";
             this.closePromptByClickoff = window.localStorage.getItem("closePromptByClickoff") == "true";
-            this.frostedGlassBackground = window.localStorage.getItem("frostedGlassBackground") || BackDropPrompt.active;
+            this.frostedactive = window.localStorage.getItem("frostedactive") == "true";
+            this.frostedopacity = window.localStorage.getItem("frostedopacity") || BackDropPrompt.backdropopacity;
+            this.frostedfilter = window.localStorage.getItem("frostedfilter") || BackDropPrompt.backdropfilter;
             this.keyboardLayout = window.localStorage.getItem("keyboardLayout") || "pianoTransposingC";
             this.bassOffset = (+window.localStorage.getItem("bassOffset")) || 0;
             this.layout = window.localStorage.getItem("layout") || "small";
@@ -47221,7 +47990,9 @@ You should be redirected to the song at:<br /><br />
             this.customTheme2 = window.localStorage.getItem("customTheme2");
             this.visibleOctaves = (window.localStorage.getItem("visibleOctaves") >>> 0) || Preferences.defaultVisibleOctaves;
             this.comical = window.localStorage.getItem("comical") == "true";
-            this.temposlider = window.localStorage.getItem("temposlider") == "false";
+            this.temposlider = window.localStorage.getItem("temposlider") == "true";
+            this.realshowchannels = window.localStorage.getItem("realshowchannels") == "true";
+            this.reshade = window.localStorage.getItem("reshade") == "true";
             const defaultScale = Config.scales.dictionary[window.localStorage.getItem("defaultScale")];
             this.defaultScale = (defaultScale != undefined) ? defaultScale.index : 0;
             if (window.localStorage.getItem("volume") != null) {
@@ -47264,7 +48035,9 @@ You should be redirected to the song at:<br /><br />
             window.localStorage.setItem("showInstructions", this.showInstructions ? "true" : "false");
             window.localStorage.setItem("showInstrumentScrollbars", this.showInstrumentScrollbars ? "true" : "false");
             window.localStorage.setItem("closePromptByClickoff", this.closePromptByClickoff ? "true" : "false");
-            window.localStorage.setItem("frostedGlassBackground", this.frostedGlassBackground);
+            window.localStorage.setItem("frostedactive", this.frostedactive ? "true" : "false");
+            window.localStorage.setItem(("frostedopacity"), this.frostedopacity);
+            window.localStorage.setItem(("frostedfilter"), this.frostedfilter);
             window.localStorage.setItem("keyboardLayout", this.keyboardLayout);
             window.localStorage.setItem("bassOffset", String(this.bassOffset));
             window.localStorage.setItem("layout", this.layout);
@@ -47275,6 +48048,8 @@ You should be redirected to the song at:<br /><br />
             window.localStorage.setItem("visibleOctaves", String(this.visibleOctaves));
             window.localStorage.setItem("comical", this.comical ? "true" : "false");
             window.localStorage.setItem("temposlider", this.temposlider ? "true" : "false");
+            window.localStorage.setItem("realshowchannels", this.realshowchannels ? "true" : "false");
+            window.localStorage.setItem("reshade", this.reshade ? "true" : "false");
         }
     }
     Preferences.defaultVisibleOctaves = 3;

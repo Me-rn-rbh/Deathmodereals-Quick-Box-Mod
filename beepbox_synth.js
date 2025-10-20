@@ -452,7 +452,6 @@ var beepbox = (function (exports) {
         { name: "D", isWhiteKey: true, basePitch: 14 },
         { name: "D♯", isWhiteKey: false, basePitch: 15 },
         { name: "E", isWhiteKey: true, basePitch: 16 },
-        { name: "E#???", isWhiteKey: true, basePitch: 17 },
         { name: "F", isWhiteKey: true, basePitch: 17 },
         { name: "F♯", isWhiteKey: false, basePitch: 18 },
         { name: "G", isWhiteKey: true, basePitch: 19 },
@@ -460,7 +459,6 @@ var beepbox = (function (exports) {
         { name: "A", isWhiteKey: true, basePitch: 21 },
         { name: "A♯", isWhiteKey: false, basePitch: 22 },
         { name: "B", isWhiteKey: true, basePitch: 23 },
-        { name: "B♯???", isWhiteKey: false, basePitch: 24 },
     ]);
     Config.blackKeyNameParents = [-1, 1, -1, 1, -1, 1, -1, -1, 1, -1, 1, -1];
     Config.tempoMin = 1;
@@ -1530,7 +1528,7 @@ var beepbox = (function (exports) {
             return (_a = EditorConfig.presetCategories[0].presets.dictionary) === null || _a === void 0 ? void 0 : _a[TypePresets === null || TypePresets === void 0 ? void 0 : TypePresets[instrument]];
         }
     }
-    EditorConfig.version = "V282";
+    EditorConfig.version = "V513";
     EditorConfig.revamp = "2";
     EditorConfig.versionDisplayName = "D's Quick Box Mod";
     EditorConfig.releaseNotesURL = "./patch_notes.html";
@@ -4763,7 +4761,7 @@ var beepbox = (function (exports) {
         }
         initToDefault(andResetChannels = true) {
             let randomtempos = [20, 25, 50, 75, 100, 150, 160, 200, 225, 250, 300, 320];
-            let randomkeys = [0, 2, 4, 6, 8, 10, 12];
+            let randomkeys = [0, 2, 4, 5, 7, 9, 11];
             this.scale = 0;
             this.scaleCustom = [true, false, true, true, false, false, false, true, true, false, true, true];
             this.key = randomkeys[(Math.floor(Math.random() * randomkeys.length))];
