@@ -1545,7 +1545,7 @@ var beepbox = (function (exports) {
             return (_a = EditorConfig.presetCategories[0].presets.dictionary) === null || _a === void 0 ? void 0 : _a[TypePresets === null || TypePresets === void 0 ? void 0 : TypePresets[instrument]];
         }
     }
-    EditorConfig.version = "V563";
+    EditorConfig.version = "V587";
     EditorConfig.revamp = "2";
     EditorConfig.versionDisplayName = "D's Quick Box Mod";
     EditorConfig.releaseNotesURL = "./patch_notes.html";
@@ -8505,7 +8505,7 @@ var beepbox = (function (exports) {
 		background: #f9feff7d !important;
 		}
 
-			#text-content > section > h1 > font {
+		#text-content > section > h1 > font {
 		display: none;
 		}
 
@@ -9708,6 +9708,116 @@ var beepbox = (function (exports) {
 		
 
 
+			`,
+        "minecraft": `
+		:root {
+			--mod-title: #a9a09d;
+			--page-margin: #0000;
+			--editor-background: #0000;
+			--hover-preview: #fff;
+			--playhead: #fff;
+			--primary-text: #e0d0d0;
+			--secondary-text: #8b8383;
+			--inverted-text: #593d29;
+			--text-selection: #71b147;
+			--box-selection-fill: #71b147;
+			--loop-accent: #8ddca0;
+			--link-accent: #aaaaff;
+			--ui-widget-background: #f5932a;
+			--ui-widget-focus: #bc7121;
+			--pitch-background: #0005;
+			--tonic: #5b402b66;
+			--fifth-note: #42424266;
+			--white-piano-key: #cdcdcd;
+			--black-piano-key: #232323;
+			--track-editor-bg-pitch: #727272;
+			--track-editor-bg-pitch-dim: #414141;
+			--track-editor-bg-noise: #727272;
+			--track-editor-bg-noise-dim: #414141;
+			--track-editor-bg-mod: #727272;
+			--track-editor-bg-mod-dim: #414141;
+			--multiplicative-mod-slider: #18a6ab;
+			--overwriting-mod-slider: #1c787a;
+			--indicator-primary: #34c26a;
+			--indicator-secondary: #167a21;
+			--select2-opt-group: linear-gradient(#f5932a, #bc7121);
+			--input-box-outline: #ffffff;
+			--mute-button-normal: #36452c;
+			--mute-button-mod: #4955c2;
+			--pitch-channel-limit: 1;
+			--noise-channel-limit: 1;
+			--mod-channel-limit  : 1;
+			--pitch1-secondary-channel: #b59a88;
+			--pitch1-primary-channel: #edccb7;
+			--pitch1-secondary-note: #b59a88;
+			--pitch1-primary-note: #edccb7;
+			--noise1-secondary-channel: #cabe3c;
+			--noise1-primary-channel: #ffed28;
+			--noise1-secondary-note: #cabe3c;
+			--noise1-primary-note: #ffed28;
+			--mod1-secondary-channel: #18a6ab;
+			--mod1-primary-channel: #15eef6;
+			--mod1-secondary-note: #18a6ab;
+			--mod1-primary-note: #15eef6;
+			--mod-label-primary: #5fb9a7;
+			--mod-label-secondary-text: #aaccc5;
+			--disabled-note-primary: #414141;
+			--disabled-note-secondary: #222222;
+
+			--oscilloscope-line-R: #f5932a;
+			--oscilloscope-line-L: #bc7121;
+			--text-spacing-icon: ;
+			--scrollbar-color: #bc7121;
+		}
+
+		.pattern-area
+			{
+				background-image: url("theme_resources/dirt.png") !important;
+				background-position: center;
+				background-repeat: repeat;
+			}
+		body {
+				background-image: url("theme_resources/stone.png") !important;
+				background-position: center;
+				background-repeat: repeat;
+	
+				image-rendering: -moz-crisp-edges !important;         /* Firefox */
+				image-rendering: -webkit-optimize-contrast !important; /* Webkit (Chrome/Safari) */
+				image-rendering: -o-crisp-edges !important;            /* Opera */
+				image-rendering: pixelated !important;                 /* Future browsers */
+				image-rendering: optimizeSpeed !important;             /* IE */
+					}
+
+		@font-face {
+			   font-family: "Minecraftia";
+			   src:
+				url("theme_resources/Minecraftia-Regular.ttf") format("truetype") tech(color-COLRv1),
+				}
+		
+		#text-content {
+			font-family: "Minecraftia";
+			text-underline-offset: -8px;
+		}
+		#text-content > section > h1 > font {
+		display: none;
+		}
+
+		#text-content > section > h1 {
+		margin-top: 20px;
+		margin-bottom: 20px;
+		width: 100%;
+		height: 100%;
+		content: url("theme_resources/minecraft_logo.png");
+		}
+
+		#dsboxQuote {
+		display: none;
+		}
+		#justoutsidedsboxQuote {
+		width: 100%;
+		height: 100%;
+		content: url("theme_resources/animals.png");
+		}
 			`,
         "custom": `${localStorage.getItem("customColors") || `:root {  }`}`,
     };
@@ -39992,7 +40102,7 @@ You should be redirected to the song at:<br /><br />
     class ThemePrompt {
         constructor(_doc) {
             this._doc = _doc;
-            this._themeSelect = select$4({ style: "width: 100%;" }, optgroup$1({ label: "Default Themes" }, option$4({ value: "ultrabox dark" }, "UltraBox"), option$4({ value: "forest" }, "Forest"), option$4({ value: "canyon" }, "Canyon"), option$4({ value: "midnight" }, "Midnight"), option$4({ value: "beachcombing" }, "Beachcombing"), option$4({ value: "violet verdant" }, "Violet Verdant"), option$4({ value: "sunset" }, "Sunset"), option$4({ value: "autumn" }, "Autumn"), option$4({ value: "fruit" }, "Shadowfruit"), option$4({ value: "toxic" }, "Toxic"), option$4({ value: "roe" }, "Roe"), option$4({ value: "moonlight" }, "Moonlight"), option$4({ value: "portal" }, "Portal"), option$4({ value: "fusion" }, "Fusion"), option$4({ value: "inverse" }, "Inverse"), option$4({ value: "nebula" }, "Nebula"), option$4({ value: "roe light" }, "Roe Light"), option$4({ value: "amoled dark" }, "High Contrast Dark"), option$4({ value: "energized" }, "Energized"), option$4({ value: "neapolitan" }, "Neapolitan"), option$4({ value: "poly" }, "Poly"), option$4({ value: "blutonium" }, "Blutonium"), option$4({ value: "slushie" }, "Slushie")), optgroup$1({ label: "Mod Themes" }, option$4({ value: "dark classic" }, "BeepBox Dark"), option$4({ value: "light classic" }, "BeepBox Light"), option$4({ value: "dark competition" }, "BeepBox Competition Dark"), option$4({ value: "jummbox classic" }, "JummBox Dark"), option$4({ value: "modbox classic" }, "Modbox"), option$4({ value: "sandbox classic" }, "Sandbox"), option$4({ value: "harrybox" }, "Haileybox"), option$4({ value: "brucebox" }, "Brucebox"), option$4({ value: "shitbox 3.0" }, "Shitbox 1.0/3.0"), option$4({ value: "shitbox 2.0" }, "Shitbox 2.0"), option$4({ value: "nerdbox" }, "NerdBox"), option$4({ value: "zefbox" }, "Zefbox"), option$4({ value: "cardboardbox classic" }, "Cardboardbox"), option$4({ value: "blubox classic" }, "Blubox"), option$4({ value: "dogebox classic" }, "Dogebox"), option$4({ value: "wackybox" }, "Wackybox"), option$4({ value: "todbox dark mode" }, "Todbox Dark Mode"), option$4({ value: "mainbox 1.0" }, "Mainbox"), option$4({ value: "microbox" }, "MicroBox"), option$4({ value: "paandorasbox" }, "PaandorasBox"), option$4({ value: "foxbox" }, "FoxBox"), option$4({ value: "midbox" }, "Midbox"), option$4({ value: "dogebox2" }, "Dogebox2"), option$4({ value: "abyssbox classic" }, "AbyssBox Classic"), option$4({ value: "abyssbox light" }, "AbyssBox Light"), option$4({ value: "nepbox" }, "Nepbox"), option$4({ value: "slarmoosbox" }, "Slarmoo's Box"), option$4({ value: "axobox" }, "AxoBox"), option$4({ value: "lemmbox dark" }, "LemmBox"), option$4({ value: "death" }, "D's Quick Box Mod")), optgroup$1({ label: "Misc" }, option$4({ value: "azur lane" }, "Azur Lane"), option$4({ value: "Roblox" }, "Powering Imagination"), option$4({ value: "windows95" }, "Windows 95"), option$4({ value: "discord" }, "Discord"), option$4({ value: "minesweeper" }, "Minesweeper"), option$4({ value: "starstruck" }, "Starstruck (bad)"), option$4({ value: "you should retry NOW" }, "Retry Now"), option$4({ value: "halloween" }, "Halloween"), option$4({ value: "lemonlime" }, "LemonLime"), option$4({ value: "hacker" }, "Hacker Stock Images"), option$4({ value: "custom" }, "Custom")));
+            this._themeSelect = select$4({ style: "width: 100%;" }, optgroup$1({ label: "Default Themes" }, option$4({ value: "ultrabox dark" }, "UltraBox"), option$4({ value: "forest" }, "Forest"), option$4({ value: "canyon" }, "Canyon"), option$4({ value: "midnight" }, "Midnight"), option$4({ value: "beachcombing" }, "Beachcombing"), option$4({ value: "violet verdant" }, "Violet Verdant"), option$4({ value: "sunset" }, "Sunset"), option$4({ value: "autumn" }, "Autumn"), option$4({ value: "fruit" }, "Shadowfruit"), option$4({ value: "toxic" }, "Toxic"), option$4({ value: "roe" }, "Roe"), option$4({ value: "moonlight" }, "Moonlight"), option$4({ value: "portal" }, "Portal"), option$4({ value: "fusion" }, "Fusion"), option$4({ value: "inverse" }, "Inverse"), option$4({ value: "nebula" }, "Nebula"), option$4({ value: "roe light" }, "Roe Light"), option$4({ value: "amoled dark" }, "High Contrast Dark"), option$4({ value: "energized" }, "Energized"), option$4({ value: "neapolitan" }, "Neapolitan"), option$4({ value: "poly" }, "Poly"), option$4({ value: "blutonium" }, "Blutonium"), option$4({ value: "slushie" }, "Slushie")), optgroup$1({ label: "Mod Themes" }, option$4({ value: "dark classic" }, "BeepBox Dark"), option$4({ value: "light classic" }, "BeepBox Light"), option$4({ value: "dark competition" }, "BeepBox Competition Dark"), option$4({ value: "jummbox classic" }, "JummBox Dark"), option$4({ value: "modbox classic" }, "Modbox"), option$4({ value: "sandbox classic" }, "Sandbox"), option$4({ value: "harrybox" }, "Haileybox"), option$4({ value: "brucebox" }, "Brucebox"), option$4({ value: "shitbox 3.0" }, "Shitbox 1.0/3.0"), option$4({ value: "shitbox 2.0" }, "Shitbox 2.0"), option$4({ value: "nerdbox" }, "NerdBox"), option$4({ value: "zefbox" }, "Zefbox"), option$4({ value: "cardboardbox classic" }, "Cardboardbox"), option$4({ value: "blubox classic" }, "Blubox"), option$4({ value: "dogebox classic" }, "Dogebox"), option$4({ value: "wackybox" }, "Wackybox"), option$4({ value: "todbox dark mode" }, "Todbox Dark Mode"), option$4({ value: "mainbox 1.0" }, "Mainbox"), option$4({ value: "microbox" }, "MicroBox"), option$4({ value: "paandorasbox" }, "PaandorasBox"), option$4({ value: "foxbox" }, "FoxBox"), option$4({ value: "midbox" }, "Midbox"), option$4({ value: "dogebox2" }, "Dogebox2"), option$4({ value: "abyssbox classic" }, "AbyssBox Classic"), option$4({ value: "abyssbox light" }, "AbyssBox Light"), option$4({ value: "nepbox" }, "Nepbox"), option$4({ value: "slarmoosbox" }, "Slarmoo's Box"), option$4({ value: "axobox" }, "AxoBox"), option$4({ value: "lemmbox dark" }, "LemmBox"), option$4({ value: "death" }, "D's Quick Box Mod")), optgroup$1({ label: "Misc" }, option$4({ value: "azur lane" }, "Azur Lane"), option$4({ value: "Roblox" }, "Powering Imagination"), option$4({ value: "windows95" }, "Windows 95"), option$4({ value: "discord" }, "Discord"), option$4({ value: "minesweeper" }, "Minesweeper"), option$4({ value: "starstruck" }, "Starstruck (bad)"), option$4({ value: "you should retry NOW" }, "Retry Now"), option$4({ value: "halloween" }, "Halloween"), option$4({ value: "lemonlime" }, "LemonLime"), option$4({ value: "hacker" }, "Hacker Stock Images"), option$4({ value: "minecraft" }, "Minecraft"), option$4({ value: "custom" }, "Custom")));
             this._cancelButton = button$9({ class: "cancelButton" });
             this._okayButton = button$9({ class: "okayButton", style: "width:45%;" }, "Okay");
             this.container = div$9({ class: "prompt noSelection", style: "width: 220px;" }, h2$8("Set Theme"), div$9({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" }, div$9({ class: "selectContainer", style: "width: 100%;" }, this._themeSelect)), div$9({ style: "display: flex; flex-direction: row-reverse; justify-content: space-between;" }, this._okayButton), this._cancelButton);
