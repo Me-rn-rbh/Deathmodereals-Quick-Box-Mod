@@ -1507,7 +1507,10 @@ var beepbox = (function (exports) {
         return result;
     }
 
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|android|ipad|playbook|silk/i.test(navigator.userAgent);
+    const isMobile = matchMedia("(pointer:coarse)").matches;
+    const isOnMac = /^Mac/i.test(navigator.platform) || /Mac OS X/i.test(navigator.userAgent) || /^(iPhone|iPad|iPod)/i.test(navigator.platform) || /(iPhone|iPad|iPod)/i.test(navigator.userAgent);
+    const ctrlSymbol = isOnMac ? "⌘" : "Ctrl+";
+    const ctrlName = isOnMac ? "command" : "control";
     function prettyNumber(value) {
         return value.toFixed(2).replace(/\.?0*$/, "");
     }
@@ -1545,13 +1548,10 @@ var beepbox = (function (exports) {
             return (_a = EditorConfig.presetCategories[0].presets.dictionary) === null || _a === void 0 ? void 0 : _a[TypePresets === null || TypePresets === void 0 ? void 0 : TypePresets[instrument]];
         }
     }
-    EditorConfig.version = "V587";
+    EditorConfig.version = "V693";
     EditorConfig.revamp = "2";
     EditorConfig.versionDisplayName = "D's Quick Box Mod";
     EditorConfig.releaseNotesURL = "./patch_notes.html";
-    EditorConfig.isOnMac = /^Mac/i.test(navigator.platform) || /Mac OS X/i.test(navigator.userAgent) || /^(iPhone|iPad|iPod)/i.test(navigator.platform) || /(iPhone|iPad|iPod)/i.test(navigator.userAgent);
-    EditorConfig.ctrlSymbol = EditorConfig.isOnMac ? "⌘" : "Ctrl+";
-    EditorConfig.ctrlName = EditorConfig.isOnMac ? "command" : "control";
     EditorConfig.presetCategories = toNameMap([
         {
             name: "Custom Instruments", presets: toNameMap([
@@ -9818,7 +9818,126 @@ var beepbox = (function (exports) {
 		height: 100%;
 		content: url("theme_resources/animals.png");
 		}
-			`,
+		`,
+        "roaring": `
+			:root {
+				-webkit-text-stroke-width: 0.5px;
+				--page-margin: #000;
+				--editor-background: #000;
+				--hover-preview: black;
+				--playhead: red;
+				--primary-text: #fff;
+				--secondary-text: #614e6b;
+				--inverted-text: #000;
+				--text-selection: #0B0;
+				--box-selection-fill: #FFFFFFAA;
+				--loop-accent: #fbfbfb;
+				--link-accent: #fbfbfb;
+				--ui-widget-background: #000;
+				--ui-widget-focus: #000;
+				--pitch-background: #000;
+				--tonic: #000;
+				--fifth-note: #000;
+				--white-piano-key: #fff;
+				--black-piano-key: #000;
+				--white-piano-key-text: #fff0;
+				--black-piano-key-text: #0000;
+				--track-editor-bg-pitch: #ececec;
+				--track-editor-bg-pitch-dim: #fdfdfd;
+				--track-editor-bg-noise: #ececec;
+				--track-editor-bg-noise-dim: #fdfdfd;
+				--track-editor-bg-mod: #dbecfd;
+				--track-editor-bg-mod-dim: #ecfdff;
+				--multiplicative-mod-slider: #789;
+				--overwriting-mod-slider: #987;
+				--indicator-primary: #98f;
+				--indicator-secondary: #cde;
+				--select2-opt-group: #cecece;
+				--input-box-outline: #ddd;
+				--mute-button-normal: #c0b47f;
+				--mute-button-mod: #bd7fc0;
+				--pitch1-secondary-channel: #0c96f3;
+				--pitch1-primary-channel:   #02e5fc;
+				--pitch1-secondary-note:    #0c96f3;
+				--pitch1-primary-note:      #02e5fc;
+				--noise1-secondary-channel: #f18bc3;
+				--noise1-primary-channel:   #fe29fd;
+				--noise1-secondary-note:    #f18bc3;
+				--noise1-primary-note:      #fe29fd;
+				--mod1-secondary-channel:   #b6cd26;
+				--mod1-primary-channel:     #05d404;
+				--mod1-secondary-note:      #b6cd26;
+				--mod1-primary-note:        #05d404;
+				--pitch-channel-limit:      1;
+				--noise-channel-limit:      1;
+				--mod-channel-limit:        1;
+				--track-editor-bg-pitch:	#02e5fc;
+				--track-editor-bg-pitch-dim: #0c96f3;
+				--track-editor-bg-noise:	#fe29fd;
+				--track-editor-bg-noise-dim: #f18bc3;
+				--track-editor-bg-mod:		#05d404;
+				--track-editor-bg-mod-dim:  #b6cd26;
+				--mod-label-primary:        #dddddd;
+				--mod-label-secondary-text: #777;
+				--disabled-note-primary:    #666;
+				--disabled-note-secondary:  #aaa;
+			}
+			
+			html {
+				font-family: DeterMono
+			}
+
+			@font-face {
+				font-family: "DeterMono";
+				src: url("theme_resources/abysstype.otf") format("opentype") tech(color-COLRv1),
+			}
+
+			.patternarea {
+				border: 5px #0F0 solid
+			}
+
+			.menu {
+				border: 2px #fd8328 solid;
+				color: #fd8328;
+				border-radius: 5px;
+			}
+
+			.menu ::selection {
+				color: #f0f818;
+			}
+
+			.selectContainer:not(.menu) {
+				border: 2px #614e6b solid;
+				color: #614e6b;
+				border-radius: 5px;
+			}
+
+			.selectContainer:not(.menu) ::selection {
+				color: #ffc90e;
+			}
+
+			.pattern-area::backdrop {
+				content: url("theme_resources/darkfountain.gif") !important;
+				position: absolute;
+				bottom: -300px;
+				left: 15px;
+			}
+
+			.pattern-area::before {
+				content: url("theme_resources/standing.gif") !important;
+				position: absolute;
+				left: -190px;
+				bottom: 100px;
+			}
+
+			.pattern-area::after {
+				content: url("theme_resources/roaring.gif") !important;
+				position: absolute;
+				left: 480px;
+				bottom: 100px;
+			}
+
+		`,
         "custom": `${localStorage.getItem("customColors") || `:root {  }`}`,
     };
     ColorConfig.pageMargin = "var(--page-margin, black)";
@@ -32846,6 +32965,72 @@ You should be redirected to the song at:<br /><br />
 				}
 			}
 		`,
+        "deltarune": `
+			.beepboxEditor {
+				display: grid;
+				grid-template-columns: 200px 711px 200px;
+				grid-template-rows: 595px 260px max-content;
+				grid-template-areas: "a pattern-area b" "a track-area b" "a settings-area b";
+				grid-row-gap: 0px;
+				max-width: 1111px;
+				max-height: 3000px;
+				align-content: center;
+			}
+
+			.beepboxEditor .pattern-area {
+				grid-area: pattern-area;
+				height: 450px;
+				width: 450px;
+				top: 100px;
+				left: 130.5px;
+				position: relative;
+				border: 4px #0F0 solid
+			}
+
+			.beepboxEditor .track-area {
+				position: relative;
+				grid-area: track-area;
+				max-width: 711px;
+				max-height: 260px;
+			}
+
+			.beepboxEditor .settings-area {
+				grid-area: settings-area;
+				display: grid;
+				grid-template-columns: 240px 240px 240px;
+				grid-template-rows: 150px 200px;
+				grid-template-areas: "version-area play-pause-area instrument-settings-area" "menu-area song-settings-area instrument-settings-area";
+				grid-column-gap: 6px;
+				width: 732px;
+				max-height: 350px;
+				position: relative;
+				margin: 2px;
+				padding: 1px;
+				border: #fd8328 2px solid;
+			}
+
+			.beepboxEditor .instrument-settings-area {
+				display: flex;
+				flex-direction: column;
+				overflow-y: auto;
+			}
+
+			.beepboxEditor .song-settings-area {
+				display: flex;
+				flex-direction: column;
+				overflow-y: auto;
+			}
+
+			.beepboxEditor .menu-area {
+				display: block;
+				align-content: center;
+				align-items: center;
+			}
+
+			.trackAndMuteContainer {
+				max-height: 200px;
+			}
+		`,
     };
     Layout._styleElement = document.head.appendChild(HTML.style({ type: "text/css" }));
 
@@ -34138,7 +34323,7 @@ You should be redirected to the song at:<br /><br />
         setIndex(index, selected, dim, color, isNoise, isMod) {
             if (this._renderedIndex != index) {
                 if (index >= 100) {
-                    this._label.setAttribute("font-size", "16");
+                    this._label.setAttribute("font-size", "18");
                     this._label.style.setProperty("transform", "translate(0px, -1.5px)");
                 }
                 else {
@@ -34325,6 +34510,21 @@ You should be redirected to the song at:<br /><br />
                         }
                         if (pattern.notes.length > 15) {
                             box.setColor("#000000");
+                        }
+                    }
+                }
+                if (window.localStorage.getItem("colorTheme") == "roaring") {
+                    if (pattern == null) {
+                        box.container.textContent = "-1";
+                        box.setColor("#FF0000");
+                    }
+                    if (pattern != null && box.container.textContent != null) {
+                        box.container.textContent = `${pattern.notes.length}`;
+                        if (pattern.notes.length <= 10) {
+                            box.setColor("#FFFF00");
+                        }
+                        else {
+                            box.setColor("#FFFFFF");
                         }
                     }
                 }
@@ -35932,94 +36132,6 @@ You should be redirected to the song at:<br /><br />
         }
     }
 
-    var __awaiter = (exports && exports.__awaiter) || function (thisArg, _arguments, P, generator) {
-        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-        return new (P || (P = Promise))(function (resolve, reject) {
-            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
-        });
-    };
-    const id = ((Math.random() * 0xffffffff) >>> 0).toString(16);
-    class MidiInputHandler {
-        constructor(_doc) {
-            this._doc = _doc;
-            this._takeMidiHandlerFocus = (event) => {
-                localStorage.setItem("midiHandlerId", id);
-            };
-            this._handleStateChange = (event) => {
-                if (event.port.type !== "input")
-                    return;
-                switch (event.port.state) {
-                    case "connected":
-                        this._registerMidiInput(event.port);
-                        break;
-                    case "disconnected":
-                        this._unregisterMidiInput(event.port);
-                        break;
-                }
-            };
-            this._registerMidiInput = (midiInput) => {
-                midiInput.addEventListener("midimessage", this._onMidiMessage);
-            };
-            this._unregisterMidiInput = (midiInput) => {
-                midiInput.removeEventListener("midimessage", this._onMidiMessage);
-                this._doc.performance.clearAllPitches();
-            };
-            this._onMidiMessage = (event) => {
-                if (!this._doc.prefs.enableMidi || localStorage.getItem("midiHandlerId") != id)
-                    return;
-                const isDrum = this._doc.song.getChannelIsNoise(this._doc.channel);
-                let [eventType, key, velocity] = event.data;
-                eventType &= 0xF0;
-                if (isDrum) {
-                    const drum = analogousDrumMap[key];
-                    if (drum != undefined) {
-                        key = drum.frequency;
-                    }
-                    else {
-                        return;
-                    }
-                }
-                else {
-                    key -= Config.keys[this._doc.song.key].basePitch;
-                    if (key < 0 || key > Config.maxPitch)
-                        return;
-                }
-                if (eventType == 144 && velocity == 0) {
-                    eventType = 128;
-                }
-                switch (eventType) {
-                    case 144:
-                        this._doc.synth.preferLowerLatency = true;
-                        this._doc.performance.addPerformedPitch(key);
-                        break;
-                    case 128:
-                        this._doc.performance.removePerformedPitch(key);
-                        break;
-                }
-            };
-            this.registerMidiAccessHandler();
-        }
-        registerMidiAccessHandler() {
-            return __awaiter(this, void 0, void 0, function* () {
-                if (navigator.requestMIDIAccess == null)
-                    return;
-                try {
-                    const midiAccess = yield navigator.requestMIDIAccess();
-                    midiAccess.inputs.forEach(this._registerMidiInput);
-                    midiAccess.addEventListener("statechange", this._handleStateChange);
-                    this._takeMidiHandlerFocus();
-                    window.addEventListener("focus", this._takeMidiHandlerFocus);
-                }
-                catch (e) {
-                    console.error("Failed to get MIDI access", e);
-                }
-            });
-        }
-    }
-
     class KeyboardLayout {
         static keyPosToPitch(doc, x, y, keyboardLayout) {
             let pitchOffset = null;
@@ -36651,15 +36763,17 @@ You should be redirected to the song at:<br /><br />
             this._cursor = new PatternCursor();
             if (this._mouseX < 0 || this._mouseX > this._editorWidth || this._mouseY < 0 || this._mouseY > this._editorHeight || this._pitchHeight <= 0)
                 return;
+            const partsPerPattern = this._doc.song.beatsPerBar * Config.partsPerBeat;
             const minDivision = this._getMinDivision();
             this._cursor.exactPart = this._mouseX / this._partWidth;
             this._cursor.part =
-                Math.floor(Math.max(0, Math.min(this._doc.song.beatsPerBar * Config.partsPerBeat - minDivision, this._cursor.exactPart))
+                Math.floor(Math.max(0, Math.min(partsPerPattern - minDivision, this._cursor.exactPart))
                     / minDivision) * minDivision;
             let foundNote = false;
             if (this._pattern != null) {
+                const cursorPartForMatching = Math.max(0, Math.min(partsPerPattern - 1, this._cursor.exactPart));
                 for (const note of this._pattern.notes) {
-                    if (note.end <= this._cursor.exactPart) {
+                    if (note.end <= cursorPartForMatching) {
                         if (this._doc.song.getChannelIsMod(this._doc.channel)) {
                             if (note.pitches[0] == Math.floor(this._findMousePitch(this._mouseY))) {
                                 this._cursor.prevNote = note;
@@ -36672,7 +36786,7 @@ You should be redirected to the song at:<br /><br />
                             this._cursor.curIndex++;
                         }
                     }
-                    else if (note.start <= this._cursor.exactPart && note.end > this._cursor.exactPart) {
+                    else if (note.start <= cursorPartForMatching && note.end > cursorPartForMatching) {
                         if (this._doc.song.getChannelIsMod(this._doc.channel)) {
                             if (note.pitches[0] == Math.floor(this._findMousePitch(this._mouseY))) {
                                 this._cursor.curNote = note;
@@ -36685,7 +36799,7 @@ You should be redirected to the song at:<br /><br />
                             this._cursor.curNote = note;
                         }
                     }
-                    else if (note.start > this._cursor.exactPart) {
+                    else if (note.start > cursorPartForMatching) {
                         if (this._doc.song.getChannelIsMod(this._doc.channel)) {
                             if (note.pitches[0] == Math.floor(this._findMousePitch(this._mouseY))) {
                                 this._cursor.nextNote = note;
@@ -36831,7 +36945,7 @@ You should be redirected to the song at:<br /><br />
                 }
                 this._cursor.end = this._cursor.start + defaultLength;
                 let forceStart = 0;
-                let forceEnd = this._doc.song.beatsPerBar * Config.partsPerBeat;
+                let forceEnd = partsPerPattern;
                 if (this._cursor.prevNote != null) {
                     forceStart = this._cursor.prevNote.end;
                 }
@@ -36851,6 +36965,9 @@ You should be redirected to the song at:<br /><br />
                     if (this._cursor.start < forceStart) {
                         this._cursor.start = forceStart;
                     }
+                }
+                if (this._cursor.start >= this._cursor.end) {
+                    return;
                 }
                 if (this._cursor.end - this._cursor.start == defaultLength) {
                     if (this._copiedPinChannels.length > this._doc.channel) {
@@ -39366,7 +39483,7 @@ You should be redirected to the song at:<br /><br />
     class RecordingSetupPrompt {
         constructor(_doc) {
             this._doc = _doc;
-            this._keyboardMode = select$5({ style: "width: 100%;" }, option$5({ value: "useCapsLockForNotes" }, "simple shortcuts, use caps lock to play notes"), option$5({ value: "pressControlForShortcuts" }, "simple notes, press " + EditorConfig.ctrlName + " for shortcuts"));
+            this._keyboardMode = select$5({ style: "width: 100%;" }, option$5({ value: "useCapsLockForNotes" }, "simple shortcuts, use caps lock to play notes"), option$5({ value: "pressControlForShortcuts" }, "simple notes, press " + ctrlName + " for shortcuts"));
             this._keyboardLayout = select$5({ style: "width: 100%;" }, option$5({ value: "wickiHayden" }, "Wicki-Hayden"), option$5({ value: "songScale" }, "selected song scale"), option$5({ value: "pianoAtC" }, "piano starting at C"), option$5({ value: "pianoAtA" }, "piano starting at A"), option$5({ value: "pianoTransposingC" }, "piano transposing C to song key"), option$5({ value: "pianoTransposingA" }, "piano transposing A to song key"));
             this._bassOffset = select$5({ style: "width: 100%;" }, option$5({ value: "0" }, "disabled"), option$5({ value: "-1" }, "before"), option$5({ value: "1" }, "after"));
             this._keyboardLayoutPreview = div$b({ style: "display: grid; row-gap: 4px; margin: 4px auto; font-size: 10px;" });
@@ -39378,7 +39495,7 @@ You should be redirected to the song at:<br /><br />
             this._metronomeWhileRecording = input$7({ style: "width: 2em; margin-left: 1em;", type: "checkbox" });
             this._okayButton = button$b({ class: "okayButton", style: "width:45%;" }, "Okay");
             this._cancelButton = button$b({ class: "cancelButton" });
-            this.container = div$b({ class: "prompt noSelection recordingSetupPrompt", style: "width: 600px; text-align: right; max-height: 90%;" }, h2$a({ style: "align-self: center;" }, "Note Recording Setup"), div$b({ style: "display: grid; overflow-y: auto; overflow-x: hidden; flex-shrink: 1;" }, p$3("UltraBox can record notes as you perform them. You can start recording by pressing Ctrl+Space (or " + EditorConfig.ctrlSymbol + "P)."), label({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: center;" }, "Add ● record button next to ▶ play button:", this._showRecordButton), label({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: center;" }, "Snap recorded notes to the song's rhythm:", this._snapRecordedNotesToRhythm), label({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: center;" }, "Ignore notes not in the song's scale:", this._ignorePerformedNotesNotInScale), p$3("While recording, you can perform notes on your keyboard!"), label({ style: "display: flex; flex-direction: row; align-items: center; margin-top: 0.5em; margin-bottom: 0.5em; height: 2em; justify-content: center;" }, "Keyboard layout:", div$b({ class: "selectContainer", style: "width: 50%; margin-left: 1em;" }, this._keyboardLayout)), this._keyboardLayoutPreview, p$3("When not recording, you can use the computer keyboard either for shortcuts (like C and V for copy and paste) or for performing notes, depending on this mode:"), label({ style: "display: flex; margin-top: 0.5em; margin-bottom: 0.5em; flex-direction: row; align-items: center; height: 2em; justify-content: center;" }, div$b({ class: "selectContainer", style: "width: 50%;" }, this._keyboardMode)), p$3("Performing music takes practice! Try slowing the tempo and using this metronome to help you keep a rhythm."), label({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: center;" }, "Hear metronome while recording:", this._metronomeWhileRecording), label({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: center;" }, "Count-in 1 bar of metronome before recording:", this._metronomeCountIn), p$3("If you have a ", a$3({ href: "https://caniuse.com/midi", target: "_blank" }, "compatible browser"), " on a device connected to a MIDI keyboard, you can use it to perform notes in UltraBox! (Or you could buy ", a$3({ href: "https://imitone.com/", target: "_blank" }, "Imitone"), " or ", a$3({ href: "https://vochlea.com/", target: "_blank" }, "Dubler"), " to hum notes into a microphone while wearing headphones!)"), label({ style: "display: flex; flex-direction: row; align-items: center; margin-top: 0.5em; height: 2em; justify-content: center;" }, "Enable MIDI performance:", this._enableMidi), p$3("The range of pitches available to play via your computer keyboard is affected by the octave scrollbar of the currently selected channel."), p$3("If you set the channel offset below to 'before' or 'after', notes below the middle octave in the view will be 'bass' notes, and placed in the channel before or after the viewed one. Using this, you can play bass and lead at the same time!"), label({ style: "display: flex; flex-direction: row; align-items: center; margin-top: 0.5em; margin-bottom: 0.5em; height: 2em; justify-content: center;" }, "Bass Offset:", div$b({ class: "selectContainer", style: "width: 50%; margin-left: 1em;" }, this._bassOffset)), p$3("Once you enable the setting, the keyboard layout above will darken to denote the new bass notes. The notes will be recorded with independent timing and this works with MIDI devices, too. Be aware that the octave offset of both used channels will impact how high/low the bass/lead are relative to one another."), p$3("Recorded notes often overlap such that one note ends after the next note already started. In UltraBox, these notes get split into multiple notes which may sound different when re-played than they did when you were recording. To fix the sound, you can either manually clean up the notes in the pattern editor, or you could try enabling the \"transition type\" effect on the instrument and setting it to \"continue\"."), div$b({ style: `width: 100%; height: 80px; background: linear-gradient(rgba(0,0,0,0), ${ColorConfig.editorBackground}); position: sticky; bottom: 0; pointer-events: none;` })), div$b({ style: "display: flex; flex-direction: row-reverse; justify-content: space-between;" }, this._okayButton), this._cancelButton);
+            this.container = div$b({ class: "prompt noSelection recordingSetupPrompt", style: "width: 600px; text-align: right; max-height: 90%;" }, h2$a({ style: "align-self: center;" }, "Note Recording Setup"), div$b({ style: "display: grid; overflow-y: auto; overflow-x: hidden; flex-shrink: 1;" }, p$3("UltraBox (Which by extension includes D's Quick Box Mod) can record notes as you perform them. You can start recording by pressing Ctrl+Space (or " + ctrlSymbol + "P)."), label({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: center;" }, "Add ● record button next to ▶ play button:", this._showRecordButton), label({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: center;" }, "Snap recorded notes to the song's rhythm:", this._snapRecordedNotesToRhythm), label({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: center;" }, "Ignore notes not in the song's scale:", this._ignorePerformedNotesNotInScale), p$3("While recording, you can perform notes on your keyboard!"), label({ style: "display: flex; flex-direction: row; align-items: center; margin-top: 0.5em; margin-bottom: 0.5em; height: 2em; justify-content: center;" }, "Keyboard layout:", div$b({ class: "selectContainer", style: "width: 50%; margin-left: 1em;" }, this._keyboardLayout)), this._keyboardLayoutPreview, p$3("When not recording, you can use the computer keyboard either for shortcuts (like C and V for copy and paste) or for performing notes, depending on this mode:"), label({ style: "display: flex; margin-top: 0.5em; margin-bottom: 0.5em; flex-direction: row; align-items: center; height: 2em; justify-content: center;" }, div$b({ class: "selectContainer", style: "width: 50%;" }, this._keyboardMode)), p$3("Performing music takes practice! Try slowing the tempo and using this metronome to help you keep a rhythm."), label({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: center;" }, "Hear metronome while recording:", this._metronomeWhileRecording), label({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: center;" }, "Count-in 1 bar of metronome before recording:", this._metronomeCountIn), p$3("If you have a ", a$3({ href: "https://caniuse.com/midi", target: "_blank" }, "compatible browser"), " on a device connected to a MIDI keyboard, enable this option to use it to perform notes in UltraBox! (Or you could buy ", a$3({ href: "https://imitone.com/", target: "_blank" }, "Imitone"), " or ", a$3({ href: "https://vochlea.com/", target: "_blank" }, "Dubler"), " to hum notes into a microphone while wearing headphones!)"), label({ style: "display: flex; flex-direction: row; align-items: center; margin-top: 0.5em; height: 2em; justify-content: center;" }, "Enable MIDI performance:", this._enableMidi), p$3("The range of pitches available to play via your computer keyboard is affected by the octave scrollbar of the currently selected channel."), p$3("If you set the channel offset below to 'before' or 'after', notes below the middle octave in the view will be 'bass' notes, and placed in the channel before or after the viewed one. Using this, you can play bass and lead at the same time!"), label({ style: "display: flex; flex-direction: row; align-items: center; margin-top: 0.5em; margin-bottom: 0.5em; height: 2em; justify-content: center;" }, "Bass Offset:", div$b({ class: "selectContainer", style: "width: 50%; margin-left: 1em;" }, this._bassOffset)), p$3("Once you enable the setting, the keyboard layout above will darken to denote the new bass notes. The notes will be recorded with independent timing and this works with MIDI devices, too. Be aware that the octave offset of both used channels will impact how high/low the bass/lead are relative to one another."), p$3("Recorded notes often overlap such that one note ends after the next note already started. In UltraBox, these notes get split into multiple notes which may sound different when re-played than they did when you were recording. To fix the sound, you can either manually clean up the notes in the pattern editor, or you could try enabling the \"transition type\" effect on the instrument and setting it to \"continue\"."), div$b({ style: `width: 100%; height: 80px; background: linear-gradient(rgba(0,0,0,0), ${ColorConfig.editorBackground}); position: sticky; bottom: 0; pointer-events: none;` })), div$b({ style: "display: flex; flex-direction: row-reverse; justify-content: space-between;" }, this._okayButton), this._cancelButton);
             this._close = () => {
                 this._doc.undo();
             };
@@ -39403,6 +39520,7 @@ You should be redirected to the song at:<br /><br />
                 this._doc.prefs.metronomeCountIn = this._metronomeCountIn.checked;
                 this._doc.prefs.metronomeWhileRecording = this._metronomeWhileRecording.checked;
                 this._doc.prefs.save();
+                this._doc.midiInputHandler.tryRegisteringMidiAccessHandler();
                 this._close();
             };
             this._renderKeyboardLayoutPreview = () => {
@@ -43122,6 +43240,7 @@ You should be redirected to the song at:<br /><br />
             this.drawLines(ctx);
         }
     }
+    const hideSelectMenuTitlesInOptions = !isOnMac;
     class SongEditor {
         constructor(_doc) {
             this._doc = _doc;
@@ -43152,10 +43271,10 @@ You should be redirected to the song at:<br /><br />
             this._defs = SVG.defs({}, this._gradient);
             this._volumeBarContainer = SVG.svg({ style: `touch-action: none; overflow: visible; margin: auto; max-width: 20vw;`, width: "160px", height: "100%", preserveAspectRatio: "none", viewBox: "0 0 160 12" }, this._defs, this._outVolumeBarBg, this._outVolumeBar, this._outVolumeCap);
             this._volumeBarBox = div({ class: "playback-volume-bar", style: "height: 12px; align-self: center;" }, this._volumeBarContainer);
-            this._fileMenu = select({ style: "width: 100%;" }, option({ selected: true, disabled: true, hidden: false }, "File"), option({ value: "new" }, "+ New Blank Song (⇧`)"), option({ value: "import" }, "↑ Import Song... (" + EditorConfig.ctrlSymbol + "O)"), option({ value: "export" }, "↓ Export Song... (" + EditorConfig.ctrlSymbol + "S)"), option({ value: "copyUrl" }, "⎘ Copy Song URL"), option({ value: "shareUrl" }, "⤳ Share Song URL"), option({ value: "configureShortener" }, "🛠 Customize Url Shortener..."), option({ value: "shortenUrl" }, "… Shorten Url (Open Tinyurl/Shorten with is.gd)"), option({ value: "viewPlayer" }, "▶ View in Song Player (⇧P)"), option({ value: "copyEmbed" }, "⎘ Copy HTML Embed Code"), option({ value: "songRecovery" }, "⚠ Recover Recent Song... (`)"));
-            this._editMenu = select({ style: "width: 100%;" }, option({ selected: true, disabled: true, hidden: false }, "Edit"), option({ value: "undo" }, "Undo (Z)"), option({ value: "redo" }, "Redo (Y)"), option({ value: "copy" }, "Copy Pattern (C)"), option({ value: "pasteNotes" }, "Paste Pattern Notes (V)"), option({ value: "pasteNumbers" }, "Paste Pattern Numbers (" + EditorConfig.ctrlSymbol + "⇧V)"), option({ value: "insertBars" }, "Insert Bar (⏎)"), option({ value: "deleteBars" }, "Delete Selected Bars (⌫)"), option({ value: "insertChannel" }, "Insert Channel (" + EditorConfig.ctrlSymbol + "⏎)"), option({ value: "deleteChannel" }, "Delete Selected Channels (" + EditorConfig.ctrlSymbol + "⌫)"), option({ value: "selectChannel" }, "Select Channel (⇧A)"), option({ value: "selectAll" }, "Select All (A)"), option({ value: "duplicatePatterns" }, "Duplicate Reused Patterns (D)"), option({ value: "transposeUp" }, "Move Notes Up (+ or ⇧+)"), option({ value: "transposeDown" }, "Move Notes Down (- or ⇧-)"), option({ value: "moveNotesSideways" }, "Move All Notes Sideways... (W)"), option({ value: "generateEuclideanRhythm" }, "Generate Euclidean Rhythm... (E)"), option({ value: "beatsPerBar" }, "Change Beats Per Bar... (⇧B)"), option({ value: "barCount" }, "Change Song Length... (L)"), option({ value: "channelSettings" }, "Channel Settings... (Q)"), option({ value: "limiterSettings" }, "Limiter Settings... (⇧L)"), option({ value: "addExternal" }, "Add Custom Samples... (⇧Q)"), option({ value: "addArt" }, "Add Cover Art... "), option({ value: "toolbox" }, "Toolbox... "));
-            this._optionsMenu = select({ style: "width: 100%;" }, option({ selected: true, disabled: true, hidden: false }, "Preferences"), optgroup({ label: "Technical" }, option({ value: "autoPlay" }, "Auto Play on Load"), option({ value: "autoFollow" }, "Auto Follow Playhead"), option({ value: "enableNotePreview" }, "Hear Added Notes"), option({ value: "notesOutsideScale" }, "Place Notes Out of Scale"), option({ value: "setDefaultScale" }, "Set Current Scale as Default"), option({ value: "alwaysFineNoteVol" }, "Always Fine Note Volume"), option({ value: "enableChannelMuting" }, "Enable Channel Muting"), option({ value: "instrumentCopyPaste" }, "Enable Copy/Paste Buttons"), option({ value: "instrumentImportExport" }, "Enable Import/Export Buttons"), option({ value: "displayBrowserUrl" }, "Enable Song Data in URL"), option({ value: "closePromptByClickoff" }, "Close Prompts on Click Off"), option({ value: "recordingSetup" }, "Note Recording...")), optgroup({ label: "Appearance" }, option({ value: "showFifth" }, 'Highlight "Fifth" Note'), option({ value: "notesFlashWhenPlayed" }, "Notes Flash When Played"), option({ value: "instrumentButtonsAtTop" }, "Instrument Buttons at Top"), option({ value: "frostedbg" }, "Frosted Glass Backdrop"), option({ value: "reshade" }, "Frosted Glass Backdrop Outside Prompts (Refresh!)"), option({ value: "showChannels" }, "Show All Channels"), option({ value: "realShowChannels" }, "REAL Show All Channels (requires Show All Chanels)"), option({ value: "showScrollBar" }, "Show Octave Scroll Bar"), option({ value: "showInstrumentScrollbars" }, "Show Intsrument Scrollbars"), option({ value: "showLetters" }, "Show Piano Keys"), option({ value: "displayVolumeBar" }, "Show Playback Volume"), option({ value: "showOscilloscope" }, "Show Oscilloscope"), option({ value: "showSampleLoadingStatus" }, "Show Sample Loading Status"), option({ value: "showDescription" }, "Show Description"), option({ value: "showInstructions" }, "Show Instructions"), option({ value: "layout" }, "Set Layout..."), option({ value: "colorTheme" }, "Set Theme..."), option({ value: "customTheme" }, "Custom Theme..."), option({ value: "comical" }, "Enable Comic Sans In Song Editor"), option({ value: "coverart" }, "Enable Cover Art")));
-            this._loopControls = select({ style: `margin: 4px; border: thin, inset; max-width: 200px; height: auto`, class: `menu loopControls` }, option({ selected: true, disabled: true, hidden: false }, "Loop Controls"), option({ value: "removeLoop" }, "Remove Loop"), option({ value: "barLoop" }, "One Bar Loop"), option({ value: "songLoop" }, "Song Wide Loop"), option({ value: "selectionLoop" }, "Selection Wide Loop"));
+            this._fileMenu = select({ style: "width: 100%;" }, option({ selected: true, disabled: true, hidden: hideSelectMenuTitlesInOptions }, "File"), option({ value: "new" }, "+ New Blank Song (⇧`)"), option({ value: "import" }, "↑ Import Song... (" + ctrlSymbol + "O)"), option({ value: "export" }, "↓ Export Song... (" + ctrlSymbol + "S)"), option({ value: "copyUrl" }, "⎘ Copy Song URL"), option({ value: "shareUrl" }, "⤳ Share Song URL"), option({ value: "configureShortener" }, "🛠 Customize Url Shortener..."), option({ value: "shortenUrl" }, "… Shorten Url (Open Tinyurl/Shorten with is.gd)"), option({ value: "viewPlayer" }, "▶ View in Song Player (⇧P)"), option({ value: "copyEmbed" }, "⎘ Copy HTML Embed Code"), option({ value: "songRecovery" }, "⚠ Recover Recent Song... (`)"));
+            this._editMenu = select({ style: "width: 100%;" }, option({ selected: true, disabled: true, hidden: hideSelectMenuTitlesInOptions }, "Edit"), option({ value: "undo" }, "Undo (Z)"), option({ value: "redo" }, "Redo (Y)"), option({ value: "copy" }, "Copy Pattern (C)"), option({ value: "pasteNotes" }, "Paste Pattern Notes (V)"), option({ value: "pasteNumbers" }, "Paste Pattern Numbers (" + ctrlSymbol + "⇧V)"), option({ value: "insertBars" }, "Insert Bar (⏎)"), option({ value: "deleteBars" }, "Delete Selected Bars (⌫)"), option({ value: "insertChannel" }, "Insert Channel (" + ctrlSymbol + "⏎)"), option({ value: "deleteChannel" }, "Delete Selected Channels (" + ctrlSymbol + "⌫)"), option({ value: "selectChannel" }, "Select Channel (⇧A)"), option({ value: "selectAll" }, "Select All (A)"), option({ value: "duplicatePatterns" }, "Duplicate Reused Patterns (D)"), option({ value: "transposeUp" }, "Move Notes Up (+ or ⇧+)"), option({ value: "transposeDown" }, "Move Notes Down (- or ⇧-)"), option({ value: "moveNotesSideways" }, "Move All Notes Sideways... (W)"), option({ value: "generateEuclideanRhythm" }, "Generate Euclidean Rhythm... (E)"), option({ value: "beatsPerBar" }, "Change Beats Per Bar... (⇧B)"), option({ value: "barCount" }, "Change Song Length... (L)"), option({ value: "channelSettings" }, "Channel Settings... (Q)"), option({ value: "limiterSettings" }, "Limiter Settings... (⇧L)"), option({ value: "addExternal" }, "Add Custom Samples... (⇧Q)"), option({ value: "addArt" }, "Add Cover Art... "), option({ value: "toolbox" }, "Toolbox... "));
+            this._optionsMenu = select({ style: "width: 100%;" }, option({ selected: true, disabled: true, hidden: hideSelectMenuTitlesInOptions }, "Preferences"), optgroup({ label: "Technical" }, option({ value: "autoPlay" }, "Auto Play on Load"), option({ value: "autoFollow" }, "Auto Follow Playhead"), option({ value: "enableNotePreview" }, "Hear Added Notes"), option({ value: "notesOutsideScale" }, "Place Notes Out of Scale"), option({ value: "setDefaultScale" }, "Set Current Scale as Default"), option({ value: "alwaysFineNoteVol" }, "Always Fine Note Volume"), option({ value: "enableChannelMuting" }, "Enable Channel Muting"), option({ value: "instrumentCopyPaste" }, "Enable Copy/Paste Buttons"), option({ value: "instrumentImportExport" }, "Enable Import/Export Buttons"), option({ value: "displayBrowserUrl" }, "Enable Song Data in URL"), option({ value: "closePromptByClickoff" }, "Close Prompts on Click Off"), option({ value: "recordingSetup" }, "Note Recording...")), optgroup({ label: "Appearance" }, option({ value: "showFifth" }, 'Highlight "Fifth" Note'), option({ value: "notesFlashWhenPlayed" }, "Notes Flash When Played"), option({ value: "instrumentButtonsAtTop" }, "Instrument Buttons at Top"), option({ value: "frostedbg" }, "Frosted Glass Backdrop"), option({ value: "reshade" }, "Frosted Glass Backdrop Outside Prompts (Refresh!)"), option({ value: "showChannels" }, "Show All Channels"), option({ value: "realShowChannels" }, "REAL Show All Channels (requires Show All Chanels)"), option({ value: "showScrollBar" }, "Show Octave Scrollbar"), option({ value: "showInstrumentScrollbars" }, "Show Intsrument Scrollbars"), option({ value: "showLetters" }, "Show Piano Keys"), option({ value: "displayVolumeBar" }, "Show Playback Volume"), option({ value: "showOscilloscope" }, "Show Oscilloscope"), option({ value: "showSampleLoadingStatus" }, "Show Sample Loading Status"), option({ value: "showDescription" }, "Show Description"), option({ value: "showInstructions" }, "Show Instructions"), option({ value: "layout" }, "Set Layout..."), option({ value: "colorTheme" }, "Set Theme..."), option({ value: "customTheme" }, "Custom Theme..."), option({ value: "comical" }, "Enable Comic Sans In Song Editor"), option({ value: "coverart" }, "Enable Cover Art")));
+            this._loopControls = select({ style: `margin: 4px; border: thin, inset; max-width: 200px; height: auto`, class: `menu loopControls` }, option({ selected: true, disabled: true, hidden: hideSelectMenuTitlesInOptions }, "Loop Controls"), option({ value: "removeLoop" }, "Remove Loop"), option({ value: "barLoop" }, "One Bar Loop"), option({ value: "songLoop" }, "Song Wide Loop"), option({ value: "selectionLoop" }, "Selection Wide Loop"));
             this._scaleSelect = buildOptions(select(), Config.scales.map(scale => scale.name));
             this._keySelect = buildOptions(select(), Config.keys.map(key => key.name).reverse());
             this._octaveStepper = input({ style: "width: 59.5%;", type: "number", min: Config.octaveMin, max: Config.octaveMax, value: "0" });
@@ -43216,7 +43335,7 @@ You should be redirected to the song at:<br /><br />
             this._clicklessTransitionBox = input({ type: "checkbox", style: "width: 1em; padding: 0; margin-right: 4em;" });
             this._clicklessTransitionRow = div({ class: "selectRow dropFader" }, span({ class: "tip", style: "margin-left:4px;", onclick: () => this._openPrompt("clicklessTransition") }, "‣ Clickless:"), this._clicklessTransitionBox);
             this._transitionDropdownGroup = div({ class: "editor-controls", style: "display: none;" }, this._clicklessTransitionRow);
-            this._effectsSelect = select(option({ selected: true, disabled: true, hidden: false }));
+            this._effectsSelect = select(option({ selected: true, disabled: true, hidden: hideSelectMenuTitlesInOptions }));
             this._eqFilterSimpleButton = button({ style: "font-size: x-small; width: 50%; height: 40%", class: "no-underline", onclick: () => this._switchEQFilterType(true) }, "simple");
             this._eqFilterAdvancedButton = button({ style: "font-size: x-small; width: 50%; height: 40%", class: "last-button no-underline", onclick: () => this._switchEQFilterType(false) }, "advanced");
             this._eqFilterTypeRow = div({ class: "selectRow", style: "padding-top: 4px; margin-bottom: 0px;" }, span({ style: "font-size: x-small;", class: "tip", onclick: () => this._openPrompt("filterType") }, "EQ Filt.Type:"), div({ class: "instrument-bar" }, this._eqFilterSimpleButton, this._eqFilterAdvancedButton));
@@ -43401,7 +43520,7 @@ You should be redirected to the song at:<br /><br />
             this._sampleLoadingStatusContainer = div({ style: "cursor: pointer;" }, div({ style: `margin-top: 0.5em; text-align: center; color: ${ColorConfig.secondaryText};` }, "Sample Loading Status"), div({ class: "selectRow", style: "height: 6px; margin-bottom: 0.5em;" }, this._sampleLoadingBarContainer));
             this._songSettingsArea = div({ class: "song-settings-area" }, div({ class: "editor-controls" }, div({ class: "editor-song-settings" }, div({ style: "margin: 3px 0; position: relative; text-align: center; color: ${ColorConfig.secondaryText};" }, div({ class: "tip", style: "flex-shrink: 0; position:absolute; left: 0; top: 0; width: 12px; height: 12px", onclick: () => this._openPrompt("usedPattern") }, SVG.svg({ style: "flex-shrink: 0; position: absolute; left: 0; top: 0; pointer-events: none;", width: "12px", height: "12px", "margin-right": "0.5em", viewBox: "-6 -6 12 12" }, this._usedPatternIndicator)), div({ class: "tip", style: "flex-shrink: 0; position: absolute; left: 14px; top: 0; width: 12px; height: 12px", onclick: () => this._openPrompt("usedInstrument") }, SVG.svg({ style: "flex-shrink: 0; position: absolute; left: 0; top: 0; pointer-events: none;", width: "12px", height: "12px", "margin-right": "1em", viewBox: "-6 -6 12 12" }, this._usedInstrumentIndicator)), "Song Settings", div({ style: "width: 100%; left: 0; top: -1px; position:absolute; overflow-x:clip;" }, this._jumpToModIndicator))), div({ class: "selectRow" }, span({ class: "tip", onclick: () => this._openPrompt("scale") }, "Scale: "), div({ class: "selectContainer" }, this._scaleSelect)), div({ class: "selectRow" }, span({ class: "tip", onclick: () => this._openPrompt("key") }, "Key: "), div({ class: "selectContainer" }, this._keySelect)), div({ class: "selectRow" }, span({ class: "tip", onclick: () => this._openPrompt("key_octave") }, "Octave: "), this._octaveStepper), div({ class: "selectRow" }, span({ class: "tip", onclick: () => this._openPrompt("tempo") }, "Tempo: "), span({ style: "display: flex;" }, this._tempoSlider.container, this._tempoStepper)), div({ class: "selectRow" }, span({ class: "tip", onclick: () => this._openPrompt("rhythm") }, "Rhythm: "), div({ class: "selectContainer" }, this._rhythmSelect)), this._sampleLoadingStatusContainer));
             this._instrumentSettingsArea = div({ class: "instrument-settings-area" }, this._instrumentSettingsGroup, this._modulatorGroup);
-            this._settingsArea = div({ class: "settings-area noSelection" }, div({ class: "version-area" }, div({ style: `text-align: center; margin: 3px 0; color: ${ColorConfig.secondaryText}; font-size: 0.75em` }, EditorConfig.versionDisplayName + " " + EditorConfig.revamp, " ", div({ class: "tip", onclick: () => location.href = EditorConfig.releaseNotesURL }, EditorConfig.version)), div({ style: `text-align: center; margin: 3px 0; color: ${ColorConfig.secondaryText};` }, this._songTitleInputBox.input)), div({ class: "play-pause-area" }, this._volumeBarBox, div({ class: "playback-bar-controls" }, this._playButton, this._pauseButton, this._recordButton, this._stopButton, this._prevBarButton, this._nextBarButton), div({ class: "playback-volume-controls" }, span({ class: "volume-speaker" }), this._volumeSlider.container), this._globalOscscopeContainer), this._menuArea, this._songSettingsArea, this._instrumentSettingsArea);
+            this._settingsArea = div({ class: "settings-area noSelection" }, div({ class: "version-area" }, div({ style: `text-align: center; margin: 3px 0; color: ${ColorConfig.secondaryText}; font-size: 0.75em` }, EditorConfig.versionDisplayName + " " + EditorConfig.revamp, " ", div({ class: "tip", onclick: () => location.href = EditorConfig.releaseNotesURL }, EditorConfig.version)), div({ style: `text-align: center; margin: 3px; color: ${ColorConfig.secondaryText};` }, this._songTitleInputBox.input)), div({ class: "play-pause-area" }, this._volumeBarBox, div({ class: "playback-bar-controls" }, this._playButton, this._pauseButton, this._recordButton, this._stopButton, this._prevBarButton, this._nextBarButton), div({ class: "playback-volume-controls" }, span({ class: "volume-speaker" }), this._volumeSlider.container), this._globalOscscopeContainer), this._menuArea, this._songSettingsArea, this._instrumentSettingsArea);
             this.mainLayer = div({ class: "beepboxEditor", tabIndex: "0" }, this._patternArea, this._trackArea, this._settingsArea, this._promptContainer);
             this._wasPlaying = false;
             this._currentPromptName = null;
@@ -43442,6 +43561,10 @@ You should be redirected to the song at:<br /><br />
             this.lastOutVolumeCap = 0;
             this.patternUsed = false;
             this._modRecTimeout = -1;
+            this._whenResized = () => {
+                this._updateLayoutOption();
+                this.whenUpdated();
+            };
             this._whenSampleLoadingStatusClicked = () => {
                 this._openPrompt("sampleLoadingStatus");
             };
@@ -43556,7 +43679,7 @@ You should be redirected to the song at:<br /><br />
                     (prefs.reshade ? textOnIcon : textOffIcon) + "Frosted Glass Backdrop Outside Prompts (Refresh!)",
                     (prefs.showChannels ? textOnIcon : textOffIcon) + "Show All Channels",
                     (prefs.realshowchannels ? textOnIcon : textOffIcon) + "REAL Show All Channels (requires Show All Chanels)",
-                    (prefs.showScrollBar ? textOnIcon : textOffIcon) + "Show Octave Scroll Bar",
+                    (prefs.showScrollBar ? textOnIcon : textOffIcon) + "Show Octave Scrollbar",
                     (prefs.showInstrumentScrollbars ? textOnIcon : textOffIcon) + "Show Instrument Scrollbars",
                     (prefs.showLetters ? textOnIcon : textOffIcon) + "Show Piano Keys",
                     (prefs.displayVolumeBar ? textOnIcon : textOffIcon) + "Show Playback Volume",
@@ -46052,8 +46175,7 @@ You should be redirected to the song at:<br /><br />
             };
             this._doc.notifier.watch(this.whenUpdated);
             this._doc.modRecordingHandler = () => { this.handleModRecording(); };
-            new MidiInputHandler(this._doc);
-            window.addEventListener("resize", this.whenUpdated);
+            window.addEventListener("resize", this._whenResized);
             window.requestAnimationFrame(this.updatePlayButton);
             window.requestAnimationFrame(this._animate);
             this._reshade();
@@ -46275,10 +46397,17 @@ You should be redirected to the song at:<br /><br />
                 autoPlayOption.disabled = true;
                 autoPlayOption.setAttribute("hidden", "");
             }
-            if (window.screen.availWidth < 710) {
-                const layoutOption = this._optionsMenu.querySelector("[value=layout]");
+            this._updateLayoutOption();
+        }
+        _updateLayoutOption() {
+            const layoutOption = this._optionsMenu.querySelector("[value=layout]");
+            if (window.screen.availWidth < 710 || window.screen.availHeight < 710) {
                 layoutOption.disabled = true;
                 layoutOption.setAttribute("hidden", "");
+            }
+            else {
+                layoutOption.disabled = false;
+                layoutOption.removeAttribute("hidden");
             }
         }
         _updateSampleLoadingBar(_e) {
@@ -46965,10 +47094,11 @@ You should be redirected to the song at:<br /><br />
             window.requestAnimationFrame(this._onAnimationFrame);
         }
         play() {
-            this._doc.synth.play();
             this._doc.synth.enableMetronome = false;
             this._doc.synth.countInMetronome = false;
+            this._doc.synth.resetEffects();
             this._doc.synth.maintainLiveInput();
+            this._doc.synth.play();
         }
         pause() {
             this.clearAllPitches();
@@ -47009,6 +47139,7 @@ You should be redirected to the song at:<br /><br />
             }
             this._doc.synth.enableMetronome = this._doc.prefs.metronomeWhileRecording;
             this._doc.synth.countInMetronome = this._doc.prefs.metronomeCountIn;
+            this._doc.synth.resetEffects();
             this._doc.synth.startRecording();
             this._doc.synth.maintainLiveInput();
             this._songLengthWhenRecordingStarted = this._doc.song.barCount;
@@ -48302,6 +48433,100 @@ You should be redirected to the song at:<br /><br />
         }
     }
 
+    var __awaiter = (exports && exports.__awaiter) || function (thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    };
+    const id = ((Math.random() * 0xffffffff) >>> 0).toString(16);
+    class MidiInputHandler {
+        constructor(_doc) {
+            this._doc = _doc;
+            this._triedToRegisterMidiAccess = false;
+            this._takeMidiHandlerFocus = (event) => {
+                localStorage.setItem("midiHandlerId", id);
+            };
+            this._handleStateChange = (event) => {
+                if (event.port.type !== "input")
+                    return;
+                switch (event.port.state) {
+                    case "connected":
+                        this._registerMidiInput(event.port);
+                        break;
+                    case "disconnected":
+                        this._unregisterMidiInput(event.port);
+                        break;
+                }
+            };
+            this._registerMidiInput = (midiInput) => {
+                midiInput.addEventListener("midimessage", this._onMidiMessage);
+            };
+            this._unregisterMidiInput = (midiInput) => {
+                midiInput.removeEventListener("midimessage", this._onMidiMessage);
+                this._doc.performance.clearAllPitches();
+            };
+            this._onMidiMessage = (event) => {
+                if (!this._doc.prefs.enableMidi || localStorage.getItem("midiHandlerId") != id)
+                    return;
+                const isDrum = this._doc.song.getChannelIsNoise(this._doc.channel);
+                let [eventType, key, velocity] = event.data;
+                eventType &= 0xF0;
+                if (isDrum) {
+                    const drum = analogousDrumMap[key];
+                    if (drum != undefined) {
+                        key = drum.frequency;
+                    }
+                    else {
+                        return;
+                    }
+                }
+                else {
+                    key -= Config.keys[this._doc.song.key].basePitch;
+                    if (key < 0 || key > Config.maxPitch)
+                        return;
+                }
+                if (eventType == 144 && velocity == 0) {
+                    eventType = 128;
+                }
+                switch (eventType) {
+                    case 144:
+                        this._doc.synth.preferLowerLatency = true;
+                        this._doc.performance.addPerformedPitch(key);
+                        break;
+                    case 128:
+                        this._doc.performance.removePerformedPitch(key);
+                        break;
+                }
+            };
+            this.tryRegisteringMidiAccessHandler();
+        }
+        tryRegisteringMidiAccessHandler() {
+            return __awaiter(this, void 0, void 0, function* () {
+                if (navigator.requestMIDIAccess == null)
+                    return;
+                if (!this._doc.prefs.enableMidi)
+                    return;
+                if (this._triedToRegisterMidiAccess)
+                    return;
+                this._triedToRegisterMidiAccess = true;
+                try {
+                    const midiAccess = yield navigator.requestMIDIAccess();
+                    midiAccess.inputs.forEach(this._registerMidiInput);
+                    midiAccess.addEventListener("statechange", this._handleStateChange);
+                    this._takeMidiHandlerFocus();
+                    window.addEventListener("focus", this._takeMidiHandlerFocus);
+                }
+                catch (e) {
+                    console.error("Failed to get MIDI access", e);
+                }
+            });
+        }
+    }
+
     class SongDocument {
         constructor() {
             this.notifier = new ChangeNotifier();
@@ -48519,6 +48744,7 @@ You should be redirected to the song at:<br /><br />
             }
             this._validateDocState();
             this.performance = new SongPerformance(this);
+            this.midiInputHandler = new MidiInputHandler(this);
         }
         toggleDisplayBrowserUrl() {
             const state = this._getHistoryState();
